@@ -18,25 +18,28 @@ hboulahy@ulb.ac.be}
 
 
 \section*{Introduction}
-\paragraph{}
 
+\paragraph{}
 Bitcoin is a electronic cash system in which it is possible to exchange
 money, in form of coins, anonymously.
 The transaction are recorded
-using cryptographic methodologies such as digital signatures and
-public key encryption.
-\paragraph{}
+using cryptographic methodologies such as digital signatures,
+public key encryption and hash algorithms.
 
+\paragraph{}
 It is necessary to have a structure that will verify payements to
 avoid coins double-spending problem.
 The major advancement of the Bitcoin protocol
 is the decentralized transaction management structure,
-using a peer-to-peer architecture.
+using a peer-to-peer architecture and a proof-of-work system.
 
+\section{Cryptographic basics}
+Before describing the Bitcoin system, it is necessary to provide definitions
+and explain basic cryptographic mechanisms used by Bitcoin.
 
-\section*{Digital signatures}
+\subsection{Digital signatures}
+
 \paragraph{}
-
 To define a transaction, it is necessary first to define a digitial signature.
 A digitial signature is a mathematical scheme process that must ensure
 the following three propreties: (1) the \textbf{integrity} of the signed document,
@@ -46,7 +49,7 @@ the \textbf{authenticity} \textit{i.e.} verifying the owner.
 of a document \textit{i.e.} ensure that all entities that signed the
 document accept and confirm the document content.
 
-\section*{Public-key encryption}
+\subsection{Public-key encryption}
 
 \paragraph{}
 A mechanism that provide the digital signature propreties is the public-key
@@ -91,8 +94,9 @@ the owner can provide an output using the decryption algorithm $D$ and
 the private key $k'$, everyone can verify the signature using the public key.
 
 
-\section*{Hash}
+\subsection{Hash}
 
+\paragraph{}
 A hash function is an algorithm that will convert an arbitrary
 size message into a fixed size digest. The hash function
 used by bitcoin is SHA-256: it produces a digest of size 256 bits.
@@ -105,8 +109,20 @@ we have:
 \end{equation}
 $h(x)$ is easy to compute but $h^{-1}(y)$ is hard.
 
-\section*{Transaction and coins}
+\section{Bitcoins protocol}
 
+\subsection{Address}
+\paragraph{}
+The privacy of the transfers is ensures by the Bitcoin addresses. An address
+is 160 bits hash. Each address
+is generated using a pair of ECDSA public/private key that identify an owner
+during a transaction. The transaction ledger is public, so it's not encouraged
+to reuse an address, because it will be possible to link the transactions
+make by an address and build a profile of the owner of this address to identify
+him.
+
+\subsection{Transaction and coins}
+\paragraph{}
 A transaction is represented by a hash.
 An electronic coin is represented by a
 chain of digital signatures \cite{bitcoin}.
@@ -124,8 +140,8 @@ transaction $t_{n+1}$ to the coin. We can verify using Alice's public key $a$
 that Bob's is the new owner of the coin.
 This is the method proposed to verify the ownership of a coin.
 
-\section*{Block chain}
-
+\subsection{Block chain}
+\paragraph{}
 A block is a file that contains multiple transactions,
 recorded permanently \cite{bitcoinwiki}. A block contains also a block header,
 a 256 bits hash, used to the following block to create generate its own hash.
@@ -137,8 +153,8 @@ once added to the Bitcoin blockchain, can never be removed or modified.
 
 
 
-\section*{Double-spending}
-
+\subsection{Double-spending}
+\paragraph{}
 We know how to verify the ownership of a coin, but we cannot make sure
 that a owner doesn't spend the same coin twice, or more.
 To be able to find a solution to this problem, we need a \textit{central}
@@ -150,12 +166,12 @@ provides a decentralized authority to approve the transactions and the proof-of-
 provides a system that makes it hard to rebuild a block therefor hard to modify
 an approved transaction.
 
-\section*{Proof-of-work}
-
+\subsection{Proof-of-work}
+\paragraph{}
 Each blocks is minted using the hashcash cost-fuction algorithm.
 A cost-function should be easy to verify but hard to compute, and the
 computation difficulty is parameterisable \cite{hashcash}.
-
+\paragraph{}
 Let $b_n$ the hash
 of the last block in the blockchain.
 We want to create a new block $b_{n+1}$. Bitcoins uses hashcash as follow:
@@ -166,16 +182,8 @@ and the result
 must be a new 256 bits hash starting with the required number of 0. This new
 hash must be lower than the previous block hash: $b_{n+1} < b_n$.
 
-\section{Address}
-
-Address is the public private key. Bad reuse because no anonymousity.
-
-An address is the how an owner is represented during a transaction.
-It is possible to reuse an address, but it is not recommanded because
-it will be possible to read all transaction made with this address, this
-a way that can be used to identify a bitcoin user.
-
-Same question as for the transaction
+\bibliographystyle{plain}
+\bibliography{HOMEWORK1}
 
 \end{document}
 
