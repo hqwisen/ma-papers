@@ -96,6 +96,14 @@ the private key $k'$, everyone can verify the signature using the public key.
 A hash function is an algorithm that will convert an arbitrary
 size message into a fixed size digest. The hash function
 used by bitcoin is SHA-256: it produces a digest of size 256 bits.
+The important proprety of cryptographic hashes is that the design is made
+such that the creation of a hash is efficient but hard to recover the
+original message. If $h$ is the hash function $x$ the message and $y$ the hash
+we have:
+\begin{equation}
+    h(x) = y
+\end{equation}
+$h(x)$ is easy to compute but $h^{-1}(y)$ is hard.
 
 \section*{Transaction and coins}
 
@@ -116,24 +124,47 @@ transaction $t_{n+1}$ to the coin. We can verify using Alice's public key $a$
 that Bob's is the new owner of the coin.
 This is the method proposed to verify the ownership of a coin.
 
-\section*{Double-spending problem}
+\section*{Block chain}
+
+A block is a file that contains multiple transactions,
+recorded permanently \cite{bitcoinwiki}. A block contains also a block header,
+a 256 bits hash, used to the following block to create generate its own hash.
+The blockchain is a ledger of all
+recorded blocks. The miners, the computers that do the (proof-of-)work to
+approve the transactions, add a new blocks in the blockchain in a
+chronological order. Those new block records,
+once added to the Bitcoin blockchain, can never be removed or modified.
+
+
+
+\section*{Double-spending}
 
 We know how to verify the ownership of a coin, but we cannot make sure
 that a owner doesn't spend the same coin twice, or more.
 To be able to find a solution to this problem, we need a \textit{central}
-authority to acknoledge each transaction. Bitcoin uses a peer-to-peer network,
+authority to acknowledge each transaction. Bitcoin uses a peer-to-peer network,
 a distributed application meaning that the data are not stored in a
 central server but in multiple computers that form the p2p network,
-and a proof-of-work system \cite{hashcash}. Using a p2p network
+and a proof-of-work system called hashcash \cite{hashcash}. Using a p2p network
 provides a decentralized authority to approve the transactions and the proof-of-work
-provides a system that makes it hard to rebuild a block, hard to modify
+provides a system that makes it hard to rebuild a block therefor hard to modify
 an approved transaction.
 
+\section*{Proof-of-work}
 
-\section{Block}
+Each blocks is minted using the hashcash cost-fuction algorithm.
+A cost-function should be easy to verify but hard to compute, and the
+computation difficulty is parameterisable \cite{hashcash}.
 
-A block cointains multiple transaction
-
+Let $b_n$ the hash
+of the last block in the blockchain.
+We want to create a new block $b_{n+1}$. Bitcoins uses hashcash as follow:
+each block hash requires a number of 0 bits at the beginning. To build this
+hash, concatenated the previous block hash and a nonce, a 32 bits numbers
+that is incremented. This concatenation is hashed using hashcash-SHA-256
+and the result
+must be a new 256 bits hash starting with the required number of 0. This new
+hash must be lower than the previous block hash: $b_{n+1} < b_n$.
 
 \section{Address}
 
@@ -146,13 +177,6 @@ a way that can be used to identify a bitcoin user.
 
 Same question as for the transaction
 
-
-\section{Peer-to-peer and blockchain}
-
-\section{Timestamp}
-
-\section{Proof-of-work}
-
 \end{document}
 
 %% Citation to make
@@ -160,3 +184,4 @@ Same question as for the transaction
 % Satoshi Bitcoin original paper
 % Diffie Hellman
 % hashcash
+% wiki
