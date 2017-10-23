@@ -29,12 +29,12 @@ can ensure the privacy of the clients.
 It is necessary to have a structure that will verify payements to
 avoid coins double-spending problem. Satoshi Nakamoto introduces
 in his paper\cite{bitcoin}, released in 2008, the Bitcoin protocol
-with a implementation of a decentralized transaction management structure,
-using a peer-to-peer architecture and the hashcash\cite{hashcash}
+with an implementation of a decentralized transaction management structure,
+using peer-to-peer architecture and the hashcash\cite{hashcash}
 proof-of-work system.
 
 \paragraph{}
-In this paper we will define the cryptographics methods that are necessary
+In this paper we will define the cryptographic methods that are necessary
 to understand the technical mechanism of the Bitcoin system
 such as digital signatures,
 public key encryption and hash algorithms. We will also define the
@@ -107,7 +107,8 @@ the private key $k'$, everyone can verify the signature using the public key.
 
 \paragraph{}
 A hash function is an algorithm that will convert an arbitrary
-size message into a fixed size digest. The hash function
+size message into a fixed size string. The result string
+is sometimes called a hash digest or hash. The hash function
 used by bitcoin is SHA-256: it produces a digest of size 256 bits.
 The important proprety of cryptographic hashes is that the design is made
 such that the creation of a hash is efficient but it is hard to recover the
@@ -118,11 +119,11 @@ we have:
 \end{equation}
 $h(x)$ is easy to compute but $h^{-1}(y)$ is hard.
 
-\section{Bitcoins protocol}
+\section{Bitcoin protocol}
 
 \subsection{Address}
 \paragraph{}
-The privacy of the transfers is ensures by the Bitcoin addresses. An address
+The privacy of the transfers is ensured by the Bitcoin addresses. An address
 is a 160 bits hash. Each address
 is generated using a pair of ECDSA\cite{ecdsawiki} public/private key
 that identify an owner
@@ -136,20 +137,23 @@ him.
 A transaction is represented by a hash.
 An electronic coin is represented by a
 chain of digital signatures\cite{bitcoin}.
-If Alice, represented by the public private key pair $(a, a')$,
-want to transfer a coin to Bob, represented by $(b, b')$. Her coin
+Let Alice be represented by the public private key pair $(a, a')$
+and Bob be represented by $(b, b')$. Alice want to send a coin to Bob.
+Her coin
 is represented by the chain $\{t_0, t_1, .., t_n \}$, which is ordered
 and $n$ is finite, where
 $t_n$ is the last transaction made for this coin. Each transaction
 $t_i \forall i \le n$ is a hash.
 
+\paragraph{}
 To perform the transaction
 Alice must sign, using
 her private key $a'$,
-a hash composed of the transaction $t_n$ and Bob's public key $b$.
+a hash composed of the transaction details and Bob's public key $b$.
 This will add a new
-transaction $t_{n+1}$ to the coin. We can verify using Alice's public key $a$
-that Bob's is the new owner of the coin.
+transaction hash $t_{n+1}$, to the coin, signed by Alice.
+We can verify using Alice's public key $a$
+that Bob is the new owner of the coin.
 This is the method proposed to verify the ownership of a coin.
 
 \subsection{Block chain}
@@ -200,10 +204,16 @@ of the last block in the blockchain.
 We want to create a new block $b_{n+1}$. Bitcoin uses hashcash as follow:
 each block hash requires a number of 0 bits at the beginning. To build this
 hash, concatenate the previous block hash and a nonce, a 32 bits numbers
-that is incremented. This concatenation is hashed using hashcash-SHA-256
+that is incremented. This concatenation is hashed, using hashcash cost-function
+ and SHA-256 hash function,
 and the result
-must be a new 256 bits hash starting with the required number of 0. This new
-hash must be lower than the previous block hash: $b_{n+1} < b_n$.
+must be a new 256 bits hash starting with the required number of 0.
+The number of 0 is the difficulty of the cost-function, set as a parameter.
+This new hash must be lower than the previous block hash: $b_{n+1} < b_n$.
+
+\section*{Conclusion}
+
+
 
 \bibliographystyle{plain}
 \bibliography{HOMEWORK1}
