@@ -178,7 +178,7 @@ To be able to find a solution to this problem, we need a \textit{central}
 authority to acknowledge each transaction. This authority timestamp all
 transactions and knows every transaction that are recorded in the blockchain.
 \paragraph{}
-Bitcoin uses a peer-to-peer network,
+Bitcoin uses a peer-to-peer (p2p) network,
 a distributed application meaning that the data are not stored in a
 central server but in multiple computers that form the p2p network,
 and a proof-of-work system called hashcash\cite{hashcash}. Using a p2p network
@@ -197,7 +197,7 @@ therefore all transactions are visible.
 Each blocks is minted using the cost-fuction of the hashcash
 algorithm.
 A cost-function should be easy to verify but hard to compute, and the
-computation difficulty is parameterisable\cite{hashcash}.
+computation difficulty is parameterisable \cite{hashcash}.
 \paragraph{}
 Let $b_n$ be the hash
 of the last block in the blockchain.
@@ -213,7 +213,13 @@ This new hash must be lower than the previous block hash: $b_{n+1} < b_n$.
 
 \section*{Conclusion}
 
-
+\paragraph{}
+The goal of this paper was to define formally the scientific concepts
+that Bitcoin uses. We defined digital
+signatures and the public key encryption scheme that provides a corresponding
+implementation. We also highlighted the major components of the Bitcoin
+system such as addresses, transactions and the double-spending solution
+designed with a p2p network and a proof-of-work system.
 
 \bibliographystyle{plain}
 \bibliography{HOMEWORK1}
