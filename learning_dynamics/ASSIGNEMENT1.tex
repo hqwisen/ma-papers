@@ -2,18 +2,66 @@
 \usepackage{natbib}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
-
-
+\usepackage{color}
+\usepackage{multirow}
 \title{Learning Dynamics: Assignement 1}
-\author{Hakim Boulahya \\
-Université Libre de Bruxelles\\
-hboulahy@ulb.ac.be}
+\author{\Large Hakim Boulahya \\
+hboulahy@ulb.ac.be\\
+\\
+Université Libre de Bruxelles
+}
 
 \begin{document}
 \maketitle
 % \begin{abstract}
 
 % \end{abstract}
+
+\section{Hawk-Dove game}
+
+\section{Social Dilemma}
+
+\begin{figure}[!ht]
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+    & DDD & CCC & CCD & CDC & CDD & DCC & DCD & DDC \\
+    \hline
+    C & 1/3 & 3 & \textbf{8/3} & 4/3 & 1 & 7/3 & \textbf{\color{red}2} & 2/3 \\
+    \hline
+    D & \textbf{2/3} & \textbf{4} & 7/3 & \textbf{11/3}
+    & \textbf{2} & \textbf{8/3} & 1 & \textbf{\color{red}7/3} \\
+    \hline
+\end{tabular}
+\end{center}
+
+\caption{Expected payoff of player $A$ for all possible combinations of
+player $B$’s types}
+\label{fig:brA}
+\end{figure}
+
+\begin{figure}[!ht]
+
+\begin{center}
+\begin{tabular}{|c|c|c||c|c||c|c|}
+    \hline
+    & C & D & C & D & C & D \\
+    \hline
+    C & 2 & \textbf{5} & \textbf{5}
+    & 2 & 2 & \textbf{5} \\
+    \hline
+    D & 0 & \textbf{1} & 0 & \textbf{1}
+    & \textbf{1} & 0 \\
+    \hline
+\end{tabular}
+\end{center}
+
+\caption{Best response of player $B$ against player $A$ in all games
+ (in the following order): Prisonners, Stag-hunt, Snowdrift}
+\label{fig:brB}
+\end{figure}
+
 
 \section{Sequential truel}
 
@@ -33,6 +81,24 @@ $T_1$. As mentioned in the
 assignement specifications, the subgames when $A$ fails to hits in intended
 target are the same,  it is $T_2$. When in subgame $T_2$, we also found
 that when $B$ misses is intended target, the subgames are the same, it is $T_3$.
+
+\begin{figure}[!ht]
+ \centerline{\includegraphics[scale=0.5]{images/T1}}
+ \caption{$T_1$, main subgame}
+ \label{fig:t1}
+\end{figure}
+
+\begin{figure}[!ht]
+ \centerline{\includegraphics[scale=0.5]{images/T2}}
+ \caption{$T_2$, subgame when $A$ misses her intended target}
+ \label{fig:t2}
+\end{figure}
+
+\begin{figure}[!ht]
+ \centerline{\includegraphics[scale=0.5]{images/T3}}
+ \caption{$T_3$, subgame when $A$ and $B$ miss their intended targets}
+ \label{fig:t3}
+\end{figure}
 
 \subsection{Preferences}
 \begin{itemize}
@@ -104,26 +170,7 @@ The difference between the probablity (\ref{weak:1}) and (\ref{weak:2}), is that
 with $p_a$, so (\ref{weak:1}) will
 always be smaller that (\ref{weak:2}). The probablity of
 survival of $C$ when $p_c > p_b$ will always be smaller than
-the probability of survival of $C$ when $p_b > p_c$. So it will always be
-better for $C$ to have
-$p_b > p_c$.
-
-\begin{figure}[!ht]
- \centerline{\includegraphics[scale=0.5]{images/T1}}
- \caption{$T_1$, main subgame}
- \label{fig:t1}
-\end{figure}
-
-\begin{figure}[!ht]
- \centerline{\includegraphics[scale=0.5]{images/T2}}
- \caption{$T_2$, subgame when $A$ misses her intended target}
- \label{fig:t2}
-\end{figure}
-
-\begin{figure}[!ht]
- \centerline{\includegraphics[scale=0.5]{images/T3}}
- \caption{$T_3$, subgame when $A$ and $B$ miss their intended targets}
- \label{fig:t3}
-\end{figure}
+the probability of survival of $C$ when $p_b > p_c$. $C$ is always better off
+when $p_b > p_c$.
 
 \end{document}
