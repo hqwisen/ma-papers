@@ -19,9 +19,7 @@ Université Libre de Bruxelles
 
 \begin{document}
 \maketitle
-% \begin{abstract}
-
-% \end{abstract}
+\tableofcontents
 
 \section{Hawk-Dove game}
 
@@ -120,11 +118,12 @@ that it depends on $p$ and not on $q$.
 \paragraph{}
 
 Player 2's unique best response is pure strategy $Hawk(q)$
-when $q > -\frac{V}{D}$,  is pure strategy $Dove(1 - q)$ when
-$q < -\frac{V}{D}$ and all mixed strategies are all best response when
-$q = -\frac{V}{D}$.
+when $p > -\frac{V}{D}$,  is pure strategy $Dove(1 - q)$ when
+$p < -\frac{V}{D}$ and all mixed strategies are all best response when
+$p = -\frac{V}{D}$.
 
 \subsection{Discussions}
+
 
 
 \section{Social Dilemma}
@@ -133,7 +132,7 @@ $q = -\frac{V}{D}$.
 \paragraph{}
 
 Figure \ref{fig:brA} represents the expected payoff of $A$ based on her
-belief. For example the first column indicates the payoff of $A$ when she
+beliefs. For example the first column indicates the payoff of $A$ when she
 believes that $B$ will defect in all games type.
 
 Since $A$ is sure that each game is equally likely, there is a probability of
@@ -182,7 +181,7 @@ player $B$’s types}
 \end{center}
 
 \caption{Best response of player $B$ against player $A$ in all games
- (in the following order): Prisonners, Stag-hunt, Snowdrift}
+ (in the following order): Prisonner's dilemma, Stag-hunt game, Snowdrift game}
 \label{fig:brB}
 \end{figure}
 
@@ -204,8 +203,9 @@ payoff function is $p(a, b_1, b_2, b_3) \; \forall a \in A$:
  p(a, b_1, b_2, b_3) = \frac{1}{3}(o_1(a, b_1)+o_2(a, b_2)+o_3(a, b_3))
 \end{equation}
 
-For example the payoff for $A$ action cooperate (C) and beliefs
-$b_1 = D, b_2 = D, b_3 = D$, the fist row and column of Figure \ref{fig:brA},
+For example the payoff for $A$ whe she plays cooperate (C) and believes
+$b_1 = D, b_2 = D, b_3 = D$,
+corresponding the first row and column of Figure \ref{fig:brA},
 is:
 
 \begin{equation}
@@ -225,13 +225,13 @@ Other examples:
 
 \paragraph{}
 
-The best response given the action of all game type for player $A$ are
+The best response given the action of all games type for player $A$ are
 the bolded values in
 Figure \ref{fig:brA}. The best response for all games for player $B$ are
 the bolded values in
 Figure \ref{fig:brB}. To find the pure Nash Equilibria, we need to match
 the best response of $A$ with the best response of $B$ for each beliefs. There
-are two pure Nash Equilibria, shows in red in Figure \ref{fig:brA},
+are two pure Nash Equilibria, shown in red in Figure \ref{fig:brA},
 $\{C, (DCD)\}$ and $\{D, (DDC)\}$. Indeed, for $\{C, (DCD)\}$,
 when $A$ plays action $C$, the best
 response of $B$ in Prisonner's dilemma is $D$, in Stag-hunt game it is $C$ and
@@ -247,15 +247,16 @@ Figure \ref{fig:t1}, \ref{fig:t2} and \ref{fig:t3}. When we will refer to $T_1$,
 $T_2$ and $T_3$ it means that we are refering to, respectively,
 Figure \ref{fig:t1}, \ref{fig:t2} and \ref{fig:t3}. In the subgames,
 the action $t(i)$ where $i \in \{A, B, C\}$, means that the current player
-is targeting player $i$. The current player can of course not targeting himself.
+is targeting player $i$. The current player can of course not target himself.
 
 \paragraph{}
 
 The main game is represented by
 $T_1$. As mentioned in the
-assignement specifications, the subgames when $A$ fails to hits in intended
+assignement specifications, the subgames when $A$ fails to hit is intended
 target are the same,  it is $T_2$. When in subgame $T_2$, we also found
-that when $B$ misses is intended target, the subgames are the same, it is $T_3$.
+that when $B$ misses his intended target,
+the subgames are the same, it is $T_3$.
 
 \begin{figure}[!ht]
  \centerline{\includegraphics[scale=0.5]{images/T1}}
@@ -275,38 +276,42 @@ that when $B$ misses is intended target, the subgames are the same, it is $T_3$.
  \label{fig:t3}
 \end{figure}
 
-\subsection{Preferences}
-\begin{itemize}
-    \item Players prefer outcomes with fewer people
-    \item Players prefer to stay alive
-\end{itemize}
-
-
 \subsection{Subgame perfect equilibria}
 
-\paragraph{C equilibrium in $T_3$}
+\subsubsection{C equilibrium in $T_3$}
+\paragraph{}
 
 To find the SPE, we have to use the backward induction, so we need to find
 the SPE of $T_3$ first. Player $C$ always stay alive whatever target she is
 choosing. The SPE is $t(A)$ if $p_a > p_b$, and $t(B)$ if $p_b > p_a$.
 
-\paragraph{B equilibrium in $T_2$}
+\subsubsection{B equilibrium in $T_2$}
+
+\paragraph{}
 
 Let's consider subgame $T_2$. Player $B$ needs either to target $A$
 or target $C$. If $B$ targets $A$, she has less chance to survive because,
 since next turn $C$ will play and will still be alive whatever the result is
-of this shoot, so it $B$ will always target $C$ in $T_3$.
-Formally, if $B$ misses her outcome will be the same, because it will have
+of this shoot, so $B$ will always target $C$ in $T_3$.
+
+\paragraph{}
+Formally, if $B$ misses, her outcome will be the same because it will have
 the SPE of subgame $T_3$, which is unique.
 If $B$ targets $A$ and hits her, she has
 a probabilty of $1 - p_c$ to stay alive. If $B$ targets $C$ and hits her, she
 has a probablity of $1$ to stay alive. So $B$ will always choose to target $C$.
 
-\paragraph{A equilibrium in $T_1$}
+\subsubsection{A equilibrium in $T_1$}
 
-Let's consider the full game, subgame $T_1$. Intuitively, it is best for
+\paragraph{}
+
+
+Let's consider the subgame $T_1$ (the full game). Intuitively, it is best for
 $A$ to target the player with the biggest probability, because she will have
-more chance to stay alive if she manage to eliminate the strongest opponent.
+more chance to stay alive if she manages to eliminate the strongest opponent.
+
+\paragraph{}
+
 Formally, if $A$ misses her intended target, the outcome will be the same
 since $T_2$ has an unique SPE. If $A$ targets $B$ and hits her, she has
 a probability of $1 - p_c$ to stay alive, because $C$ is
@@ -315,23 +320,27 @@ If $A$ targets $C$ and hits her,
 she has a probability of $1 - p_b$ to stay alive, because $B$ is
 the remaining shooter and has a probability of $1 - p_b$ to fail.
 So $A$ targets $B$ if
-$ (1 - p_c) > (1 - p_b)$, which can be simplify as
+$ (1 - p_c) > (1 - p_b)$, which can be simplified as
 $p_c < p_b$, and $A$ targets $C$
-if $(1 - p_b) > (1 - p_c)$, which can be simplify as $p_b < p_c$.
+if $(1 - p_b) > (1 - p_c)$, which can be simplified as $p_b < p_c$.
 
 
-\paragraph{Weakness is strength}
+\subsubsection{Weakness is strength}
+
+\paragraph{}
 
 In the previous paragraph, we explained that if $p_c > p_b$
-$A$ will target $C$. If $C$ is the target, the her probablity of survival
+$A$ will target $C$. If $C$ is the target, her probablity of survival
 is the probability that $A$ misses and $B$ misses,
 formally:
 \begin{equation}
     \label{weak:1}
     (1 - p_a)(1 - p_b) = 1 - p_b - p_a + p_ap_b = 1 - p_a - p_b(1 - p_a)
 \end{equation}
-If $p_b > p_c$ $A$ will target $B$, then $C$ chance of survival is $A$ hits
-her target and $C$ will be the last player with a bullet or $A$
+If $p_b > p_c$ $A$ will target $B$, then $C$'s chance of survival is
+if $A$ hits
+her target
+and $C$ will be the last player with a bullet or $A$
 misses her target and $B$ misses also her target. Formally:
 
 \begin{equation}
@@ -340,10 +349,11 @@ misses her target and $B$ misses also her target. Formally:
     p_a + 1 - p_b - p_a + p_ap_b = 1 - p_b(1 - p_a)
 \end{equation}
 
-The difference between the probablity (\ref{weak:1}) and (\ref{weak:2}), is that
-(\ref{weak:1}) is decreasing (\ref{weak:2})
-with $p_a$, so (\ref{weak:1}) will
-always be smaller that (\ref{weak:2}). The probablity of
+The difference between the probablity (\ref{weak:1}) and (\ref{weak:2}),
+is that
+(\ref{weak:1}) is smaller than (\ref{weak:2})
+because of the decrease of $p_a$, so (\ref{weak:1}) will
+always be smaller than (\ref{weak:2}). The probablity of
 survival of $C$ when $p_c > p_b$ will always be smaller than
 the probability of survival of $C$ when $p_b > p_c$. $C$ is always better off
 when $p_b > p_c$.
