@@ -4,6 +4,12 @@
 \usepackage{graphicx}
 \usepackage{color}
 \usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{array}
+
+
+
+
 \title{Learning Dynamics: Assignement 1}
 \author{\Large Hakim Boulahya \\
 hboulahy@ulb.ac.be\\
@@ -18,6 +24,108 @@ Université Libre de Bruxelles
 % \end{abstract}
 
 \section{Hawk-Dove game}
+
+
+\begin{figure}[!ht]
+
+\newcolumntype{C}{ >{\centering\arraybackslash} m{4cm} }
+
+\begin{center}
+\begin{tabular}{|c|C|C|}
+    \hline
+     & Hawk & Dove \\[10pt]
+    \hline
+    Hawk & $\frac{1}{2}(V - D), \quad \frac{1}{2}(V - D)$ & $V, \quad 0$\\[10pt]
+    \hline
+    Dove & $0, \quad V$ & $\frac{V}{2} - T, \quad \frac{V}{2} - T$\\[10pt]
+    \hline
+\end{tabular}
+\end{center}
+
+\caption{Hawk-Dove game}
+\label{fig:hawkdove}
+\end{figure}
+
+\subsection{Expected payoff for player 1}
+
+Given player 2’s mixed strategy $\alpha_2$, player 1 expected payoff
+for the pure strategy $Hawk(p)$ is:
+
+\begin{equation}
+    E_1(H, \alpha_2) = q (\frac{1}{2}(V - D)) + (1 - q)V
+    = V - \frac{q}{2}(V - D)
+\end{equation}
+
+Given player 2’s mixed strategy $\alpha_2$, player 1 expected payoff
+for the pure strategy $Dove(1 - p)$ is:
+
+\begin{equation}
+    E_1(D, \alpha_2) = q \cdot 0 + (1 - q)(\frac{V}{2} - T)
+    = (1 - q)(\frac{V}{2} - T)
+\end{equation}
+
+\subsection{Expected payoff for player 2}
+
+Given player 1’s mixed strategy $\alpha_1$, player 2 expected payoff
+for the pure strategy $Hawk(q)$ is:
+
+\begin{equation}
+    E_2(H, \alpha_1) = p (\frac{1}{2}(V - D)) + (1 - p)V
+    = V - \frac{p}{2}(V - D)
+\end{equation}
+
+Given player 1’s mixed strategy $\alpha_1$, player 2 expected payoff
+for the pure strategy $Dove(1 - q)$ is:
+
+\begin{equation}
+    E_2(D, \alpha_1) = p \cdot 0 + (1 - p)(\frac{V}{2} - T)
+    = (1 - p)(\frac{V}{2} - T)
+\end{equation}
+
+\subsection{Player 1's mixed strategies}
+
+Since this is a game with two-players two actions
+\textit{The linearity implies 3 possible outcomes}:
+
+player 1’s unique best response is the pure strategy $Hawk(p)$ when:
+
+    \begin{alignat*}{2}
+    &\iff & E_1(H, \alpha_2) &> E_1(D, \alpha_2) \\
+    &\iff &    V - \frac{q}{2}(V - D) &> (1 - q)(\frac{V}{2} - T) \\
+    &\iff & V - \frac{V}{2}q + \frac{D}{2}q
+    &> \frac{V}{2} - T - \frac{V}{2}q + T \\
+    &\iff & q &> -\frac{V}{D}
+    \end{alignat*}
+
+player 1’s unique best response is the pure strategy $Dove(1 - p)$ when:
+
+        \begin{alignat*}{2}
+        &\iff & E_1(H, \alpha_2) &< E_1(D, \alpha_2) \\
+        &\iff & q &< -\frac{V}{D}
+        \end{alignat*}
+
+all player 1’s mixed strategies are all best responses when:
+        \begin{alignat*}{2}
+        &\iff & E_1(H, \alpha_2) &= E_1(D, \alpha_2) \\
+        &\iff & q &= -\frac{V}{D}
+        \end{alignat*}
+
+
+\subsection{Player 2's mixed strategies}
+\paragraph{}
+
+This game is symmetric, the payoff matrix of player 1 and 2 are the same
+($A = B^T$). The strategies of player 2 are the same than the player 1, except
+that it depends on $p$ and not on $q$.
+\paragraph{}
+
+Player 2's unique best response is pure strategy $Hawk(q)$
+when $q > -\frac{V}{D}$,  is pure strategy $Dove(1 - q)$ when
+$q < -\frac{V}{D}$ and all mixed strategies are all best response when
+$q = -\frac{V}{D}$.
+
+\subsection{Discussions}
+
 
 \section{Social Dilemma}
 
@@ -127,7 +235,7 @@ are two pure Nash Equilibria, shows in red in Figure \ref{fig:brA},
 $\{C, (DCD)\}$ and $\{D, (DDC)\}$. Indeed, for $\{C, (DCD)\}$,
 when $A$ plays action $C$, the best
 response of $B$ in Prisonner's dilemma is $D$, in Stag-hunt game it is $C$ and
-in Snowdrift game it is $D$, so it is a pure Nash Equilibrium. The same
+in Snowdrift game it is $D$, so it is a pure Nash Equilibria. The same
 goes for $\{D, (DDC)\}$.
 
 \section{Sequential truel}
