@@ -21,6 +21,55 @@ Université Libre de Bruxelles
 
 \section{Social Dilemma}
 
+\paragraph{}
+
+Figure \ref{fig:brA} represents the expected payoff of $A$ based on her
+belief. For example the first column indicates the payoff of $A$ when she
+believes that $B$ will defect in all games type.
+
+Since $A$ is sure that each game is equally likely, there is a probability of
+$1/3$ that she is in Prisonner's dilemma,
+probability of $1/3$ in Stag-Hunt game and probability of $1/3$ in Snowdrift
+game.
+
+Figure \ref{fig:brB} represents the best response of player $B$ in all three
+games, she doesn't need to form any beliefs since she knows in which game
+she is playing. The best response are in \textbf{bold}.
+
+\subsection{Payoff function}
+
+\paragraph{}
+
+Let's associate Prisonner's dilemma, Stag-hunt game and Snowdrift game with
+the indexes $I = \{1, 2, 3\}$, respectively. The actions
+cooperate and defect be the set $A = \{C, D\}$. Let $b_i \; \forall i \in I$,
+the beliefs of $A$, with $b_i \in A$ an action.
+Let $o_i(x, y) \; \forall i \in I \wedge
+\forall x,y \in A$ the outcomes of $A$ for game $i$ and action $x$ for
+player $A$ and action $y$ for $B$. The
+payoff function is $p(a, b_1, b_2, b_3) \; \forall a \in A$:
+
+\begin{equation}
+ p(a, b_1, b_2, b_3) = \frac{1}{3}(o_1(a, b_1)+o_2(a, b_2)+o_3(a, b_3))
+\end{equation}
+
+For example the payoff for $A$ action cooperate (C) and beliefs
+$b_1 = D, b_2 = D, b_3 = D$, the fist row and column of Figure \ref{fig:brA},
+is:
+
+\begin{equation}
+    p(C, D, D, D) = \frac{1}{3}(0 + 0 + 1) = 1/3
+\end{equation}
+
+Other examples:
+
+\begin{equation}
+    p(C, C, C, D) = \frac{1}{3}(2 + 5 + 1) = 8/3
+\end{equation}
+\begin{equation}
+    p(D, C, C, C) = \frac{1}{3}(5 + 2 + 5) = 4    
+\end{equation}
+
 \begin{figure}[!ht]
 
 \begin{center}
