@@ -21,6 +21,7 @@ Université Libre de Bruxelles
 
 \section{Social Dilemma}
 
+
 \paragraph{}
 
 Figure \ref{fig:brA} represents the expected payoff of $A$ based on her
@@ -34,41 +35,7 @@ game.
 
 Figure \ref{fig:brB} represents the best response of player $B$ in all three
 games, she doesn't need to form any beliefs since she knows in which game
-she is playing. The best response are in \textbf{bold}.
-
-\subsection{Payoff function}
-
-\paragraph{}
-
-Let's associate Prisonner's dilemma, Stag-hunt game and Snowdrift game with
-the indexes $I = \{1, 2, 3\}$, respectively. The actions
-cooperate and defect be the set $A = \{C, D\}$. Let $b_i \; \forall i \in I$,
-the beliefs of $A$, with $b_i \in A$ an action.
-Let $o_i(x, y) \; \forall i \in I \wedge
-\forall x,y \in A$ the outcomes of $A$ for game $i$ and action $x$ for
-player $A$ and action $y$ for $B$. The
-payoff function is $p(a, b_1, b_2, b_3) \; \forall a \in A$:
-
-\begin{equation}
- p(a, b_1, b_2, b_3) = \frac{1}{3}(o_1(a, b_1)+o_2(a, b_2)+o_3(a, b_3))
-\end{equation}
-
-For example the payoff for $A$ action cooperate (C) and beliefs
-$b_1 = D, b_2 = D, b_3 = D$, the fist row and column of Figure \ref{fig:brA},
-is:
-
-\begin{equation}
-    p(C, D, D, D) = \frac{1}{3}(0 + 0 + 1) = 1/3
-\end{equation}
-
-Other examples:
-
-\begin{equation}
-    p(C, C, C, D) = \frac{1}{3}(2 + 5 + 1) = 8/3
-\end{equation}
-\begin{equation}
-    p(D, C, C, C) = \frac{1}{3}(5 + 2 + 5) = 4    
-\end{equation}
+she is playing.
 
 \begin{figure}[!ht]
 
@@ -111,6 +78,57 @@ player $B$’s types}
 \label{fig:brB}
 \end{figure}
 
+
+\subsection{Payoff function}
+
+\paragraph{}
+
+Let's associate Prisonner's dilemma, Stag-hunt game and Snowdrift game with
+the indexes $I = \{1, 2, 3\}$, respectively. The actions
+cooperate and defect be the set $A = \{C, D\}$. Let $b_i \; \forall i \in I$,
+the beliefs of $A$, with $b_i \in A$ an action.
+Let $o_i(x, y) \; \forall i \in I \wedge
+\forall x,y \in A$ the outcomes of $A$ for game $i$ and action $x$ for
+player $A$ and action $y$ for $B$. The
+payoff function is $p(a, b_1, b_2, b_3) \; \forall a \in A$:
+
+\begin{equation}
+ p(a, b_1, b_2, b_3) = \frac{1}{3}(o_1(a, b_1)+o_2(a, b_2)+o_3(a, b_3))
+\end{equation}
+
+For example the payoff for $A$ action cooperate (C) and beliefs
+$b_1 = D, b_2 = D, b_3 = D$, the fist row and column of Figure \ref{fig:brA},
+is:
+
+\begin{equation}
+    p(C, D, D, D) = \frac{1}{3}(0 + 0 + 1) = 1/3
+\end{equation}
+
+Other examples:
+
+\begin{equation}
+    p(C, C, C, D) = \frac{1}{3}(2 + 5 + 1) = 8/3
+\end{equation}
+\begin{equation}
+    p(D, C, C, C) = \frac{1}{3}(5 + 2 + 5) = 4
+\end{equation}
+
+\subsection{Best response and equilibrium}
+
+\paragraph{}
+
+The best response given the action of all game type for player $A$ are
+the bolded values in
+Figure \ref{fig:brA}. The best response for all games for player $B$ are
+the bolded values in
+Figure \ref{fig:brB}. To find the pure Nash Equilibria, we need to match
+the best response of $A$ with the best response of $B$ for each beliefs. There
+are two pure Nash Equilibria, shows in red in Figure \ref{fig:brA},
+$\{C, (DCD)\}$ and $\{D, (DDC)\}$. Indeed, for $\{C, (DCD)\}$,
+when $A$ plays action $C$, the best
+response of $B$ in Prisonner's dilemma is $D$, in Stag-hunt game it is $C$ and
+in Snowdrift game it is $D$, so it is a pure Nash Equilibrium. The same
+goes for $\{D, (DDC)\}$.
 
 \section{Sequential truel}
 
