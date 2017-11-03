@@ -84,24 +84,43 @@ if $(1 - p_b) > (1 - p_c)$, which can be simplify as $p_b < p_c$.
 In the previous paragraph, we explained that if $p_c > p_b$
 $A$ will target $C$. If $C$ is the target, the her probablity of survival
 is the probability that $A$ misses and $B$ misses,
-formally
+formally:
 \begin{equation}
+    \label{weak:1}
     (1 - p_a)(1 - p_b) = 1 - p_b - p_a + p_ap_b = 1 - p_a - p_b(1 - p_a)
 \end{equation}
+If $p_b > p_c$ $A$ will target $B$, then $C$ chance of survival is $A$ hits
+her target and $C$ will be the last player with a bullet or $A$
+misses her target and $B$ misses also her target. Formally:
 
-\begin{figure}[h!]
+\begin{equation}
+    \label{weak:2}
+    p_a + (1 - p_a)(1 - p_b) =
+    p_a + 1 - p_b - p_a + p_ap_b = 1 - p_b(1 - p_a)
+\end{equation}
+
+The difference between the probablity (\ref{weak:1}) and (\ref{weak:2}), is that
+(\ref{weak:1}) is decreasing (\ref{weak:2})
+with $p_a$, so (\ref{weak:1}) will
+always be smaller that (\ref{weak:2}). The probablity of
+survival of $C$ when $p_c > p_b$ will always be smaller than
+the probability of survival of $C$ when $p_b > p_c$. So it will always be
+better for $C$ to have
+$p_b > p_c$.
+
+\begin{figure}[!ht]
  \centerline{\includegraphics[scale=0.5]{images/T1}}
  \caption{$T_1$, main subgame}
  \label{fig:t1}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
  \centerline{\includegraphics[scale=0.5]{images/T2}}
  \caption{$T_2$, subgame when $A$ misses her intended target}
  \label{fig:t2}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
  \centerline{\includegraphics[scale=0.5]{images/T3}}
  \caption{$T_3$, subgame when $A$ and $B$ miss their intended targets}
  \label{fig:t3}
