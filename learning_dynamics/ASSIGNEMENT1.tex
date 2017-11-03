@@ -1,7 +1,7 @@
 \documentclass[letterpaper]{article}
 \usepackage{natbib}
 \usepackage[utf8]{inputenc}
-
+\usepackage{graphicx}
 
 
 \title{Learning Dynamics: Assignement 1}
@@ -9,14 +9,102 @@
 Université Libre de Bruxelles\\
 hboulahy@ulb.ac.be}
 
-
 \begin{document}
 \maketitle
 % \begin{abstract}
 
 % \end{abstract}
 
+\section{Sequential truel}
 
-\section*{Introduction}
+\paragraph{}
+
+The diagram representing the subgames are drawn as trees in
+Figure \ref{fig:t1}, \ref{fig:t2} and \ref{fig:t3}. When we will refer to $T_1$,
+$T_2$ and $T_3$ it means that we are refering to, respectively,
+Figure \ref{fig:t1}, \ref{fig:t2} and \ref{fig:t3}. In the subgames,
+the action $t(i)$ where $i \in \{A, B, C\}$, means that the current player
+is targeting player $i$. The current player can of course not targeting himself.
+
+\paragraph{}
+
+The main game is represented by
+$T_1$. As mentioned in the
+assignement specifications, the subgames when $A$ fails to hits in intended
+target are the same,  it is $T_2$. When in subgame $T_2$, we also found
+that when $B$ misses is intended target, the subgames are the same, it is $T_3$.
+
+\subsection{Preferences}
+\begin{itemize}
+    \item Players prefer outcomes with fewer people
+    \item Players prefer to stay alive
+\end{itemize}
+
+
+\subsection{Subgame perfect equilibria}
+
+\paragraph{C equilibrium in $T_3$}
+
+To find the SPE, we have to use the backward induction, so we need to find
+the SPE of $T_3$ first. Player $C$ always stay alive whatever target she is
+choosing. The SPE is $t(A)$ if $p_a > p_b$, and $t(B)$ if $p_b > p_a$.
+
+\paragraph{B equilibrium in $T_2$}
+
+Let's consider subgame $T_2$. Player $B$ needs either to target $A$
+or target $C$. If $B$ targets $A$, she has less chance to survive because,
+since next turn $C$ will play and will still be alive whatever the result is
+of this shoot, so it $B$ will always target $C$ in $T_3$.
+Formally, if $B$ misses her outcome will be the same, because it will have
+the SPE of subgame $T_3$, which is unique.
+If $B$ targets $A$ and hits her, she has
+a probabilty of $1 - p_c$ to stay alive. If $B$ targets $C$ and hits her, she
+has a probablity of $1$ to stay alive. So $B$ will always choose to target $C$.
+
+\paragraph{A equilibrium in $T_1$}
+
+Let's consider the full game, subgame $T_1$. Intuitively, it is best for
+$A$ to target the player with the biggest probability, because she will have
+more chance to stay alive if she manage to eliminate the strongest opponent.
+Formally, if $A$ misses her intended target, the outcome will be the same
+since $T_2$ has an unique SPE. If $A$ targets $B$ and hits her, she has
+a probability of $1 - p_c$ to stay alive, because $C$ is
+the remaining shooter and has a probability of $1 - p_c$ to fail.
+If $A$ targets $C$ and hits her,
+she has a probability of $1 - p_b$ to stay alive, because $B$ is
+the remaining shooter and has a probability of $1 - p_b$ to fail.
+So $A$ targets $B$ if
+$ (1 - p_c) > (1 - p_b)$, which can be simplify as
+$p_c < p_b$, and $A$ targets $C$
+if $(1 - p_b) > (1 - p_c)$, which can be simplify as $p_b < p_c$.
+
+
+\paragraph{Weakness is strength}
+
+In the previous paragraph, we explained that if $p_c > p_b$
+$A$ will target $C$. If $C$ is the target, the her probablity of survival
+is the probability that $A$ misses and $B$ misses,
+formally
+\begin{equation}
+    (1 - p_a)(1 - p_b) = 1 - p_b - p_a + p_ap_b = 1 - p_a - p_b(1 - p_a)
+\end{equation}
+
+\begin{figure}[h!]
+ \centerline{\includegraphics[scale=0.5]{images/T1}}
+ \caption{$T_1$, main subgame}
+ \label{fig:t1}
+\end{figure}
+
+\begin{figure}[h!]
+ \centerline{\includegraphics[scale=0.5]{images/T2}}
+ \caption{$T_2$, subgame when $A$ misses her intended target}
+ \label{fig:t2}
+\end{figure}
+
+\begin{figure}[h!]
+ \centerline{\includegraphics[scale=0.5]{images/T3}}
+ \caption{$T_3$, subgame when $A$ and $B$ miss their intended targets}
+ \label{fig:t3}
+\end{figure}
 
 \end{document}
