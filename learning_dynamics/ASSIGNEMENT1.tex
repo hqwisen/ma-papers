@@ -20,9 +20,9 @@ Université Libre de Bruxelles
 \begin{document}
 \maketitle
 \tableofcontents
-
 \section{Hawk-Dove game}
 
+The game payoff matrix is shown in Figure \ref{fig:hawkdove}.
 
 \begin{figure}[!ht]
 
@@ -51,7 +51,7 @@ for the pure strategy $Hawk(p)$ is:
 
 \begin{equation}
     E_1(H, \alpha_2) = q (\frac{1}{2}(V - D)) + (1 - q)V
-    = V - \frac{q}{2}(V - D)
+    = V - \frac{q}{2}(V + D)
 \end{equation}
 
 Given player 2’s mixed strategy $\alpha_2$, player 1 expected payoff
@@ -69,7 +69,7 @@ for the pure strategy $Hawk(q)$ is:
 
 \begin{equation}
     E_2(H, \alpha_1) = p (\frac{1}{2}(V - D)) + (1 - p)V
-    = V - \frac{p}{2}(V - D)
+    = V - \frac{p}{2}(V + D)
 \end{equation}
 
 Given player 1’s mixed strategy $\alpha_1$, player 2 expected payoff
@@ -82,6 +82,8 @@ for the pure strategy $Dove(1 - q)$ is:
 
 \subsection{Player 1's mixed strategies}
 
+\paragraph{}
+
 Since this is a game with two-players two actions
 \textit{The linearity implies 3 possible outcomes}:
 
@@ -89,23 +91,28 @@ player 1’s unique best response is the pure strategy $Hawk(p)$ when:
 
     \begin{alignat*}{2}
     &\iff & E_1(H, \alpha_2) &> E_1(D, \alpha_2) \\
-    &\iff &    V - \frac{q}{2}(V - D) &> (1 - q)(\frac{V}{2} - T) \\
-    &\iff & V - \frac{V}{2}q + \frac{D}{2}q
-    &> \frac{V}{2} - T - \frac{V}{2}q + T \\
-    &\iff & q &> -\frac{V}{D}
+    &\iff &    V - \frac{q}{2}(V + D) &> (1 - q)(\frac{V}{2} - T) \\
+    &\iff & V - \frac{V}{2}q - \frac{D}{2}q
+    &> \frac{V}{2} - T - \frac{V}{2}q + Tq \\
+    &\iff & \frac{V}{2} + T
+    &> \frac{D}{2}q + Tq \\
+    &\iff & \frac{\frac{V}{2} + T}{\frac{D}{2} + T}
+    &> q \\
     \end{alignat*}
 
 player 1’s unique best response is the pure strategy $Dove(1 - p)$ when:
 
         \begin{alignat*}{2}
         &\iff & E_1(H, \alpha_2) &< E_1(D, \alpha_2) \\
-        &\iff & q &< -\frac{V}{D}
+        &\iff & \frac{\frac{V}{2} + T}{\frac{D}{2} + T}
+        &< q \\
         \end{alignat*}
 
 all player 1’s mixed strategies are all best responses when:
         \begin{alignat*}{2}
         &\iff & E_1(H, \alpha_2) &= E_1(D, \alpha_2) \\
-        &\iff & q &= -\frac{V}{D}
+        &\iff & \frac{\frac{V}{2} + T}{\frac{D}{2} + T}
+        &= q \\
         \end{alignat*}
 
 
@@ -118,12 +125,47 @@ that it depends on $p$ and not on $q$.
 \paragraph{}
 
 Player 2's unique best response is pure strategy $Hawk(q)$
-when $p > -\frac{V}{D}$,  is pure strategy $Dove(1 - q)$ when
-$p < -\frac{V}{D}$ and all mixed strategies are all best response when
-$p = -\frac{V}{D}$.
+when $p < \frac{\frac{V}{2} + T}{\frac{D}{2} + T}$,
+is pure strategy $Dove(1 - q)$ when
+$p > \frac{\frac{V}{2} + T}{\frac{D}{2} + T}$
+and all mixed strategies are all best response when
+$p = \frac{\frac{V}{2} + T}{\frac{D}{2} + T}$.
 
-\subsection{Discussions}
+\subsection{Result based on conditions}
 
+\paragraph{Note} When we mention \textit{the result} in the next paragraphs,
+we refer to the fraction $\frac{\frac{V}{2} + T}{\frac{D}{2} + T}$.
+
+
+\paragraph{}
+
+Whatever values $T$ has, it will not change the result, since it is
+present in denominator and numerator of it. The choices depend on
+$V$ and $D$.
+
+\paragraph{}
+
+If $V = D$, the result will be equal to $1$, it means that $p$
+and $q$ are equal to 1 when $V = D$,
+then all mixed strategies are best response for
+both players.
+
+\paragraph{}
+
+If $V > D$, it means that the the numerator will always
+be bigger than the denominator, so always bigger than 1. Since $p$ and $q$ are
+probablities
+they cannot go beyond 1, so $p$ and $q$ will always be smaller than
+the result. So if $V > D$, player 1 and 2 will play the pure strategy $Hawk(p)$
+and $Hawk(q)$.
+
+\paragraph{}
+
+If $V < D$, it means that the the numerator will always
+be smaller than the denominator, so always smaller than 1.
+So if $V < D$, player 1 and 2 will play the pure strategy $Dove(1 - p)$
+and $Dove(1 - q)$. So displaying become more beneficial than escalating when
+$V < D$.
 
 
 \section{Social Dilemma}
@@ -140,8 +182,9 @@ $1/3$ that she is in Prisonner's dilemma,
 probability of $1/3$ in Stag-Hunt game and probability of $1/3$ in Snowdrift
 game.
 
-Figure \ref{fig:brB} represents the best response of player $B$ in all three
-games, she doesn't need to form any beliefs since she knows in which game
+Figure \ref{fig:brB} shows the outcomes for the three games
+and highlights the best response of player $B$,
+since she doesn't need to form any beliefs because she knows in which game
 she is playing.
 
 \begin{figure}[!ht]
@@ -205,7 +248,7 @@ payoff function is $p(a, b_1, b_2, b_3) \; \forall a \in A$:
 
 For example the payoff for $A$ whe she plays cooperate (C) and believes
 $b_1 = D, b_2 = D, b_3 = D$,
-corresponding the first row and column of Figure \ref{fig:brA},
+corresponding to the first row and column of Figure \ref{fig:brA},
 is:
 
 \begin{equation}
@@ -220,6 +263,8 @@ Other examples:
 \begin{equation}
     p(D, C, C, C) = \frac{1}{3}(5 + 2 + 5) = 4
 \end{equation}
+
+All the payoff function results are shown in Figure \ref{fig:brA}.
 
 \subsection{Best response and equilibrium}
 
@@ -290,9 +335,9 @@ choosing. The SPE is $t(A)$ if $p_a > p_b$, and $t(B)$ if $p_b > p_a$.
 \paragraph{}
 
 Let's consider subgame $T_2$. Player $B$ needs either to target $A$
-or target $C$. If $B$ targets $A$, she has less chance to survive because,
-since next turn $C$ will play and will still be alive whatever the result is
-of this shoot, so $B$ will always target $C$ in $T_3$.
+or target $C$. If $B$ targets $A$, she has less chance to survive because
+next turn $C$ will play and will still be alive whatever the result
+of this shoot is. So $B$ will always target $C$ in $T_3$.
 
 \paragraph{}
 Formally, if $B$ misses, her outcome will be the same because it will have
@@ -302,6 +347,8 @@ a probabilty of $1 - p_c$ to stay alive. If $B$ targets $C$ and hits her, she
 has a probablity of $1$ to stay alive. So $B$ will always choose to target $C$.
 
 \subsubsection{A equilibrium in $T_1$}
+
+\label{sec:spet1}
 
 \paragraph{}
 
@@ -325,11 +372,11 @@ $p_c < p_b$, and $A$ targets $C$
 if $(1 - p_b) > (1 - p_c)$, which can be simplified as $p_b < p_c$.
 
 
-\subsubsection{Weakness is strength}
+\subsection{Weakness is strength}
 
 \paragraph{}
 
-In the previous paragraph, we explained that if $p_c > p_b$
+In section \ref{sec:spet1}, we explained that if $p_c > p_b$
 $A$ will target $C$. If $C$ is the target, her probablity of survival
 is the probability that $A$ misses and $B$ misses,
 formally:
@@ -337,8 +384,8 @@ formally:
     \label{weak:1}
     (1 - p_a)(1 - p_b) = 1 - p_b - p_a + p_ap_b = 1 - p_a - p_b(1 - p_a)
 \end{equation}
-If $p_b > p_c$ $A$ will target $B$, then $C$'s chance of survival is
-if $A$ hits
+If $p_b > p_c$ $A$ will target $B$, then $C$'s chance of survival is:
+$A$ hits
 her target
 and $C$ will be the last player with a bullet or $A$
 misses her target and $B$ misses also her target. Formally:
