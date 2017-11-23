@@ -1,8 +1,4 @@
 
-Plot coop level over time
-
-Visualize
-
 Results for different size, why ?
 
 Von Neumann, level change ? Why ?
