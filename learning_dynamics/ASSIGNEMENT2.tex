@@ -431,6 +431,8 @@ identical as in Part I and Part II.
 \paragraph{Remark} The simulations were run on a 50x50 lattice, with
 a 10x10 \textit{center zone} and 300 rounds played.
 
+\subsubsection{Part I mechanisms}
+
 \begin{figure}[H]
     \begin{subfigure}{.5\textwidth}
         \centering
@@ -451,26 +453,19 @@ a 10x10 \textit{center zone} and 300 rounds played.
 \end{figure}
 
 
-\begin{figure}[H]
-    \begin{subfigure}{.5\textwidth}
-        \centering
-        \includegraphics[width=1\linewidth]
-        {images/assign2/part32-coop/coop.png}
-        \caption{Cooperation surrounding}
-        \label{fig:part32-coop}
-    \end{subfigure}
-    \begin{subfigure}{.5\textwidth}
-        \centering
-        \includegraphics[width=1\linewidth]
-        {images/assign2/part32-defect/coop.png}
-        \caption{Defection surrounding}
-        \label{fig:part32-coop}
-    \end{subfigure}
-    \caption{Cooperation level using replicator rule and
-    snowdrift game on a 50x50 lattice and 10x10 center zone}
-    \label{fig:50part2}
-\end{figure}
+\paragraph{Cooperation surrounding}
 
+Figure \ref{fig:part31-coop} shows
+the cooperation level when using the same configuration as Part I
+with a Moore neighborhood, with the center zone surrounded
+by cooperation players. Figure \ref{fig:visupart31-coop} shows the
+lattice of this simulation over time. We can see that in this simulation
+the surrounded players are not affected by the center zone (except for the
+closest players). Indeed the behaviour is as explained in Part I, the
+cooperation level drops to a very low rate, and form a cluster that will
+take advantage over time and \textit{stabilize} around 95\%. This percentage
+is higher than in Part I because the cooperation level changes only
+in the center zone.
 
 % part31-coop
 \begin{figure}[H]
@@ -525,6 +520,20 @@ a 10x10 \textit{center zone} and 300 rounds played.
     \label{fig:visupart31-coop}
 \end{figure}
 
+\paragraph{Defection surrounding}
+
+Figure \ref{fig:part31-defect} shows
+the cooperation level when using the same configuration as Part I
+with a Moore neighborhood, with the center zone surrounded
+by defecting players. Figure \ref{fig:visupart31-defect} shows the
+lattice of this simulation over time. Here we can see that the center zone
+influenced the surrounding population. As soon as the cluster are formed
+in the center zone, the cooperation level grows up to \textit{stabilize}
+at around 90\%. Here the cooperation level is more or less the same
+as exposed in Part I, because in $t_1$, the defecting
+players are a majority, as
+opposed to cooperation surrounding where only the center zone has a majority
+of defecting players.
 
 % part31-defect
 \begin{figure}[H]
@@ -579,6 +588,31 @@ a 10x10 \textit{center zone} and 300 rounds played.
     \label{fig:visupart31-defect}
 \end{figure}
 
+
+\subsubsection{Part II mechanisms}
+
+\begin{figure}[H]
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]
+        {images/assign2/part32-coop/coop.png}
+        \caption{Cooperation surrounding}
+        \label{fig:part32-coop}
+    \end{subfigure}
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]
+        {images/assign2/part32-defect/coop.png}
+        \caption{Defection surrounding}
+        \label{fig:part32-coop}
+    \end{subfigure}
+    \caption{Cooperation level using replicator rule and
+    snowdrift game on a 50x50 lattice and 10x10 center zone}
+    \label{fig:50part2}
+\end{figure}
+
+\paragraph{Cooperation surrounding}
+
 % part32-coop
 \begin{figure}[H]
     \begin{subfigure}{.33\textwidth}
@@ -632,6 +666,8 @@ a 10x10 \textit{center zone} and 300 rounds played.
     \label{fig:visupart32-coop}
 \end{figure}
 
+
+\paragraph{Defection surrounding}
 
 % part32-defect
 \begin{figure}[H]
