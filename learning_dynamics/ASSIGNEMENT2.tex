@@ -35,7 +35,7 @@ where a player would choose cooperate with a probabilty of $\frac{1}{2}$.
 
 \label{neighborpart1}
 \paragraph{Remark} The analysis is based on results from 50x50 lattice
-simulations
+simulations.
 
 \paragraph{Moore}
 
@@ -188,6 +188,56 @@ and grews as explained in previous section.
 \end{figure}
 
 \section{Part II}
+
+\section{Update mechanism}
+
+\begin{equation}
+    P_{ij} = (1 + [W_j - W_i] / [N\cdot(max\{P, R, T, S\}
+    - min\{P, R, T, S\}])/2
+\end{equation}
+
+\paragraph{Intuitive observation}
+
+This probabilty is interesting to be used as an update mechanism because
+the probability to change the action to the neighbor action is
+proportional to the difference between the players payoffs.
+
+\paragraph{Probability variables}
+
+$[W_j - W_i]$ is the difference between the two payoffs.
+$N$ represent the number
+of neighbor that the payoff calculation are based on. The difference
+between the maximum and minimum multiply by $N$ is
+the maximum payoff of a player. Since the payoffs cannot be bigger than
+the maximum score, it is clear that $P_{ij}$ is a probability.
+
+\paragraph{Analysis}
+
+We can highlight different result from
+the fration
+$[W_j - W_i] / [N\cdot(max\{P, R, T, S\}
+- min\{P, R, T, S\}]$
+between the difference of payoffs and the maximum score:
+
+\begin{enumerate}
+    \item Fraction is positive when $W_j > W_i$. A special
+    case is when $W_j$ is maximum and $W_i$ is null, the fraction is equal to 1.
+    \item Fraction is negative when $W_i > W_j$. A special
+    case is when $W_i$ is maximum and $W_j$ is null, the fraction is equal to -1.
+    \item Fraction is equal to 0 when $W_i = W_j$
+\end{enumerate}
+
+By using the full definition of the probablity we can see that when in
+case (1), it is more probable that the player will change is action
+to the neighbor action, and sure if the fraction is equal 1
+because $P_{ij} = 1$. When in (2),
+it is more probable that the player will keep is action, and sure that
+he will not change it when the fraction is equal to -1
+because $P_{ij} = 0$. When in (3),
+$P_{ij} = \frac{1}{2}$,
+the payoff of the player and his neighbor are the same, which means that
+both of their actions lead to the same payoff, so the probability to change
+or to keep is the same.
 
 % Coop level for 50
 \begin{figure}
