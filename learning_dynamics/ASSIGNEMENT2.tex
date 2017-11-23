@@ -26,14 +26,16 @@ Université Libre de Bruxelles
 \section{Part I}
 
 \paragraph{Specifications}
-Plots in this part shows the average cooperation level of 100
+Plots in Figure \ref{fig:50part1} shows the average cooperation level of 100
 simulations with unconditional imitation as the update mechanism.
+The game played si the weak prisoner's dilemma.
 The first rounds were played randomly,
 where a player would choose cooperate with a probabilty of $\frac{1}{2}$.
 
 \subsection{Neighborhood analysis}
 
 \label{neighborpart1}
+
 \paragraph{Remark} The analysis is based on results from 50x50 lattice
 simulations.
 
@@ -189,7 +191,7 @@ and grews as explained in previous section.
 
 \section{Part II}
 
-\section{Update mechanism}
+\subsection{Update mechanism}
 
 \begin{equation}
     P_{ij} = (1 + [W_j - W_i] / [N\cdot(max\{P, R, T, S\}
@@ -223,7 +225,8 @@ between the difference of payoffs and the maximum score:
     \item Fraction is positive when $W_j > W_i$. A special
     case is when $W_j$ is maximum and $W_i$ is null, the fraction is equal to 1.
     \item Fraction is negative when $W_i > W_j$. A special
-    case is when $W_i$ is maximum and $W_j$ is null, the fraction is equal to -1.
+    case is when $W_i$ is maximum and $W_j$ is null,
+    the fraction is equal to -1.
     \item Fraction is equal to 0 when $W_i = W_j$
 \end{enumerate}
 
@@ -238,6 +241,81 @@ $P_{ij} = \frac{1}{2}$,
 the payoff of the player and his neighbor are the same, which means that
 both of their actions lead to the same payoff, so the probability to change
 or to keep is the same.
+
+\paragraph{Specifications}
+Plots in Figure \ref{fig:50part2} shows the average cooperation level of 100
+simulations with replicator rule as the update mechanism. The game played
+is the snowdrift game.
+The first rounds were played randomly,
+where a player would choose cooperate with a probabilty of $\frac{1}{2}$.
+
+\subsection{Neighborhood analysis}
+
+\paragraph{Remark} The analysis is based on results from 50x50 lattice
+simulations.
+
+\paragraph{Moore}
+
+Figure \ref{fig:50moorepart2} shows the average cooperation level using
+the specifications above and a Moore neighborhood system.
+In those simulations we can see that the cooperation
+level drops at each round, but with a smaller factor over time.
+%It is
+%highly probable that when $t \rightarrow \infty$ the cooperation level
+%tends to zero.
+Here we see that around round 50, the cooperation level
+is \textit{stable} at around 40\%. By \textit{stable} we mean that the
+cooperation seems to drop lesser over time, but it still drops.
+
+\paragraph{Von Neumann}
+
+
+Figure \ref{fig:50vonpart2} shows the average cooperation level using
+the specifications above and a Von Neumann neighborhood system. Even
+with less neighbors per player, the pattern seems to be the same
+than a Moore neighborhood over time.
+It drops to be \textit{stable},
+but with a far less cooperation level, around 20\%.
+The difference between the Moore neighborhood is that the drop factor,
+the lost of cooperation level over time, is bigger for a Von Neumann
+neighborhood, and it takes more time to have a more \textit{stabilized}
+cooperation level.
+
+\paragraph{Comparaison with Part I}
+
+In comparaison to Part I specifications and simulations, we see that her
+the players seems to be less \textit{influenced} by their neighborhood.
+This is due to the update mechanism. The replicator rule provide to the player
+a way to respond to their neighborhood in a more \textit{intelligent} manner.
+Indeed, when using the unconditional imitation, we saw that after the first
+round the reactions of the players is extreme, a big majority of the players,
+change their actions to defect, because in a equally distributed population,
+defect usually have a better score. With the replicator rule each player,
+based on his probability, will likely change his move only if it is
+\textit{probably} better than his previous one.
+
+\subsection{Lattice obseravion}
+
+Figure \ref{fig:visu50part2} shows the evolution of the lattice over time.
+In opposite the the lattice in Part I, her we see that the player are less
+influenced by their neighborhood. Indeed, there is no form of
+\textit{zone of cooperation}, that takes the advantage overtime.
+We can see that overtime players tend to prefer to defect.
+
+\subsection{Lattice size analysis}
+
+Figure \ref{fig:otherpart2} shows the cooperation level for matrix of
+different size. The pattern here is the same for the lattice 50x50. The
+cooperation level drops over time to be \textit{steady} at around 40\%.
+Except for the lattice of size 4 where the cooperation level drops more and
+it is smaller that for the other size. We can suppose that here when the
+lattice is too small, and the probability of cooperate in a smaller lattice
+is smaller that with bigger lattice. In conclusion, we can see that for
+this specifications,
+size does not matter, up to a point where the lattice is too small,
+in opposite of specifications of Part I, where the behaviour is different
+with lattice of different size.
+
 
 % Coop level for 50
 \begin{figure}
