@@ -9,6 +9,7 @@
 \usepackage{subcaption}
 \usepackage{mathpazo}
 \usepackage[a4paper]{geometry}
+\usepackage{float}
 
 \title{Learning Dynamics: Assignment 2 \\
 \Large Evolutionary dynamics in a spatial context}
@@ -59,44 +60,8 @@ We can see that the cooperation level follows the same pattern but on a
 different scale. With Moore we have more neighbors, which can explain
 why the behaviour of the players are more \textit{extreme}.
 
-\subsection{Lattice observation}
-
-Figure \ref{fig:visu50part1} shows the full matrix of cooperation for
-the rounds $t_{0}, t_{1}, t_{5}, t_{10}, t_{20}, t_{50}$. We can observe
-that in the first round there is more or less the same number of players
-cooperating and defecting. But in the second round, a large percentage
-of players will choose to defect, leaving only smalls zone of cooperation.
-This is due to the fact that a defecting player will usually have a better
-score around a mixed neighborhood of player than a cooperating player.
-But when a cooperating player has a cooperating neighborhood he will have
-high enough score to influence defecting players in his neighborhood. We can
-observe that in the following rounds, a sort of \textit{cluster} of cooperation
-will be formed and influence the full lattice until reaching the cooperation
-level explained in section \ref{neighborpart1}.
-
-
-
-\subsection{Lattice size analysis}
-
-\paragraph{}
-
-Figure \ref{fig:otherpart1}  shows the average cooperation level
-of lattices of size 20, 12, 8 and 4. The behavior seems to the same
-as in the analysis made against lattice of size 50
-in section \ref{neighborpart1}, it crashes to a small level of cooperation
-to grows and stabilize after a number of rounds. The plots show that when
-the lattice size is small, the cooperation stabilize to a smaller cooperation
-level than bigger lattices. We can observe that for a size 4 lattice,
-the cooperation level is even 0 after the first round.
-
-\paragraph{}
-
-The reason could be that there is less players so less possibilities to
-form some cooperation neighborhood, that will form the \texttt{clusters}
-and grews as explained in previous section.
-
 % Coop level for 50
-\begin{figure}
+\begin{figure}[H]
     \begin{subfigure}{.5\textwidth}
         \centering
         \includegraphics[width=1\linewidth]{images/assign2/50-part1}
@@ -114,9 +79,24 @@ and grews as explained in previous section.
     \label{fig:50part1}
 \end{figure}
 
-% Visualization for 50
 
-\begin{figure}
+\subsection{Lattice observation}
+
+Figure \ref{fig:visu50part1} shows the full matrix of cooperation for
+the rounds $t_{0}, t_{1}, t_{5}, t_{10}, t_{20}, t_{50}$. We can observe
+that in the first round there is more or less the same number of players
+cooperating and defecting. But in the second round, a large percentage
+of players will choose to defect, leaving only smalls zone of cooperation.
+This is due to the fact that a defecting player will usually have a better
+score around a mixed neighborhood of player than a cooperating player.
+But when a cooperating player has a cooperating neighborhood he will have
+high enough score to influence defecting players in his neighborhood. We can
+observe that in the following rounds, a sort of \textit{cluster} of cooperation
+will be formed and influence the full lattice until reaching the cooperation
+level explained in section \ref{neighborpart1}.
+
+% Visualization for 50
+\begin{figure}[H]
     \begin{subfigure}{.33\textwidth}
       \centering
       \includegraphics[width=1\linewidth]{images/assign2/visu_50-part1/t0}
@@ -158,8 +138,29 @@ and grews as explained in previous section.
     \label{fig:visu50part1}
 \end{figure}
 
+
+\subsection{Lattice size analysis}
+
+\paragraph{}
+
+Figure \ref{fig:otherpart1}  shows the average cooperation level
+of lattices of size 20, 12, 8 and 4. The behavior seems to the same
+as in the analysis made against lattice of size 50
+in section \ref{neighborpart1}, it crashes to a small level of cooperation
+to grows and stabilize after a number of rounds. The plots show that when
+the lattice size is small, the cooperation stabilize to a smaller cooperation
+level than bigger lattices. We can observe that for a size 4 lattice,
+the cooperation level is even 0 after the first round.
+
+\paragraph{}
+
+The reason could be that there is less players so less possibilities to
+form some cooperation neighborhood, that will form the \texttt{clusters}
+and grews as explained in previous section.
+
+
 % Coop level for all others
-\begin{figure}
+\begin{figure}[H]
     \begin{subfigure}{.5\textwidth}
         \centering
         \includegraphics[width=1\linewidth]{images/assign2/20-part1}
@@ -281,44 +282,8 @@ the lost of cooperation level over time, is bigger for a Von Neumann
 neighborhood, and it takes more time to have a more \textit{stabilized}
 cooperation level.
 
-\paragraph{Comparaison with Part I}
-
-In comparaison to Part I specifications and simulations, we see that her
-the players seems to be less \textit{influenced} by their neighborhood.
-This is due to the update mechanism. The replicator rule provide to the player
-a way to respond to their neighborhood in a more \textit{intelligent} manner.
-Indeed, when using the unconditional imitation, we saw that after the first
-round the reactions of the players is extreme, a big majority of the players,
-change their actions to defect, because in a equally distributed population,
-defect usually have a better score. With the replicator rule each player,
-based on his probability, will likely change his move only if it is
-\textit{probably} better than his previous one.
-
-\subsection{Lattice obseravion}
-
-Figure \ref{fig:visu50part2} shows the evolution of the lattice over time.
-In opposite the the lattice in Part I, her we see that the player are less
-influenced by their neighborhood. Indeed, there is no form of
-\textit{zone of cooperation}, that takes the advantage overtime.
-We can see that overtime players tend to prefer to defect.
-
-\subsection{Lattice size analysis}
-
-Figure \ref{fig:otherpart2} shows the cooperation level for matrix of
-different size. The pattern here is the same for the lattice 50x50. The
-cooperation level drops over time to be \textit{steady} at around 40\%.
-Except for the lattice of size 4 where the cooperation level drops more and
-it is smaller that for the other size. We can suppose that here when the
-lattice is too small, and the probability of cooperate in a smaller lattice
-is smaller that with bigger lattice. In conclusion, we can see that for
-this specifications,
-size does not matter, up to a point where the lattice is too small,
-in opposite of specifications of Part I, where the behaviour is different
-with lattice of different size.
-
-
 % Coop level for 50
-\begin{figure}
+\begin{figure}[H]
     \begin{subfigure}{.5\textwidth}
         \centering
         \includegraphics[width=1\linewidth]{images/assign2/50-part2}
@@ -336,8 +301,30 @@ with lattice of different size.
     \label{fig:50part2}
 \end{figure}
 
+\paragraph{Comparaison with Part I}
+
+In comparaison to Part I specifications and simulations, we see that her
+the players seems to be less \textit{influenced} by their neighborhood.
+This is due to the update mechanism. The replicator rule provide to the player
+a way to respond to their neighborhood in a more \textit{intelligent} manner.
+Indeed, when using the unconditional imitation, we saw that after the first
+round the reactions of the players is extreme, a big majority of the players,
+change their actions to defect, because in a equally distributed population,
+defect usually have a better score. With the replicator rule each player,
+based on his probability, will likely change his move only if it is
+\textit{probably} better than his previous one.
+
+
+\subsection{Lattice obseravion}
+
+Figure \ref{fig:visu50part2} shows the evolution of the lattice over time.
+In opposite the the lattice in Part I, her we see that the player are less
+influenced by their neighborhood. Indeed, there is no form of
+\textit{zone of cooperation}, that takes the advantage overtime.
+We can see that overtime players tend to prefer to defect.
+
 % Visualization for 50
-\begin{figure}
+\begin{figure}[H]
     \begin{subfigure}{.33\textwidth}
       \centering
       \includegraphics[width=1\linewidth]{images/assign2/visu_50-part2/t0}
@@ -379,8 +366,22 @@ with lattice of different size.
     \label{fig:visu50part2}
 \end{figure}
 
+\subsection{Lattice size analysis}
+
+Figure \ref{fig:otherpart2} shows the cooperation level for matrix of
+different size. The pattern here is the same for the lattice 50x50. The
+cooperation level drops over time to be \textit{steady} at around 40\%.
+Except for the lattice of size 4 where the cooperation level drops more and
+it is smaller that for the other size. We can suppose that here when the
+lattice is too small, and the probability of cooperate in a smaller lattice
+is smaller that with bigger lattice. In conclusion, we can see that for
+this specifications,
+size does not matter, up to a point where the lattice is too small,
+in opposite of specifications of Part I, where the behaviour is different
+with lattice of different size.
+
 % Coop level for all others
-\begin{figure}
+\begin{figure}[H]
     \begin{subfigure}{.5\textwidth}
         \centering
         \includegraphics[width=1\linewidth]{images/assign2/20-part2}
@@ -408,6 +409,281 @@ with lattice of different size.
     \caption{Cooperation level using replicator rule, Moore neighborhood
     and snowdrift game}
     \label{fig:otherpart2}
+\end{figure}
+
+
+\section{Part III}
+
+\subsection{Specifications}
+
+
+In this part we will discuss the behaviour of the same mechanics used
+in sections above but by changing the start round population. The idea is the
+following: a zone in the center that is equally distributed
+between cooperation and defection, i.e. a random start round for the
+players in the center, and this population be surrounded by
+full cooperation or full defection players. We will ask two questions:
+How the cooperation level changes over time, and is the final results
+identical as in Part I and Part II.
+
+\subsection{Results}
+
+\paragraph{Remark} The simulations were run on a 50x50 lattice, with
+a 10x10 \textit{center zone} and 300 rounds played.
+
+\begin{figure}[H]
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{images/assign2/part31-coop/coop.png}
+        \caption{Cooperation surrounding}
+        \label{fig:part31-coop}
+    \end{subfigure}
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]
+        {images/assign2/part31-defect/coop.png}
+        \caption{Defection surrounding}
+        \label{fig:part31-defect}
+    \end{subfigure}
+    \caption{Cooperation level using unconditional imitation and
+    weak prisoner's dilemma on a 50x50 lattice and 10x10 center zone}
+    \label{fig:50part1}
+\end{figure}
+
+
+\begin{figure}[H]
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]
+        {images/assign2/part32-coop/coop.png}
+        \caption{Cooperation surrounding}
+        \label{fig:part32-coop}
+    \end{subfigure}
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]
+        {images/assign2/part32-defect/coop.png}
+        \caption{Defection surrounding}
+        \label{fig:part32-coop}
+    \end{subfigure}
+    \caption{Cooperation level using replicator rule and
+    snowdrift game on a 50x50 lattice and 10x10 center zone}
+    \label{fig:50part2}
+\end{figure}
+
+
+% part31-coop
+\begin{figure}[H]
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part31-coop/t0}
+      \caption{$t_{0}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part31-coop/t1}
+      \caption{$t_{1}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part31-coop/t5}
+      \caption{$t_{5}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part31-coop/t10}
+      \caption{$t_{10}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part31-coop/t20}
+      \caption{$t_{20}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part31-coop/t40}
+      \caption{$t_{40}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part31-coop/t50}
+      \caption{$t_{50}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part31-coop/t60}
+      \caption{$t_{60}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part31-coop/t100}
+      \caption{$t_{100}$}
+    \end{subfigure}
+    \caption{Visualization of the lattice with unconditional imitation,
+    Moore neighborhood and weak prisoner's, dilemma. The start round is
+    a 10x10 center zone and surrounded by cooperation players.}
+    \label{fig:visupart31-coop}
+\end{figure}
+
+
+% part31-defect
+\begin{figure}[H]
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part31-defect/t0}
+      \caption{$t_{0}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part31-defect/t1}
+      \caption{$t_{1}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part31-defect/t5}
+      \caption{$t_{5}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part31-defect/t10}
+      \caption{$t_{10}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part31-defect/t20}
+      \caption{$t_{20}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part31-defect/t40}
+      \caption{$t_{40}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part31-defect/t50}
+      \caption{$t_{50}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part31-defect/t60}
+      \caption{$t_{60}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part31-defect/t100}
+      \caption{$t_{100}$}
+    \end{subfigure}
+    \caption{Visualization of a the lattice with unconditional imitation,
+    Moore neighborhood and weak prisoner's, dilemma. The start round is
+    a 10x10 center zone and surrounded by defection players.}
+    \label{fig:visupart31-defect}
+\end{figure}
+
+% part32-coop
+\begin{figure}[H]
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part32-coop/t0}
+      \caption{$t_{0}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part32-coop/t1}
+      \caption{$t_{1}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part32-coop/t5}
+      \caption{$t_{5}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part32-coop/t10}
+      \caption{$t_{10}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part32-coop/t20}
+      \caption{$t_{20}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part32-coop/t40}
+      \caption{$t_{40}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part32-coop/t50}
+      \caption{$t_{50}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part32-coop/t60}
+      \caption{$t_{60}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part32-coop/t100}
+      \caption{$t_{100}$}
+    \end{subfigure}
+    \caption{Visualization of a the lattice with replicator rule,
+    Moore neighborhood and weak snowdrift game. The start round is
+    a 10x10 center zone and surrounded by cooperation players.}
+    \label{fig:visupart32-coop}
+\end{figure}
+
+
+% part32-defect
+\begin{figure}[H]
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part32-defect/t0}
+      \caption{$t_{0}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part32-defect/t1}
+      \caption{$t_{1}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part32-defect/t5}
+      \caption{$t_{5}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part32-defect/t10}
+      \caption{$t_{10}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part32-defect/t20}
+      \caption{$t_{20}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part32-defect/t40}
+      \caption{$t_{40}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part32-defect/t50}
+      \caption{$t_{50}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part32-defect/t60}
+      \caption{$t_{60}$}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{images/assign2/part32-defect/t100}
+      \caption{$t_{100}$}
+    \end{subfigure}
+    \caption{Visualization of a the lattice with replicator rule,
+    Moore neighborhood and weak snowdrift game. The start round is
+    a 10x10 center zone and surrounded by defecting players.}
+    \label{fig:visupart32-defect}
 \end{figure}
 
 
