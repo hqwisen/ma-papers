@@ -75,7 +75,7 @@ why the behaviour of the players are more \textit{extreme}.
         \label{fig:50vonpart1}
     \end{subfigure}
     \caption{Cooperation level using unconditional imitation and
-    weak prisoner's dilemma on a 50x50 lattice}
+    weak prisoner's dilemma on a 50x50 lattice.}
     \label{fig:50part1}
 \end{figure}
 
@@ -134,7 +134,7 @@ level explained in section \ref{neighborpart1}.
       \label{fig:t50_50part1}
     \end{subfigure}
     \caption{Visualization of a the lattice with unconditional imitation,
-    Moore neighborhood and weak prisoner's, dilemma}
+    Moore neighborhood and weak prisoner's, dilemma.}
     \label{fig:visu50part1}
 \end{figure}
 
@@ -186,7 +186,7 @@ and grews as explained in previous section.
         \label{fig:4moorepart1}
     \end{subfigure}
     \caption{Cooperation level using unconditional imitation, Moore neighborhood
-    and weak prisoner's dilemma}
+    and weak prisoner's dilemma.}
     \label{fig:otherpart1}
 \end{figure}
 
@@ -297,7 +297,7 @@ cooperation level.
         \label{fig:50vonpart2}
     \end{subfigure}
     \caption{Cooperation level using replicator rule and
-    snowdrift game on a 50x50 lattice}
+    snowdrift game on a 50x50 lattice.}
     \label{fig:50part2}
 \end{figure}
 
@@ -362,7 +362,7 @@ We can see that overtime players tend to prefer to defect.
       \label{fig:t50_50part2}
     \end{subfigure}
     \caption{Visualization of a the lattice with replicator rule,
-    Moore neighborhood and snowdrift game}
+    Moore neighborhood and snowdrift game.}
     \label{fig:visu50part2}
 \end{figure}
 
@@ -448,12 +448,14 @@ a 10x10 \textit{center zone} and 300 rounds played.
         \label{fig:part31-defect}
     \end{subfigure}
     \caption{Cooperation level using unconditional imitation and
-    weak prisoner's dilemma on a 50x50 lattice and 10x10 center zone}
+    weak prisoner's dilemma on a 50x50 lattice and 10x10 center zone.}
     \label{fig:50part1}
 \end{figure}
 
 
 \paragraph{Cooperation surrounding}
+
+\label{part31-coop}
 
 Figure \ref{fig:part31-coop} shows
 the cooperation level when using the same configuration as Part I
@@ -604,14 +606,32 @@ of defecting players.
         \includegraphics[width=1\linewidth]
         {images/assign2/part32-defect/coop.png}
         \caption{Defection surrounding}
-        \label{fig:part32-coop}
+        \label{fig:part32-defect}
     \end{subfigure}
     \caption{Cooperation level using replicator rule and
-    snowdrift game on a 50x50 lattice and 10x10 center zone}
+    snowdrift game on a 50x50 lattice and 10x10 center zone.}
     \label{fig:50part2}
 \end{figure}
 
 \paragraph{Cooperation surrounding}
+
+Figure \ref{fig:part32-coop} shows
+the cooperation level when using the same configuration as Part II
+with a Moore neighborhood, with the center zone surrounded
+by cooperation players. Figure \ref{fig:visupart32-coop} shows the
+lattice of this simulation over time. The cooperation level over time
+is decreasing until reaching a level around 40\%. As shown in the visualization
+we see that the surrounding cooperating players are influenced by the center
+zone players. Indeed, players close to the center zone are changing their
+actions based on the results of the center players score. We can see
+that at round $t_{100}$, the full population has been influenced
+by the results of the center zone games, and the distribution of
+players seems identical
+to the results exposed in Part II, the cooperation is \textit{stabilize}
+at around 40\%. As opposed to cooperation surrounding
+in section \ref{part31-coop}, here the full population is influenced and
+change their actions, where in the cooperation surrounding using Part I
+mechanisms the players stick to their cooperating action.
 
 % part32-coop
 \begin{figure}[H]
@@ -668,6 +688,18 @@ of defecting players.
 
 
 \paragraph{Defection surrounding}
+
+Figure \ref{fig:part32-defect} shows
+the cooperation level when using the same configuration as Part II
+with a Moore neighborhood, with the center zone surrounded
+by defecting players. Figure \ref{fig:visupart32-defect} shows the
+lattice of this simulation over time. The pattern seems to be the same
+as exposed in cooperation surrounding. The center zone, influenced
+the players close to the them, until it reaches the full population.
+Here the cooperation level is low, since cooperating players can only be
+found in the center zone in the first round.
+It is growing over time to reach a \textit{stabilize}
+state at around 40\% which.
 
 % part32-defect
 \begin{figure}[H]
