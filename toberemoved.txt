@@ -1,7 +1,12 @@
 
-Results for different size, why ?
+Analyse Coop on 50 and compare moore and vn, y is it different ?
 
-Von Neumann, level change ? Why ?
+Explain visualization observation, explain that it drops then comeback,
+whatever neighborhoods it uses
+
+Explain difference betwee 50 and others, and explain also that to runs
+are not always the same (give example for 20). Explain why coop is smaller
+(and 0 for 4x4)
 
 Part 2
 

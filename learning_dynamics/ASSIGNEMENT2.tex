@@ -10,7 +10,8 @@
 \usepackage{mathpazo}
 \usepackage[a4paper]{geometry}
 
-\title{Learning Dynamics: Assignment 2}
+\title{Learning Dynamics: Assignment 2 \\
+\Large Evolutionary dynamics in a spatial context}
 \author{\Large Hakim Boulahya \\
 hboulahy@ulb.ac.be\\
 \\
@@ -21,9 +22,76 @@ Université Libre de Bruxelles
 \maketitle
 \tableofcontents
 \newpage
+
 \section{Part I}
 
+\paragraph{Specifications}
+Plots in this part shows the average cooperation level of 100
+simulations with unconditional imitation as the update mechanism.
+The first rounds were played randomly,
+where a player would choose cooperate with a probabilty of $\frac{1}{2}$.
 
+\subsection{Neighborhood analysis}
+
+\label{neighborpart1}
+\paragraph{Remark} The analysis is based on results from 50x50 lattice
+simulations
+
+\paragraph{Moore}
+
+Figure \ref{fig:50moorepart1} shows the average cooperation level
+using a Moore neighborhood for each player.
+We can observe that the level after the first randomly played round, the
+cooperation dropped at around 2\%. Then grows to stabilize at around 87\%.
+
+\paragraph{Von Neumann}
+
+Figure \ref{fig:50vonpart1} shows the average cooperation level
+using a Von Neumann neighborhood for each player.
+We can observe that the level after the first randomly played round, the
+cooperation dropped at around 15\%. Then grows to stabilize at around 40\%.
+
+\paragraph{}
+
+We can see that the cooperation level follows the same pattern but on a
+different scale. With Moore we have more neighbors, which can explain
+why the behaviour of the players are more \textit{extreme}.
+
+\subsection{Lattice observation}
+
+Figure \ref{fig:visu50part1} shows the full matrix of cooperation for
+the rounds $t_{0}, t_{1}, t_{5}, t_{10}, t_{20}, t_{50}$. We can observe
+that in the first round there is more or less the same number of players
+cooperating and defecting. But in the second round, a large percentage
+of players will choose to defect, leaving only smalls zone of cooperation.
+This is due to the fact that a defecting player will usually have a better
+score around a mixed neighborhood of player than a cooperating player.
+But when a cooperating player has a cooperating neighborhood he will have
+high enough score to influence defecting players in his neighborhood. We can
+observe that in the following rounds, a sort of \textit{cluster} of cooperation
+will be formed and influence the full lattice until reaching the cooperation
+level explained in section \ref{neighborpart1}.
+
+
+
+\subsection{Lattice size analysis}
+
+\paragraph{}
+
+Figure \ref{fig:otherpart1}  shows the average cooperation level
+of lattices of size 20, 12, 8 and 4. The behavior seems to the same
+as in the analysis made against lattice of size 50
+in section \ref{neighborpart1}, it crashes to a small level of cooperation
+to grows and stabilize after a number of rounds. The plots show that when
+the lattice size is small, the cooperation stabilize to a smaller cooperation
+level than bigger lattices. We can observe that for a size 4 lattice,
+the cooperation level is even 0 after the first round.
+
+\paragraph{}
+
+The reason could be that there is less players so less possibilities to
+form some cooperation neighborhood, that will form the \texttt{clusters}
+and grews as explained in previous section.
 
 % Coop level for 50
 \begin{figure}
