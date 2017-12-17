@@ -271,5 +271,13 @@ hboulahy@ulb.ac.be - 000391737
     \label{fig:arms_ex3}
 \end{figure}
 
+\section{Climbing game}
+
+When using the formula, it is important to have a big tau, because exp(Q/tau)
+will give errors if Q is too big. (See how EV(a) is calculated)
+
+I also remarked that when using EV with max_rewards or max_q when
+min_tau = 0.001 the 11 is good, but when 0.1 or 1, not. THis is probably
+due to the stochastic of our game.
 
 \end{document}
