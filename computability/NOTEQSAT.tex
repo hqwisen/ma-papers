@@ -10,71 +10,177 @@
 \usepackage{mathpazo}
 \usepackage[a4paper]{geometry}
 \usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
 
-\title{Computability and Complexity: $\not=$SAT}
+\title{INFOF408 - Computability and Complexity \\
+ \Large Homework}
 \author{\Large Hakim Boulahya \\
 Université Libre de Bruxelles
 }
 
+\pagestyle{fancy}
+
+\fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+\fancyfoot[C]{\thepage/ \pageref{LastPage}}
+
+\fancypagestyle{firststyle}
+{
+\fancyfoot[C]{\thepage/ \pageref{LastPage}}
+}
+
 \begin{document}
+
 \maketitle
 % \tableofcontents
 % \newpage
 
-\section*{Proof Idea}
-
-To proof that $\not=$ SAT is NP-complete we have to prove that a NP problem is
-reducible in polynomial time to $\not=SAT$.
-
-a ou b ou c
-
-f, f, f is not valid because it doesnt satisfy
-
-List:
-
-* Look at the bookmarks
-* Proove NP-Complete: Proove that it is 3SAT by adding more formulas
-confirming the !=assign
-
-\section*{Proof}
-
-Hint proof
-
-If we have a diffassign that satifsfy the formula, it means that in each
-clause there is either two true with a false two false with a true. By
-taking the negation it will jjust convert the 2t1f to a 1t2f and the 2f1t to
-1f2t which also satisfy the formula.
+\thispagestyle{firststyle}
 
 
-To proof that it is NP-complete we have to proove that all NP problem are
-reducible in P time to diffSAT. Since 3SAT is NP-complete, by reducing it
-to diffSAT it will prove that diffSAT is NP-Complete.
-
-Note about the hint: the idea is to convert each clause into diffSAT.
-Since we known that if a diffassign sat a clause, it will also sat the neg
-of the clause.
-
-3SAT clause: c = (x y z)
-
-The idea is if (x y z) is true, i.e. an assignment sat the formula,
-we must find a 3cnf-formula that is true also
-but never contains three true in any clauses.
-
-Actually when converting we must fine a formula that if c is sat, then
-there exist a diffassing that sat the new formula.
-
-1 1 1
-1 1 0
-1 0 1
-1 0 0
-0 1 1
-0 1 0
-0 0 1
-0 0 0
+\section{$\not=$SAT is NP-complete}
 
 
-if c = T
+\subsection{Proof Idea}
 
-(c x y) (nc z F)
+\paragraph{}
+
+$\not=$SAT is a 3cnf-formula and we know that 3SAT is NP-complete.
+It is trivial that the best way to proof that  $\not=$SAT is NP-complete
+is to find a way reduce in polynomial time 3SAT to $\not=$SAT. Therefore
+the goal is to find a way to construct an equivalent $\not=$SAT formula
+for any 3SAT formula.
+The  $\not=$SAT formula must be satisfies iff the corresponding
+3SAT formula is satistied.
+
+We will proof that for any  $\not=$assignment that
+satisfy the  $\not=$SAT formula, the negation of this assignment also satisfy
+the formula. Therefore we have to find an  $\not=$assignment that satifsfy
+the newly constructed  $\not=$SAT formula.
+
+\subsection{Notations}
+
+
+Let $\phi$ be a 3cnf formula:
+
+$$
+\phi = (a_1 \vee b_1 \vee c_1) \wedge (a_2 \vee b_2 \vee c_2)
+\wedge ... \wedge
+(a_{k-1} \vee b_{k-1} \vee c_{k-1}) \wedge (a_k \vee b_k \vee c_k)
+$$
+
+
+
+\subsection{Negation of any
+$\not=$assignment is also a $\not=$assignment}
+\label{neg}
+\paragraph{}
+
+If $\phi$ has a $\not=$assignment, then it means that there exists an
+assignment such that $\phi$ is satified and there is at least one
+literal for each clause that is set to false, and not all literals
+of this clause are set false. By negating the assignment, the literal
+set to false will change to true, which will still satisfy the clause.
+
+
+\subsection{Proof}
+
+Let $\phi$ represents any 3SAT formula. It
+is satisfied if all clauses are satified. To construct a
+$\not=$SAT formula, we will create, for each initial clause
+$(a_i \vee b_i \vee c_i)$,
+two clauses
+and add a new literal $x_i$ such that:
+
+$$
+A_{i} = (a_i \vee b_i \vee x_i)
+$$
+$$
+B_{i} = (c_i \vee \neg x_i \vee \bot)
+$$
+
+For each 3SAT formula, we have a $\not=$SAT formula:
+
+$$
+\phi_{\not=} = A_1 \wedge B_1 \wedge A_2 \wedge B_2 \wedge ...
+\wedge A_{k-1} \wedge B_{k-1} \wedge A_k \wedge B_k
+$$
+
+To make sure that $\phi_{\not=}$ is a $\not=$SAT formula it is
+necessary that: (1)
+each constructed clauses
+must be satisfied only if the initial clause is satisfied
+(2) the new clauses are satifisied with a $\not=$assignment.
+
+The construction is made as follow: if the assignment that satisfy the
+initial clause is when $c_i = \top$ and either $a_i = \top$, $b_i = \top$ or
+$a_i = \bot$ and $b_i = \bot$, \textit{i.e.}
+$a_i$ and $b_i$ must not be true together when
+$c_i$ is true,
+then set $x_i = \top$. For all other assignments set $x_i = \bot$.
+The construction is shown in Fig. \ref{tab:assignments}.
+
+\begin{figure}[H]
+    \centering
+    \begin{tabular}{|c|c|c||c|}
+        \hline
+        $a_i$ & $b_i$ & $c_i$ & $x_i$ \\
+        \hline
+        \hline
+        1 & 0 & 1 & 1 \\
+        \hline
+        0 & 1 & 1 & 1 \\
+        \hline
+        0 & 0 & 1 & 1 \\
+        \hline
+        1 & 1 & 1 & 0 \\
+        \hline
+        1 & 1 & 0 & 0 \\
+        \hline
+        1 & 0 & 0 & 0 \\
+        \hline
+        0 & 1 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 \\
+        \hline
+    \end{tabular}
+
+    \caption{Construction of $x_i$ based on the initial clause}
+    \label{tab:assignments}
+\end{figure}
+
+First let's prove that the construction in Fig. \ref{tab:assignments}
+satisfy the new clauses only
+when the initial clause is satisfy. The initial clause is not sat when
+all literals are set to false: $x_i$ is set to false in that case,
+therefore $A_{i}$ is not sat \textit{i.e.} $\phi_{\not=}$
+will not be sat. When the initial clause is sat, then the
+new clauses are both sat: if the assignment that satisfy the initial clause
+is based on $a_i$ or $b_i$ (\textit{i.e.} they are true), $A_i$ is true,
+and $B_i$ is true because of the negation of $x_i$. And if the sat assignment
+is only based on $c_i$, then $x_i$ is set to true, which sat $B_i$ and $A_i$.
+
+\paragraph{}
+
+Second we have to prove that that the construction in Fig. \ref{tab:assignments}
+is a $\not=$assignment for $A_i \wedge B_i$.
+It is obvious that $B_i$ is satisfied with a $\not=$assignment because of
+the constant literal $\bot$.
+We can see that any
+assignment in Fig. \ref{tab:assignments} that satisfy $A_i$,
+still satisfy $A_i$
+when using their negation (see \ref{neg}).
+
+\paragraph{}
+
+This construction is obviously polynomial because we add a new clause per
+initial clause from $\phi$, and we only assign values the the $x$ literal
+based on constant complexity conditions.
+
+\paragraph{}
+
+We proved that $\quad 3SAT \le_{P} \not=SAT \quad$
+\textit{i.e.} $\not=$SAT is NP-complete.
 
 \end{document}
