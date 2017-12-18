@@ -137,7 +137,7 @@ that by using a non-null $\epsilon$, the estimation of the Q-values overtime
 tends to be accurate. An intersting observation is that the estimation
 of the Q-values is faster (the accuration rate)
 when $\epsilon$ is larger. This is logical,
-since more $\epislon$ is large, more the action are selected randomly.
+since more $\epsilon$ is large, more the action are selected randomly.
 
 \subsection*{Softmax}
 
@@ -581,13 +581,128 @@ the dynamic softmax, where it is closer to the best Q-value, when it
 is stabilized.
 
 
-\section{Climbing game}
+\section{Stochastic Reward Game}
 
-When using the formula, it is important to have a big tau, because exp(Q/tau)
-will give errors if Q is too big. (See how EV(a) is calculated)
+\subsection{Algorithms}
 
-I also remarked that when using EV with max_rewards or max_q when
-min_tau = 0.001 the 11 is good, but when 0.1 or 1, not. THis is probably
-due to the stochastic of our game.
+\paragraph{}
+
+
+I chose to implement the softmax action selection with a temperature
+$\tau = 0.1$. For the heuristic algorithm, the FMQ heuristic from
+[1]. The expected value function is set as follow:
+
+$$
+EV(a) = Q(a) + c * maxR(a)
+$$
+
+The only difference with the article is that we don't use use frequence of
+the max reward. This is due to the fact that the reward are stochastic,
+\textit{i.e.} each reward is random and will occur only once. $c$ is the
+weight of the FMQ (importance of the heuristic compared
+to the Q-values), and is set to 1.
+
+The temperature of the boltzmann distribution is:
+
+$$
+\tau(t) = e^{-t} * \tau_{max} + \tau_{min}
+$$
+
+$\tau_{max}$ is the value that the temperature has at the first epoch, and
+$\tau_{min}$ is the lowest temperature that can be reach overtime.
+
+And the variables are set as follow:
+
+\begin{itemize}
+  \item $\tau_{max} = 10$
+  \item $\tau_{min} = 0.001$
+\end{itemize}
+
+The FMQ heuristic consists of choosing the action based on a boltzmann
+distribution \textit{i.e.} a softmax action selection method with
+a decreasing temperature $\tau(t)$ and a expected values that is not only the
+Q-values but the function $EV(a)$.
+
+\subsection{Results}
+
+Figure \ref{fig:climbing_rewards} shows the three graphs of the
+total collected reward per episode for all three cases.
+
+\begin{figure}[H]
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/assign3/exa/rewards}
+    \caption{$\sigma_0 = \sigma_1 = \sigma = 0.2$}
+    \label{fig:climbing_rewards_exa}
+  \end{subfigure}
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/assign3/exb/rewards}
+    \caption{$\sigma_0 = 4$ and $\sigma_1 = \sigma = 0.1$}
+    \label{fig:climbing_rewards_exb}
+  \end{subfigure}
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/assign3/exc/rewards}
+    \caption{$\sigma_1 = 4$ and $\sigma_0 = \sigma = 0.1$}
+    \label{fig:climbing_rewards_exc}
+  \end{subfigure}
+    \caption{Total collected reward per episode
+    versus the episode number for softmax 0.1 and FMQ heuristic}
+    \label{fig:climbing_rewards}
+\end{figure}
+
+
+\subsection{Discussion}
+
+\paragraph{How will the learning process change
+if we make the agents independent learners?}
+
+\paragraph{How will the learning process change if we make
+the agents always select the action that according
+to them will yield the highest reward (assuming the
+other agent plays the best response)?}
+
+
+\section{Project source files}
+
+The project wa implemented in Python3. It uses a combination of
+scripts and config files to implement the exercices.
+
+There is two scripts that are used, with config files, to run the
+simulation:
+
+\begin{itemize}
+  \item \textbf{nbandits.py}: scripts used for the first part
+  \item \textbf{climbing.py}: scripts used for the second part
+\end{itemize}
+
+Config files for exercices of the first part are in the directory
+\textbf{bandits\_exercices/}.
+
+Config files for exercices of the second part are in the directory
+\textbf{climbing\_exercices/}.
+
+The config files are self-explanatory.
+\subsection{How to run}
+
+Install the dependencies (numpy and matplotlib): \\ \\
+\texttt{pip install -r requirements.txt}
+\\ \\
+Run the scripts: \\ \\
+\texttt{python3 \{nbandits.py, climbing.py\} config.py}
+\\ \\
+Example: \\ \\
+\texttt{python3 nbandits.py bandits\_exercices/ex1\_table3.py}
+
+\section*{References}
+
+[1] Kapetanakis, S. and Kudenko, D. (2005).
+\textit{Reinforcement
+learning of coordination in heterogeneous cooperative multi-agent systems.}
+Lecture Notes in
+Computer Science
+(including subseries Lecture Notes in Artificial Intelligence and Lecture
+Notes in Bioinformatics), 3394 LNAI:119–131.
 
 \end{document}
