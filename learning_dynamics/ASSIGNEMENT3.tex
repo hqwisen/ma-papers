@@ -25,6 +25,8 @@ hboulahy@ulb.ac.be - 000391737
 
 \section{N-Armed Bandit}
 
+\paragraph{Remark} About the notation, here the first arm/action starts
+at \#0.
 
 \subsection{Exercice 1}
 
@@ -82,18 +84,60 @@ time.
     \label{fig:qtas_ex1}
 \end{figure}
 
-\paragraph{egreedy 0}
+\section{Q-values estimation}
 
-Since the algorithm will always choose the optimum $Q^*$, we can see on
-Figure \ref{fig:qtas_ex1} that the player never explore, i.e. it has
-no estimation of the Q-values, except for for the best $Q^*$, which is
-$Q*a1$
+Figure \ref{fig:qtas_ex1} shows the estimation of the Q-values for all algorithms.
 
-\paragraph{random}
+\subsection*{Random}
 
-Since the random methods chooses all actions with the same count, the player
-will explore the environment, therefore will be able to determine all
-Q-values to be close enough to the optimum.
+Since random methods is full exploration, we can see that for all Q-values
+the estimation of the $Q^*_{a_i}$ are accurate.
+
+
+\subsection{$\epsilon$-greedy}
+
+\paragraph{$\epsilon = 0$} Using a \textit{only} greedy exploration, we
+can see that only the best actions have Q-values different from 0. Actually
+the best action \#0 tends to be estimated fast enough. For action \#1, the
+Q-values is bigger than 0 because at the beginning of the learning, the
+algorithm is still looking for the greedy action, therefore action \#1
+could be the best one, until the algorithm find that \#action 0 is better.
+The two other actions, are never explored since the it is a full greedy
+method.
+
+\paragraph{$\epsilon = \{0.1, 0.2\}$}
+
+The estimation is more accurate when $\epsilon > 0$ \textit{i.e.} when
+the action are also selected randomly which allows exploration. We can see
+that by using a non-null $\epsilon$, the estimation of the Q-values overtime
+tends to be accurate. An intersting observation is that the estimation
+of the Q-values is faster (the accuration rate)
+when $\epsilon$ is larger. This is logical,
+since more $\epislon$ is large, more the action are selected randomly.
+
+\subsection*{Softmax}
+
+\paragraph{$\tau = 1$} Using $\tau = 1$ (a large enough temperature)
+the Q-values estimation follows the same pattern as for any exploration methods
+like random or $\epsilon = 0$. We can see that except for the last action
+the curves are close to the random ones,
+which confirm the exploration nature of a large temperature.
+The fact that the curves of
+the last action \#3 are more biased is because the standard deviation
+is larger that for the other actions, which make the Q-values estimation
+harder to make.
+
+
+\paragraph{$\tau = 0.1$} Using a smaller temperature for the softmax
+selection method, we have a more greedy action selection.
+This action selection method is the worst one that estimate Q-values
+(excluding the full exploiting method 0-greedy). We can see that
+for the best arms \#0 and \#1, the estimations are larger than for there
+worst arms, but it is \textit{far} from the actual $Q^*$. This can be explained
+by the nature of the softmax selection method with a
+small $\tau$: it sticks to the best arm
+found and doesn't explore much to estimate the correct Q-values overtime.
+
 
 
 % EX1 arms histograms
@@ -140,16 +184,57 @@ Q-values to be close enough to the optimum.
     \label{fig:arms_ex1}
 \end{figure}
 
-\paragraph{Random}
+\section{Histograms discussion}
 
-The random chooses the action based on uniform distribution. So it is
-logical chooses all arms the same count.
+Figure \ref{fig:arms_ex1} shows the histograms for all algorithms.
 
-e-greedy methods tends to follow the same pattern. The best arm is chosen
-most of the time. It is due to the fact that $\epsilon$ is small, which
-mean that the probability to choose the biggest optimum is more important.
-We can see that more \epsilon is greather, more the histograms shows that
-non-optimal arms are chosen.
+\subsection*{Random}
+
+The action selections, shown in Figure \ref{fig:arms_random_ex1},
+for the random selection method is equidistributed.
+Since all actions have the same probablity it is logical that the selection
+is equidistributed when there $t \to \infty$.
+
+\subsection*{$\epsilon$-greedy}
+
+
+Figures \ref{fig:arms_e_greedy0_ex1}
+\ref{fig:arms_e_greedy01_ex1}
+\ref{fig:arms_e_greedy02_ex1} shows the histograms of action selections
+for $\epsilon$-greedy selection methods.
+
+\paragraph{$\epsilon = 0$}
+
+With a null $\epsilon$, the action selection will be greedy \textit{i.e.},
+and since we have a pretty small standard deviation, the best action \#0
+is always chosen when found by the algorithm. This means that there is
+no exploration, the method chooses the best arm directly. The fact that
+the other actions are chosen, is that at the beginning it is necessary
+to explore a little bit to find the best action.
+
+\paragraph{$\epsilon = \{0.1, 0.2\}$}
+
+It follows the same pattern that when $\epsilon$ is null, except that here
+it is possible for the methods to explore more \textit{i.e.} choosing
+other actions than the best one. This is why the bar of other actions
+are higher when $\epsilon$ is bigger. If $\epsilon = 1$ the bars will
+be as shown for the random methods in Figure \ref{fig:arms_random_ex1}.
+
+\subsection*{Softmax}
+
+
+Figures \ref{fig:arms_softmax1_ex1} \ref{fig:arms_softmax01_ex1}
+shows the histograms of action selections
+for softmax selection methods.
+
+When temperature $\tau = 1$, the action selections are more randomize
+\textit{i.e.} the exploration is more noticable. An interesting observation
+in Figure \ref{fig:arms_softmax01_ex1}
+is that when $\tau = 0.1$, \textit{i.e.}
+the action selection is more greedy, softmax
+algorithm tends to hesitate to choose the best actions. The
+number of times that the 2 best actions,
+action \#0 et \#1, are chosen is more or less equal.
 
 
 \subsection{Exercice 2}
