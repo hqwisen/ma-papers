@@ -86,7 +86,10 @@ time.
 
 \section{Q-values estimation}
 
-Figure \ref{fig:qtas_ex1} shows the estimation of the Q-values for all algorithms.
+\label{sec:ex1_q_estim}
+
+Figure \ref{fig:qtas_ex1} shows the estimation
+of the Q-values for all algorithms.
 
 \subsection*{Random}
 
@@ -185,6 +188,8 @@ found and doesn't explore much to estimate the correct Q-values overtime.
 \end{figure}
 
 \section{Histograms discussion}
+
+\label{sec:ex1_histo}
 
 Figure \ref{fig:arms_ex1} shows the histograms for all algorithms.
 
@@ -291,6 +296,21 @@ ar more randomize outcomes, therefore harder to find the best reward.
     \label{fig:qtas_ex2}
 \end{figure}
 
+\subsection{Q-values estimation}
+
+
+Figure \ref{fig:qtas_ex2}
+shows the estimation of the Q-values for all algorithms.
+
+\paragraph{}
+
+The behaviour of the estimations for all algorithms are the same
+that we explain in section \ref{sec:ex1_q_estim}. The major difference
+is that the Q-values estimations for all algorithms, when exploring
+takes more time, because the standard deviation is larger. Because of
+that it is harder for the learner to estimate the correct Q-values.
+
+
 % ex2 arms histograms
 \begin{figure}[H]
   \begin{subfigure}{.5\textwidth}
@@ -335,8 +355,15 @@ ar more randomize outcomes, therefore harder to find the best reward.
     \label{fig:arms_ex2}
 \end{figure}
 
-The standard deviation is bigger, therefore the algorithms takes more time
-to find the best arm.
+
+The actions selection behavious for all algorithms seems to follow
+the same pattern that we explain in section \ref{sec:ex1_histo}.
+The major difference is that for the one that exploit th most, for example
+$0$-greedy, the selection of the \textit{worst} action have a higher
+bars. This is because of the larger standard deviation for all actions.
+It is harder to determine which one is the optimal selection \textit{i.e.}
+the exploration at the beginning is necessary, because the Q-values
+are estimated delayed compared to when the standard deviation is smaller.
 
 \subsection{Exercice 3}
 
@@ -392,6 +419,23 @@ is stabilized.
     \label{fig:qtas_ex3}
 \end{figure}
 
+\subsection{Q-values estimation}
+
+Figure \ref{fig:qtas_ex3} shows the Q-values estimation overtime of
+the dynamic selection methods $\epsilon$-greedy and softmax.
+
+\paragraph{Dynamic $\epsilon$-greedy}
+
+Since the dynamic e-greedy method is randomize at the beginning and
+more greedy overtime, the Q-values are correctly estimated and tends to
+the correct $Q^*$ overtime.
+
+\paragraph{Dynamic softmax}
+
+We have a large temperature at the beginning and a smaller temperature overtime.
+This leads to a algorithm that explore a lot at the beginning, therefore
+estimate the Q-values very fast.
+
 % ex3 arms histograms
 \begin{figure}[H]
     \begin{subfigure}{.5\textwidth}
@@ -410,6 +454,21 @@ is stabilized.
     per selection strategy}
     \label{fig:arms_ex3}
 \end{figure}
+
+\paragraph{Dynamic $\epsilon$-greedy}
+
+The action selection tends to the optimal action \#0 very fast. This
+is because that the probability $\epsilon$ drops very fast overtime, which
+lead to the greedy selection behaviour.
+
+\paragraph{Dynamic softmax}
+
+Since dynamic softmax has a large temperature when $t$ is small, therefore
+explore a lot, we can see that all actions are selected. Overtime
+to selection will be more greedy, and since the Q-values are accurate
+because of the exploration, when $t$ is high enough, the action \#0 and \#1
+will be selected more often. That explains the \textit{stairs} form
+of the histogram.
 
 \section{Climbing game}
 
