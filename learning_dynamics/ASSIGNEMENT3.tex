@@ -11,11 +11,13 @@
 \usepackage[a4paper]{geometry}
 \usepackage{float}
 
-\title{Learning Dynamics: Assignment 3 \\
-\Large Multi-Armed Bandits}
+
+\title{
+\LARGE Learning Dynamics: Assignment 3 \\
+\Large Multi-Armed Bandits and Stochastic Reward Game}
 \author{\Large Hakim Boulahya \\ \\
-Université Libre de Bruxelles \\
-hboulahy@ulb.ac.be - 000391737
+hboulahy@ulb.ac.be - 000391737 \\ \\
+\large Université Libre de Bruxelles \\
 }
 
 \begin{document}
@@ -116,7 +118,7 @@ Since random methods is full exploration, we can see that for all Q-values
 the estimation of the $Q^*_{a_i}$ are accurate.
 
 
-\subsection{$\epsilon$-greedy}
+\subsection*{$\epsilon$-greedy}
 
 \paragraph{$\epsilon = 0$} Using a \textit{only} greedy exploration, we
 can see that only the best actions have Q-values different from 0. Actually
@@ -160,7 +162,11 @@ by the nature of the softmax selection method with a
 small $\tau$: it sticks to the best arm
 found and doesn't explore much to estimate the correct Q-values overtime.
 
+\subsubsection{Histograms}
 
+\label{sec:ex1_histo}
+
+Figure \ref{fig:arms_ex1} shows the histograms for all algorithms.
 
 % EX1 arms histograms
 \begin{figure}[H]
@@ -206,13 +212,9 @@ found and doesn't explore much to estimate the correct Q-values overtime.
     \label{fig:arms_ex1}
 \end{figure}
 
-\section{Histograms discussion}
-
-\label{sec:ex1_histo}
-
-Figure \ref{fig:arms_ex1} shows the histograms for all algorithms.
-
 \subsection*{Random}
+
+\paragraph{}
 
 The action selections, shown in Figure \ref{fig:arms_random_ex1},
 for the random selection method is equidistributed.
@@ -263,6 +265,8 @@ action \#0 et \#1, are chosen is more or less equal.
 
 \subsection{Exercice 2}
 
+\subsubsection{Average rewards}
+
 % ex2 rewards
 \begin{figure}[H]
     \centering
@@ -281,6 +285,13 @@ that the dynamics of the algorithms don't change.
 
 It is harder to learn because of the standard deviation that provides
 a more randomize outcomes, therefore harder to find the best rewards.
+
+
+\subsubsection{Q-values estimation}
+
+
+Figure \ref{fig:qtas_ex2}
+shows the estimation of the Q-values for all algorithms.
 
 % ex2 qtas
 \begin{figure}[H]
@@ -317,12 +328,6 @@ a more randomize outcomes, therefore harder to find the best rewards.
     \label{fig:qtas_ex2}
 \end{figure}
 
-\subsection{Q-values estimation}
-
-
-Figure \ref{fig:qtas_ex2}
-shows the estimation of the Q-values for all algorithms.
-
 \paragraph{}
 
 The behaviour of the estimations for all algorithms are the same
@@ -330,6 +335,9 @@ that we explain in section \ref{sec:ex1_q_estim}. The major difference
 is that the Q-values estimations for all algorithms, when exploring
 takes more time, because the standard deviation is larger. Because of
 that it is harder for the learner to estimate the correct Q-values.
+
+
+\subsubsection{Histograms}
 
 
 % ex2 arms histograms
@@ -376,8 +384,9 @@ that it is harder for the learner to estimate the correct Q-values.
     \label{fig:arms_ex2}
 \end{figure}
 
+\paragraph{}
 
-The actions selection behavious for all algorithms seems to follow
+The actions selection behaviour for all algorithms seems to follow
 the same pattern that we explain in section \ref{sec:ex1_histo}.
 The major difference is that for the one that exploit th most, for example
 $0$-greedy, the selection of the \textit{worst} action have a higher
@@ -387,6 +396,8 @@ the exploration at the beginning is necessary, because the Q-values
 are estimated delayed compared to when the standard deviation is smaller.
 
 \subsection{Exercice 3}
+
+\subsubsection{Average rewards}
 
 % ex3 rewards
 \begin{figure}[H]
@@ -412,6 +423,13 @@ opposition to the softmax using a a temperature of 0.1, where it
 is close to the best arm at around epoch 200. But not as close as
 the dynamic softmax, where it is closer to the best Q-value, when it
 is stabilized.
+
+\subsubsection{Q-values estimation}
+
+\paragraph{}
+
+Figure \ref{fig:qtas_ex3} shows the Q-values estimation overtime of
+the dynamic selection methods $\epsilon$-greedy and softmax.
 
 % ex3 qtas
 \begin{figure}[H]
@@ -446,11 +464,6 @@ is stabilized.
     \label{fig:qtas_ex3}
 \end{figure}
 
-\subsection{Q-values estimation}
-
-Figure \ref{fig:qtas_ex3} shows the Q-values estimation overtime of
-the dynamic selection methods $\epsilon$-greedy and softmax.
-
 \paragraph{Dynamic $\epsilon$-greedy}
 
 Since the dynamic e-greedy method is randomize at the beginning and
@@ -462,6 +475,8 @@ the correct $Q^*$ overtime.
 We have a large temperature at the beginning and a smaller temperature overtime.
 This leads to a algorithm that explore a lot at the beginning, therefore
 estimate the Q-values very fast.
+
+\subsubsection{Histograms}
 
 % ex3 arms histograms
 \begin{figure}[H]
