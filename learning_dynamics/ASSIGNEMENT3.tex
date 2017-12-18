@@ -36,6 +36,16 @@ hboulahy@ulb.ac.be - 000391737
     \label{fig:rewards_ex1}
 \end{figure}
 
+We can see that only exploring \textit{i.e.} doesn't perform well, and
+the reward stay low. The boltzmann distribution of softmax with a temparature
+of 1 also has a poor performance compared to the other methods. Using softmax
+with a temparature of 0.1 gives better results. Using e-greedy with small
+value, i.e. will likely choose the action with the best optimum, tends
+to better results. egreedy with 0 seems to arrives
+\textit{directly} to the best arm. We can see on the graph that when $\epsilon$
+is bigger it usually takes more time to get to the best arm.
+Softmax with a temperature of 0.1 does tends to the best arm, but takes more
+time.
 
 % ex1 qtas
 \begin{figure}[H]
@@ -71,6 +81,19 @@ hboulahy@ulb.ac.be - 000391737
     $\mu$ = (1.3, 1.1, 0.5, 0.3), $\sigma$ = (0.9, 0.6, 0.4, 2.0)}
     \label{fig:qtas_ex1}
 \end{figure}
+
+\paragraph{egreedy 0}
+
+Since the algorithm will always choose the optimum $Q^*$, we can see on
+Figure \ref{fig:qtas_ex1} that the player never explore, i.e. it has
+no estimation of the Q-values, except for for the best $Q^*$, which is
+$Q*a1$
+
+\paragraph{random}
+
+Since the random methods chooses all actions with the same count, the player
+will explore the environment, therefore will be able to determine all
+Q-values to be close enough to the optimum.
 
 
 % EX1 arms histograms
@@ -117,6 +140,17 @@ hboulahy@ulb.ac.be - 000391737
     \label{fig:arms_ex1}
 \end{figure}
 
+\paragraph{Random}
+
+The random chooses the action based on uniform distribution. So it is
+logical chooses all arms the same count.
+
+e-greedy methods tends to follow the same pattern. The best arm is chosen
+most of the time. It is due to the fact that $\epsilon$ is small, which
+mean that the probability to choose the biggest optimum is more important.
+We can see that more \epsilon is greather, more the histograms shows that
+non-optimal arms are chosen.
+
 
 \subsection{Exercice 2}
 
@@ -128,6 +162,14 @@ hboulahy@ulb.ac.be - 000391737
     \label{fig:rewards_ex2}
 \end{figure}
 
+The results order of the algorithm that perform best doesn't really changes.
+By doubling the standard deviation, we only allowed the algorithms to
+provide a more random rewards \textit{i.e.} a bigger range. We can see
+that the dynamics of the algorithms don't change.
+
+
+It is harder to learn because of the standard deviation that provides
+ar more randomize outcomes, therefore harder to find the best reward.
 
 % ex2 qtas
 \begin{figure}[H]
@@ -208,6 +250,9 @@ hboulahy@ulb.ac.be - 000391737
     \label{fig:arms_ex2}
 \end{figure}
 
+The standard deviation is bigger, therefore the algorithms takes more time
+to find the best arm.
+
 \subsection{Exercice 3}
 
 % ex3 rewards
@@ -218,6 +263,16 @@ hboulahy@ulb.ac.be - 000391737
     \label{fig:rewards_ex3}
 \end{figure}
 
+Dynamic egreedy doesn't seems to perform better that the statics one,
+the resulting rewards tends to be identical. Observing the graph shows
+us that it takes more time to stabilize to the best arm.
+
+Dynamic softmax seems to be better, if you consider to long term reward.
+It takes to the 1000 epoch for the algorithm to find the best arm in
+opposition to the softmax using a a temperature of 0.1, where it
+is close to the best arm at around epoch 200, but not as close as
+the dynamic softmax, where it is closer to the best arm, when it
+is stabilized.
 
 % ex3 qtas
 \begin{figure}[H]
