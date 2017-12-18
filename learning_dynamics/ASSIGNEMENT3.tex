@@ -262,6 +262,19 @@ algorithm tends to hesitate to choose the best actions. The
 number of times that the 2 best actions,
 action \#0 et \#1, are chosen is more or less equal.
 
+\subsubsection{Questions}
+
+\paragraph{
+Which algorithms arrive close to the best arm ?
+}
+
+Based on the analysis that we made on the plots from this section,
+we observed that the algorithms that exploit are getting closer to
+the best arm. The \textit{full} exploit algorithm 0-greedy is the
+fastest one followed by 0.1-greedy and 0.2-greedy. Using a low
+temperature $\tau = 0.1$ with the softmax algorithm also allow exploitation,
+but we can see that it is slower that the $\epsilon$-greedy ones.
+
 
 \subsection{Exercice 2}
 
@@ -274,6 +287,9 @@ action \#0 et \#1, are chosen is more or less equal.
     \caption{Average rewards for all algorithms}
     \label{fig:rewards_ex2}
 \end{figure}
+
+
+\paragraph{}
 
 The results order of the algorithms that perform best doesn't really changes
 compared to exercice 1.
@@ -395,6 +411,26 @@ It is harder to determine which one is the optimal selection \textit{i.e.}
 the exploration at the beginning is necessary, because the Q-values
 are estimated delayed compared to when the standard deviation is smaller.
 
+\subsubsection{Questions}
+
+\paragraph{Harder or easier that Exercice 1 ?}
+
+It is harder. Due to the higher standard deviation, the Q-values are
+harder to estimate, therefore hard to tend to the best arm.
+
+\paragraph{What about performance ?}
+
+The performance changes are noticable.
+By that we mean that the Q-values estimation
+are more inaccurate because of the scale of the randomness that is larger.
+It takes more time to estimate correctly, and the rewards curves are less
+accurate \textit{i.e.} they tends to the same range of values. As we can
+see in Figure \ref{fig:rewards_ex2}, the reward lines interlace more
+and the exploit algorithms tends to the same range of reward values. The
+deviation is small enough to emphasize the fact that exploration algorithms
+(random and softmax 1)
+are less efficient.
+
 \subsection{Exercice 3}
 
 \subsubsection{Average rewards}
@@ -407,22 +443,36 @@ are estimated delayed compared to when the standard deviation is smaller.
     \label{fig:rewards_ex3}
 \end{figure}
 
-\paragraph{}
+\paragraph{Dynamic $\epsilon$-greedy}
 
-Dynamic $\epsilon$-greedy
-doesn't seems to perform better that the static ones.
-The resulting rewards tends to be identical. Observing the graph shows
-that it takes more time to stabilize to the best arm.
+The curve of the dynamic egreedy follows the same behaviour than the static
+ones. It grows fast to reach a steady state around the best arm. This
+is due to the fact that $1/{\sqrt{t}}$ will have a high probability to
+explore at the beginning, but will fall fast enough to be greedy overtime
+(at around epoch 100).
 
-\paragraph{}
+\paragraph{Dynamic softmax}
+
+The curve of the dynamic softmax is different from the static ones. Using
+the temperature $4*\frac{1000 - t}{1000}$ makes the algorithm to choose
+the action randomly at the beginning and during a \textit{long} moment.
+It's only at around epoch 800
+that the action selection will be more greedy, therefore
+tends to the best arm. This is explained by the fact that the temperature
+at $t = 0$ (when $t$ is small) the temperature is large e.g.:
+$$
+\tau = 4*\frac{1000 - t}{1000} = 4
+$$
+
+And when $t = 1000$ (when $t$ is large)
+the temperature is low \textit{i.e.} the action selection
+method is more greedy:
+
+$$
+\tau = 4*\frac{1000 - 1000}{1000} = 0
+$$
 
 
-Dynamic softmax seems to be better, if you consider the long term reward.
-It takes to the 1000 epoch for the algorithm to find the best action reward in
-opposition to the softmax using a a temperature of 0.1, where it
-is close to the best arm at around epoch 200. But not as close as
-the dynamic softmax, where it is closer to the best Q-value, when it
-is stabilized.
 
 \subsubsection{Q-values estimation}
 
@@ -511,6 +561,25 @@ to selection will be more greedy, and since the Q-values are accurate
 because of the exploration, when $t$ is high enough, the action \#0 and \#1
 will be selected more often. That explains the \textit{stairs} form
 of the histogram.
+
+\subsubsection{Questions}
+
+\paragraph{Fixed parameters vs dynamic parameters}
+
+Dynamic $\epsilon$-greedy
+doesn't seems to perform better that the static ones.
+The resulting rewards tends to be identical. Observing the curve
+in Figure \ref{fig:rewards_ex3} shows
+that it takes more time to stabilize to the best arm.
+
+Dynamic softmax seems to be better, if you consider the long term reward.
+It takes to around epoch
+1000 for the algorithm to find the best reward value in
+comparaison to the softmax using a a temperature of 0.1, where it
+is close to the best arm at around epoch 200. But not as close as
+the dynamic softmax, where it is closer to the best Q-value, when it
+is stabilized.
+
 
 \section{Climbing game}
 
