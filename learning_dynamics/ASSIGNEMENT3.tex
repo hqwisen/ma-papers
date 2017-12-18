@@ -25,10 +25,13 @@ hboulahy@ulb.ac.be - 000391737
 
 \section{N-Armed Bandit}
 
-\paragraph{Remark} About the notation, here the first arm/action starts
+\paragraph{Remark} About the notation, the first arm/action starts
 at \#0.
 
 \subsection{Exercice 1}
+
+\subsubsection{Average rewards}
+
 
 % ex1 rewards
 \begin{figure}[H]
@@ -38,16 +41,37 @@ at \#0.
     \label{fig:rewards_ex1}
 \end{figure}
 
-We can see that only exploring \textit{i.e.} doesn't perform well, and
-the reward stay low. The boltzmann distribution of softmax with a temparature
-of 1 also has a poor performance compared to the other methods. Using softmax
-with a temparature of 0.1 gives better results. Using e-greedy with small
-value, i.e. will likely choose the action with the best optimum, tends
-to better results. egreedy with 0 seems to arrives
+\paragraph{}
+
+We can see that only exploring \textit{i.e.} random
+and softmax with larger temperate $\tau = 1$ doesn't perform well, and
+the reward stays low. Using softmax
+with a temperature of 0.1 gives better results because
+of the fact that it gets more greedy.
+
+Using $\epsilon$-greedy with small
+value, i.e. a large probability to choose the optimal actions,
+tends
+to better rewards. egreedy with 0 seems to arrives
 \textit{directly} to the best arm. We can see on the graph that when $\epsilon$
-is bigger it usually takes more time to get to the best arm.
+is bigger it usually takes more time to get to the best arm, because of
+the exploration.
 Softmax with a temperature of 0.1 does tends to the best arm, but takes more
 time.
+
+\paragraph{}
+
+
+It is important to note that the greedy behaviour is better, because
+the standard deviation is small for this exercice. Because of that, using
+the best action based on the estimated Q-values is accurate.
+
+\subsubsection{Q-values estimation}
+
+\label{sec:ex1_q_estim}
+
+Figure \ref{fig:qtas_ex1} shows the estimation
+of the Q-values for all algorithms.
 
 % ex1 qtas
 \begin{figure}[H]
@@ -84,12 +108,7 @@ time.
     \label{fig:qtas_ex1}
 \end{figure}
 
-\section{Q-values estimation}
 
-\label{sec:ex1_q_estim}
-
-Figure \ref{fig:qtas_ex1} shows the estimation
-of the Q-values for all algorithms.
 
 \subsection*{Random}
 
@@ -252,14 +271,16 @@ action \#0 et \#1, are chosen is more or less equal.
     \label{fig:rewards_ex2}
 \end{figure}
 
-The results order of the algorithm that perform best doesn't really changes.
+The results order of the algorithms that perform best doesn't really changes
+compared to exercice 1.
 By doubling the standard deviation, we only allowed the algorithms to
 provide a more random rewards \textit{i.e.} a bigger range. We can see
 that the dynamics of the algorithms don't change.
 
+\paragraph{}
 
 It is harder to learn because of the standard deviation that provides
-ar more randomize outcomes, therefore harder to find the best reward.
+a more randomize outcomes, therefore harder to find the best rewards.
 
 % ex2 qtas
 \begin{figure}[H]
@@ -375,15 +396,21 @@ are estimated delayed compared to when the standard deviation is smaller.
     \label{fig:rewards_ex3}
 \end{figure}
 
-Dynamic egreedy doesn't seems to perform better that the statics one,
-the resulting rewards tends to be identical. Observing the graph shows
-us that it takes more time to stabilize to the best arm.
+\paragraph{}
 
-Dynamic softmax seems to be better, if you consider to long term reward.
-It takes to the 1000 epoch for the algorithm to find the best arm in
+Dynamic $\epsilon$-greedy
+doesn't seems to perform better that the static ones.
+The resulting rewards tends to be identical. Observing the graph shows
+that it takes more time to stabilize to the best arm.
+
+\paragraph{}
+
+
+Dynamic softmax seems to be better, if you consider the long term reward.
+It takes to the 1000 epoch for the algorithm to find the best action reward in
 opposition to the softmax using a a temperature of 0.1, where it
-is close to the best arm at around epoch 200, but not as close as
-the dynamic softmax, where it is closer to the best arm, when it
+is close to the best arm at around epoch 200. But not as close as
+the dynamic softmax, where it is closer to the best Q-value, when it
 is stabilized.
 
 % ex3 qtas
