@@ -623,10 +623,24 @@ distribution \textit{i.e.} a softmax action selection method with
 a decreasing temperature $\tau(t)$ and a expected values that is not only the
 Q-values but the function $EV(a)$.
 
+\paragraph{}
+
+The Q-values are computed as in the N Bandits Problems, since the
+learners should choose their action independently. For this game the difference
+is with the rewards. With 3 actions per player and joint learning \textit{i.e.}
+the reward is the same for both player and based on their actions,
+their is 9 outcomes possible in opposition to independent learning where
+the outcome is based only on the player actions, therefore 3 outcomes
+possible.
+
 \subsection{Results}
+
+\paragraph{}
 
 Figure \ref{fig:climbing_rewards} shows the three graphs of the
 total collected reward per episode for all three cases.
+20 iterations of 5000 time steps per simulation were ran, and the resulting
+plots shows the average reward of all iterations combined.
 
 \begin{figure}[H]
   \begin{subfigure}{.5\textwidth}
@@ -653,16 +667,54 @@ total collected reward per episode for all three cases.
 \end{figure}
 
 
+By settings all standard deviation to $0.2$, the results plot is shown
+in Figure \ref{fig:climbing_rewards_exa}. We can see that the FMQ heuristic
+provide a better rewards. Actually the rewards are an average of the two
+best joint actions $<a_1, b_1>$ and $<a_2, b_2>$. It seems that the
+algorithm stick to one best joint-actions.
+
+\paragraph{}
+
+By setting $\sigma_0 =$ 4 \textit{i.e.} the best joint-action  $<a_1, b_1>$
+Q-values will be harder to estimate. We can see in Figure
+\ref{fig:climbing_rewards_exb} that the softmax method will choose one
+equilibrium and stick with it. The FMQ heuristic method average rewards
+shows that the method explore much more during each epoch, and provide a
+more randomize outcomes.
+
+\paragraph{}
+
+By setting $\sigma_1 =$ 4 \textit{i.e.} the joint-action $<a_2, b_2>$
+Q-values wil be harder to estimate. Since the standard deviation is high
+for the second optimum, the algorithms sticks to the one they found.
+
+
+
 \subsection{Discussion}
 
 \paragraph{How will the learning process change
 if we make the agents independent learners?}
+
+If the agents learn independently, the rewards will be based only on their
+own actions, and not on the joint-action. This yield to the process of
+using only 3 possible values instead of 9. Therefore it will be harder
+to estimate the Q-values and find the best action. the IL
+will be slower at determining  the
+optimal equilbrium. Also if the standard deviation are larger, the probabilty
+of finding the best actions will be harder for IL than for JAL.
 
 \paragraph{How will the learning process change if we make
 the agents always select the action that according
 to them will yield the highest reward (assuming the
 other agent plays the best response)?}
 
+
+This is the action selection made by the 0-greedy method. Since we are choosing
+our best action when the other player chooses his best action, this provide
+a \textit{full} greedy action selection. Because of that the optimum might
+be harder to find because no exploration is made by the agents, and this
+will lead to a big possiblity to miss the
+optimum equilibrium.
 
 \section{Project source files}
 
