@@ -26,13 +26,15 @@
 \usepackage{inconsolata}
 \usepackage{color}
 
+
 \definecolor{pblue}{rgb}{0.13,0.13,1}
 \definecolor{pgreen}{rgb}{0,0.5,0}
 \definecolor{pred}{rgb}{0.9,0,0}
 \definecolor{pgrey}{rgb}{0.46,0.45,0.48}
 
-\lstset{language=Java,
+\lstset{language=Python,
   showspaces=false,
+  numbers=left,
   showtabs=false,
   breaklines=true,
   showstringspaces=false,
@@ -130,13 +132,211 @@ since the simulation is used for other commands such as
 the plotter or the audsley algorithm. The output can be produced by
 a call to the method \texttt{FTPSimulation.output()}.
 
+\subsection{Periodicity of the requests}
+
 \paragraph{}
+
+There were two possible implementatisn to simulate the scheduler in a
+interval given as a parameter. The first idea was to simulate the scheduler
+between the feasability interval $[0, S_n + P)$, but it would be tidious
+to do it like this, since we would have to find the corresponding interval
+in $[0, S_n + P)$ of the $[start, stop)$ interval of the simulation.
+
+\paragraph{Arrivals periodicity}
+
+The important part of the simulation is to detect the arrivals \textit{i.e.}
+the job requests and the deadlines of those jobs. We know that
+the job requests for each task are periodic.
+Let $\tau_i = (O_i, T_i, D_i, C_i)$ a periodic task. We know that each
+job request of $\tau_i$ have a periodicity of $T_i$ with the first request
+made at time $O_i$. Ce can detect if a request for $\tau_i$ occur at time
+$t$ using the following formula:
+
+\begin{equation}
+  \label{arr_period}
+  [(t - O_i) \ge 0] \;\; and \;\; [(t - O_i) \; mod \; T_i = 0]
+\end{equation}
+
+The left-side formula is the detection of the first request. If $t - O_i$
+is bigger than 0,
+then it means that it is possible that $\tau_i$ request a job.
+The right-side formula is the detection of a request at time $t$. To detect
+which job it is we can make an entire division of $t - O_i$ with
+the period $T_i$. Figure \ref{fig:arrival_for} is a excerpt of the arrival
+detection.
+
+\begin{figure}[H]
+    \begin{lstlisting}
+offset, period = self.tasks[task_id][O], self.tasks[task_id][T]
+cond = (t - offset >= 0) and ((t - offset) % period) == 0
+job_id = (t - offset) // period  # module == 0 i.e. no decimals
+return (job_id, True) if cond else (None, False)
+    \end{lstlisting}
+    \caption{Function of the arrival detection for a task at time $t$}
+    \label{fig:arrival_for}
+\end{figure}
+
+\paragraph{Deadlines periodicity}
+
+For each job requested job there is a deadline associated \textit{i.e.}
+the deadline is also periodic. To detect if a deadline occur at time $t$
+of a task $\tau_i$ we can use the same formula (\ref{arr_period}), and
+testing the formula a time $t - D_i$. This method actually detect if
+a job was requested, and we are a the requested time plus the deadline, the
+it is the deadline of this job. Figure \ref{fig:deadline_for} shows
+a excerpt of the deadline detection.
+
+\begin{figure}[H]
+    \begin{lstlisting}
+deadline = self.tasks[task_id][D]
+return self.is_arrival_for(t - deadline, task_id)
+    \end{lstlisting}
+
+    \caption{Function of the deadline detection for a task at time $t$}
+    \label{fig:deadline_for}
+\end{figure}
+
+
+\subsection{Pending jobs}
+
+\paragraph{} To be able to process requested jobs, the simulator uses a list
+of list to handle pending jobs. A sublist per task exists. When a request
+of a task occurs, the new job is added to the pending jobs sublist of the
+task.
+The sublists are ordered by task priority. Therefore the job to process
+is the first job of the first sublist. If this list is empty, then
+it process the first job of the second list, etc. When a job finished its
+computation \textit{i.e.} has been processed $C_i$ time, then it is removed
+from the pending jobs list. Figure \ref{fig:pending_jobs} shows the snippet
+of the function that returns the job to be processed.
+
+\begin{figure}[H]
+    \begin{lstlisting}
+for sub_jobs in self.pending_jobs:
+    for job in sub_jobs:
+        return job
+return None
+    \end{lstlisting}
+    \caption{Job to be processed detection}
+    \label{fig:pending_jobs}
+\end{figure}
+
+\subsection{Events}
+
+\label{sec:events}
+
+\paragraph{}
+
+For each time steps, the simulator stores relevant informations that can
+be used to output informations on the standard output or in a plot.
+Those informations are stored in an object \texttt{Event}
+which is composed of actions that occurs at time $t$:
+\begin{itemize}
+  \item The requests
+  \item The deadlines (and the missed deadlines)
+  \item The computed job
+\end{itemize}
+
+\subsection{Hard vs Soft simulation}
+
+\paragraph{}
+
+
+It is possible to configure the simulation to consider the deadlines as
+soft or hard. If the soft configuration is chosen, the simulator will
+not stop at deadline misses. If the hard configuration is chosen, the
+simulator will stop at the first deadline miss (see section \ref{sec:howto}
+to see how to run each configuration).
+
+\subsection{Output}
+
+\paragraph{}
+
+
+The output production is a post process function. It has been implemented
+like this to avoid printing while doing the simulation because the simulation
+is used by other part of the project such as the implementation of the
+Audsley algorithm or the Schedule plotter. The \texttt{output()} method
+uses the events of the simulator (section \ref{sec:events}).
+
+
+\paragraph{}
+The simulator provides two approch to the output. The default
+mode is the \textbf{request mode}. It provide an output as shown in Figure
+\ref{fig:req_mode}. This mode output the requests,
+such as arrivals or deadlines, as soon as they occur. So it does output
+even if a job is processing during a block.
+This mode has been implemented
+to provide a more continuous approch to the simulation.
+
+The second approch is the \textbf{preemptive mode}. As explained above
+the process block of a job can be divide in multiple blocks if requests
+occur during the process. To propose an output that characterize more
+the preemptive proprety of a FTP simulator, the preemptive mode provide
+a preemptive resuts as shown in Figure \ref{fig:pre_mode}.
+
+\paragraph{}
+Section \ref{sec:howto} explained how to run the different modes.
+
+
+
+
+\begin{figure}[H]
+  \begin{subfigure}{1\textwidth}
+    \begin{lstlisting}
+    \end{lstlisting}
+      \centering
+      \begin{lstlisting}[numbers=none]
+                              0 5 10 5
+                              0 3 20 2
+      \end{lstlisting}
+      \caption{Tasks set to output $(O_i, T_i, D_i, C_i)$}
+  \end{subfigure}
+  \begin{subfigure}{.5\textwidth}
+      \centering
+      \begin{lstlisting}[numbers=none]
+      0: Arrival of job T1J1
+      0: Arrival of job T2J1
+      0-3: T1J1
+      3: Arrival of job T2J2
+      3-5: T1J1
+      \end{lstlisting}
+      \caption{Requests mode output}
+      \label{fig:req_mode}
+  \end{subfigure}
+  \begin{subfigure}{.5\textwidth}
+      \centering
+      \begin{lstlisting}[numbers=none]
+      0: Arrival of job T1J1
+      0: Arrival of job T2J1
+      0-5: T1J1
+      3: Arrival of job T2J2
+      \end{lstlisting}
+      \caption{Preemptive mode output}
+      \label{fig:pre_mode}
+  \end{subfigure}
+\end{figure}
 
 
 
 
 - necessary to run the full simulation to be sure that it works
+
 - Using the hyper period vs calculation with modulo
+
+- explain output (preemptive non-preemptive)
+
+- explain soft and hard simulation
+
+- HowTo : simulation hard/soft, --premptive
+
+\section{Plotter}
+
+Show scheduler.png of tassk.txt 0 200 and audsley 0 400
+
+\section{How to run}
+
+\label{sec:howto}
 
 
 \end{document}
