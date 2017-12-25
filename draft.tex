@@ -1,0 +1,107 @@
+\documentclass[letterpaper]{article}
+\usepackage{natbib}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=3.5cm]{geometry}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{graphicx}%images
+\usepackage{fancyhdr}%for headers and footers
+\usepackage{adjustbox}
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{mathpazo}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{csvsimple}
+\usepackage{filecontents}
+\usepackage{lscape}
+\usepackage{afterpage}
+\usepackage{hyperref}
+\usepackage{inconsolata}
+\usepackage{color}
+
+
+\begin{document}
+
+\section{Cook-Levin Theorem: SAT is NP-complete}
+
+To proof that we have to:
+
+\begin{enumerate}
+  \item SAT $\in$ NP
+  \item any laguage in NP is $\leq_p$ to SAT
+\end{enumerate}
+
+Let $A$ a language in $NP$ and $N$
+ be the NTM (Nondeterministric Turing Machine)
+that decides $A$. The machine $N$ decides $A$ in $n^k$ time for some constant
+$k$.
+
+We will construct a tableau for $N$ on $w$ of size $n^k$ $\times$ $n^k$.
+The tableau is constructed following these propreties:
+
+\begin{itemize}
+  \item Each row represent the configurations
+  of a branch of computation of $N$ on $w$
+  \item Each row starts and ends with the symbol $\#$
+  \item The first row is the starting configuration and each row follows the
+  previous according to $N$'s transition function
+  \item A tableau is \textbf{accepting} if any row of the tableau
+  is an accepting configuraton
+\end{itemize}
+
+The reduction build multiple tableau based on the computation tree, and
+every accepting tableau corresponds to an accepting computation branch
+of $N$ on $w$.
+
+\subsection{Reduction}
+
+On input $w$ the reduction produces a formula $\phi$.
+$$
+\phi = \phi_{cell} \wedge \phi_{start} \wedge \phi_{move} \wedge \phi_{accept}
+$$
+
+This formula is composed of a set of literals $x_{i, j, s}$ where
+ $1 \le i, j \le n^k$ and  $s \in C$ with
+ $C = Q \cup \cub \Gamma \cup \{\#\}$ (i.e.
+ a symbol that can be in the tableau).
+
+\subsubsection{Cell formula}
+
+Ensure that each cell contains one and only one character:
+
+$$
+\phi_{cell} = \bigwedge_{1 \le i, j \le n^k}[\bigvee_{s \in C} x_{i, j, s}]
+$$
+
+The idea is the following: for each cell, at least one symbol must be true
+and two symbols cannot be true together.
+
+\subsubsection{Start formula}
+
+Ensure that the first row is the start configuration of $N$ on $w$:
+
+\subsubsection{Accept formula}
+
+Guarantees that an accepting configurations occurs in the tableau
+
+\subsubsection{Move formula}
+
+Guarantees that each row of the tableau corresponds to a configuration
+that legally follows the configuration of the preceding row according to
+$N$'s rules. It does so by ensuring that each $2 \times 3$ window of the
+tableau is \textbf{legal}.
+
+A windows is legal when it respects the following transitions:
+$\delta(q_1, a) = \{(q_1, b, R)\}$
+and $\delta(q_1, b) = \{(q_2, c, L), (q_2, a, R)\}$
+
+
+
+\end{document}
