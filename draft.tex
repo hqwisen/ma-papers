@@ -31,14 +31,27 @@
 
 \section{Cook-Levin Theorem: SAT is NP-complete}
 
+(Answner from Sipser textbook) \\
+
+The Cook-Levin Theorem: \textbf{SAT is NP-complete} \\
+
 To proof that we have to:
+
 
 \begin{enumerate}
   \item SAT $\in$ NP
   \item any laguage in NP is $\leq_p$ to SAT
 \end{enumerate}
 
-Let $A$ a language in $NP$ and $N$
+(1) A nondeterministic polynomial
+time machine can guess an assignment to a given formula $\phi$
+and accept if the
+assignment satisfies $\phi$.
+
+\paragraph{}
+
+
+(2) Let $A$ a language in $NP$ and $N$
  be the NTM (Nondeterministric Turing Machine)
 that decides $A$. The machine $N$ decides $A$ in $n^k$ time for some constant
 $k$.
@@ -56,7 +69,7 @@ The tableau is constructed following these propreties:
   is an accepting configuraton
 \end{itemize}
 
-The reduction build multiple tableau based on the computation tree, and
+The reduction build tableau based on the computation tree, and
 every accepting tableau corresponds to an accepting computation branch
 of $N$ on $w$.
 
@@ -69,29 +82,49 @@ $$
 
 This formula is composed of a set of literals $x_{i, j, s}$ where
  $1 \le i, j \le n^k$ and  $s \in C$ with
- $C = Q \cup \cub \Gamma \cup \{\#\}$ (i.e.
+ $C = Q \cup \cup \Gamma \cup \{\#\}$ (i.e.
  a symbol that can be in the tableau).
 
-\subsubsection{Cell formula}
+\paragraph{$\phi_{cell}$}
 
 Ensure that each cell contains one and only one character:
 
 $$
-\phi_{cell} = \bigwedge_{1 \le i, j \le n^k}[\bigvee_{s \in C} x_{i, j, s}]
+\phi_{cell} = \bigwedge_{1 \le i, j \le n^k}\left[
+\bigvee_{s \in C} x_{i, j, s}
+\wedge
+\left( \bigwedge_{s,t \in C, s \not= t}
+\neg x_{i,j,s} \vee \neg x_{i,j,t}  \right)
+\right]
 $$
 
 The idea is the following: for each cell, at least one symbol must be true
-and two symbols cannot be true together.
+(first clause)
+and two symbols cannot be true together (second clause) i.e. one symbol
+can be true for a cell.
 
-\subsubsection{Start formula}
+\paragraph{$\phi_{start}$}
 
 Ensure that the first row is the start configuration of $N$ on $w$:
 
-\subsubsection{Accept formula}
+$$
+\phi_{start} = x_{1, 1, \#} \wedge x_{1, 2, q_0}
+\wedge x_{1, 3, w_1} \wedge x_{1, 4, w_2} \wedge ... \wedge x_{1, n+2, w_n}
+\wedge x_{1, n+3, \text{\textvisiblespace}}
+\wedge ... \wedge
+\wedge x_{1, n^k-1, \text{\textvisiblespace}}
+\wedge x_{1, n^k, \#}
+$$
 
-Guarantees that an accepting configurations occurs in the tableau
+\paragraph{$\phi_{accept}$}
 
-\subsubsection{Move formula}
+Guarantees that an accepting configurations occurs in the tableau:
+
+$$
+\bigvee_{1 \le i,j \le n^k} x_{i, j, q_{accept}}
+$$
+
+\paragraph{$\phi_{move}$}
 
 Guarantees that each row of the tableau corresponds to a configuration
 that legally follows the configuration of the preceding row according to
@@ -100,8 +133,34 @@ tableau is \textbf{legal}.
 
 A windows is legal when it respects the following transitions:
 $\delta(q_1, a) = \{(q_1, b, R)\}$
-and $\delta(q_1, b) = \{(q_2, c, L), (q_2, a, R)\}$
+and $\delta(q_1, b) = \{(q_2, c, L), (q_2, a, R)\}$.
+With $a_1$, ..., $a_6$ a legal window, we have the following formula: \\
 
+$$
+\phi_{move} = \bigwedge_{i \le i < n^k, \;\; 1 < j < n^k}
+\text{$(i, j)$-window is legal}
+$$
 
+$$
+\bigvee_{a_1, .., a_6\text{  is a legal window}} = (x_{i, j-1, a_1} \wedge
+x_{i, j, a_2} \wedge
+x_{i, j+1, a_3} \wedge
+x_{i+1, j-1, a_4} \wedge
+x_{i+1, j, a_5} \wedge
+x_{i+1, j+1, a_6})
+$$
+
+Next, we analyze the complexity of the reduction
+by looking at the size of $\phi$. The tableau contains $n^{2k}$ cells.
+Each cells has $l$ variables associated with $l$ being the size of $C$.
+Because $l$ depends only on the TM $N$ and not on the input size $n$,
+the total
+number of variables in $O(n^{2k})$. $\phi_{cell}$,
+$\phi_{accept}$ and $\phi_{move}$ contains a fixed size
+formula for each cell \textit{i.e.} their size is $O(n^{2k})$.
+$\phi_{start}$ has a fragment for
+each cell in the top row, so its size is $O(n^k)$. Total size of $\phi$
+is $O(n^{2k})$. This is sufficient and shows that the size of $\phi$ is
+polynomial in $n$, thus the reduction can be done in polynomial time.
 
 \end{document}
