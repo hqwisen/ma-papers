@@ -93,13 +93,13 @@
 \includegraphics[width=0.3\textwidth]{images/ulblogo.jpg}~\\[1cm]
 
 \textsc{
-\large INFO \\
+\large INFO-?-??? \\
 \Large  Prep. work for master thesis
  \\[1cm]}
 % Title
 \HRule \\[0.7cm]
 
-{ \huge \bfseries Thesis - draft  \\[0.7cm] }
+{ \huge \bfseries Thesis - draft \#1 \\[0.7cm] }
 
 \HRule \\[2cm]
 
@@ -128,30 +128,57 @@
 \tableofcontents
 \newpage
 
-\section{Related Work}
-
-The goal of this section is to focus on work made on Network Protocols
-verification using SPIN, PRISM and UPPAAL.
-
-\subsection{SPIN Model Checker}
-
-\cite{spin_dhcp} focus on verifying DHCP using Promela and SPIN.
-
-The goal of the paper is to verify:
-\begin{itemize}
-    \item Integrity of communication
-    \item Deadlocks, livelocks
-    \item Message loss
-    \item Improper terminasion
-    \item IP not used more than once
-\end{itemize}
-
-Analyze only the service of allocating IP address. Therefore ignored
-storage conf. parameters.
-
-2 clients and two servers.
+\section{Introduction}
 
 
+\section{Motivation and objective}
 
+For the moment, the implementation to represent the data strutures in Acacia+
+is specifically designed for a specific set. The idea is to propose a new
+library implementation to provide an API that will implement important
+data structures that are used in syntesis algorithms.
+
+\paragraph{}
+
+The objective of the thesis is to provide an efficient library to represent
+antichain data structures and implement different operation. An final
+goal is to be able to use this library within Aaron/Acacia.
+
+
+\subsection{Related Work}
+
+\subsubsection{Acacia+}
+
+\subsubsection{AaPAL}
+
+
+\section{Notions}
+
+\subsection{Model checking and synthesis}
+
+Model checking is the process to verify a software model with specifications.
+
+Synthesis is the process to derive the system from specifications.
+
+\subsection{Data structures}
+
+\paragraph{Binary Decision Diagram}
+
+\paragraph{Antichain}
+
+BDD vs antichain
+
+Antichain vs pseudo-antichain
+
+\section{Questions}
+
+* Maastricht library ?
+* How to references ?
+* What to impl (about operations) ?
+
+* Is implementing LTL Rea. or Universality a final goal of the thesis ?
+
+\bibliographystyle{plain}
+\bibliography{thesis}
 
 \end{document}
