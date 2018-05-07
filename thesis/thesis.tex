@@ -1,156 +1,164 @@
-\documentclass[letterpaper]{article}
-\usepackage{natbib}
+\documentclass[letterpaper]{memoir}
+% \usepackage{natbib}
 \usepackage[utf8]{inputenc}
-\usepackage[margin=3.5cm]{geometry}
-\usepackage{listings}
-\usepackage{adjustbox}
-\usepackage{xcolor}
-\usepackage{verbatim}
-\usepackage{graphicx}%images
-\usepackage{fancyhdr}%for headers and footers
-\usepackage{adjustbox}
-\usepackage{verbatim}
-\usepackage{listings}
-\usepackage{fancyhdr}
-\usepackage{multirow}
-\usepackage{amsmath}
-\usepackage{array}
-\usepackage{mathpazo}
-\usepackage{subcaption}
-\usepackage{float}
-\usepackage{csvsimple}
-\usepackage{filecontents}
-\usepackage{lscape}
-\usepackage{afterpage}
-\usepackage{hyperref}
-\usepackage{inconsolata}
-\usepackage{color}
+% \usepackage[margin=3.5cm]{geometry}
+% \usepackage{listings}
+% \usepackage{adjustbox}
+% \usepackage{xcolor}
+% \usepackage{verbatim}
+% \usepackage{graphicx}%images
+% \usepackage{fancyhdr}%for headers and footers
+% \usepackage{adjustbox}
+% \usepackage{verbatim}
+% \usepackage{listings}
+% \usepackage{fancyhdr}
+% \usepackage{multirow}
+% \usepackage{amsmath}
+% \usepackage{array}
+% \usepackage{mathpazo}
+% \usepackage{subcaption}
+% \usepackage{float}
+% \usepackage{csvsimple}
+% \usepackage{filecontents}
+% \usepackage{lscape}
+% \usepackage{afterpage}
+% \usepackage{hyperref}
+% \usepackage{inconsolata}
+% \usepackage{color}
 \usepackage{todonotes}
 
-\newenvironment{conditions}
-  {\par\vspace{\abovedisplayskip}\noindent\begin{tabular}
-  {>{$}l<{$} @{${}={}$} l}}
-  {\end{tabular}\par\vspace{\belowdisplayskip}}
+% \newenvironment{conditions}
+%   {\par\vspace{\abovedisplayskip}\noindent\begin{tabular}
+%   {>{$}l<{$} @{${}={}$} l}}
+%   {\end{tabular}\par\vspace{\belowdisplayskip}}
+%
+%
+%   \newenvironment{conditions_bis}
+%   {\par\vspace{\abovedisplayskip}\noindent\begin{tabular}
+%   {>{$}l<{$} @{${}\in{}$} l}}
+%   {\end{tabular}\par\vspace{\belowdisplayskip}}
+%
+% \definecolor{pblue}{rgb}{0.13,0.13,1}
+% \definecolor{pgreen}{rgb}{0,0.5,0}
+% \definecolor{pred}{rgb}{0.9,0,0}
+% \definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+%
+% \lstset{language=Python,
+%   showspaces=false,
+%   numbers=left,
+%   showtabs=false,
+%   breaklines=true,
+%   showstringspaces=false,
+%   breakatwhitespace=true,
+%   commentstyle=\color{pgreen},
+%   keywordstyle=\color{pblue},
+%   stringstyle=\color{pred},
+%   basicstyle=\ttfamily,
+%   moredelim=[il][\textcolor{pgrey}]{$ $},
+%   moredelim=[is][\textcolor{pgrey}]{\%\%}{\%\%}
+% }
+%
+%
+%
+% \hypersetup{
+%     colorlinks,
+%     citecolor=black,
+%     filecolor=black,
+%     linkcolor=black,
+%     urlcolor=black
+% }
+%
+%
+% % ------ HEADERS AND FOOTERS -----------
+% % \lhead{INFO-F403}
+% % \rhead{Project Report - Part 1}
+% %\pagestyle{fancy}
+% % \rfoot{\thepage}
+% %\cfoot{}
+% %\lfoot{Academic Year 2017-18}
+%
+% \newcommand{\HRule}{\rule{\linewidth}{0.5mm}} %newcommand for cover page
 
 
-  \newenvironment{conditions_bis}
-  {\par\vspace{\abovedisplayskip}\noindent\begin{tabular}
-  {>{$}l<{$} @{${}\in{}$} l}}
-  {\end{tabular}\par\vspace{\belowdisplayskip}}
+%\begin{titlepage}
 
-\definecolor{pblue}{rgb}{0.13,0.13,1}
-\definecolor{pgreen}{rgb}{0,0.5,0}
-\definecolor{pred}{rgb}{0.9,0,0}
-\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+% \begin{center}
 
-\lstset{language=Python,
-  showspaces=false,
-  numbers=left,
-  showtabs=false,
-  breaklines=true,
-  showstringspaces=false,
-  breakatwhitespace=true,
-  commentstyle=\color{pgreen},
-  keywordstyle=\color{pblue},
-  stringstyle=\color{pred},
-  basicstyle=\ttfamily,
-  moredelim=[il][\textcolor{pgrey}]{$ $},
-  moredelim=[is][\textcolor{pgrey}]{\%\%}{\%\%}
-}
+%
+% \textsc{\LARGE universit\'e libre de bruxelles}\\[1.0cm]
+% \textsc{\Large D\'epartment d'Informatique}\\[1.5cm]
+%
+% % Upper part of the page. The '~' is needed because \\
+% % only works if a paragraph has started.
+% \includegraphics[width=0.3\textwidth]{images/ulblogo.jpg}~\\[1cm]
+%
+% \textsc{
+% \large MEMO-F-403 \\
+% \Large  Preparatory work for the master thesis
+%  \\[1cm]}
+% % Title
+% \HRule \\[0.7cm]
+%
+% { \huge \bfseries Thesis - draft \#1 \\[0.7cm] }
+%
+% \HRule \\[2cm]
+%
+% % Author and supervisor
+% \noindent
+% \begin{center} \large
+%
+% \emph{Author:}\\
+% \Large Hakim \textsc{Boulahya}\\
+% \end{center}
+% \begin{center} \large
+%
+% \emph{Supervisor:} \\
+% Emmanuel \textsc{Filiot} \\
+
+% \end{center}
+%
+% \vfill
+%
+% % Bottom of the page
+% {\large \today}
+%
+% \end{center}
+%\end{titlepage}
 
 
-
-\hypersetup{
-    colorlinks,
-    citecolor=black,
-    filecolor=black,
-    linkcolor=black,
-    urlcolor=black
-}
-
-
-% ------ HEADERS AND FOOTERS -----------
-% \lhead{INFO-F403}
-% \rhead{Project Report - Part 1}
-%\pagestyle{fancy}
-% \rfoot{\thepage}
-%\cfoot{}
-%\lfoot{Academic Year 2017-18}
-
-\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} %newcommand for cover page
+\title{(Pre)Thesis draft}
+\author{Hakim Boulahya}
 
 \begin{document}
 
-\begin{titlepage}
-\begin{center}
-
-
-\textsc{\LARGE universit\'e libre de bruxelles}\\[1.0cm]
-\textsc{\Large D\'epartment d'Informatique}\\[1.5cm]
-
-% Upper part of the page. The '~' is needed because \\
-% only works if a paragraph has started.
-\includegraphics[width=0.3\textwidth]{images/ulblogo.jpg}~\\[1cm]
-
-\textsc{
-\large MEMO-F-403 \\
-\Large  Preparatory work for the master thesis
- \\[1cm]}
-% Title
-\HRule \\[0.7cm]
-
-{ \huge \bfseries Thesis - draft \#1 \\[0.7cm] }
-
-\HRule \\[2cm]
-
-% Author and supervisor
-\noindent
-\begin{center} \large
-
-\emph{Author:}\\
-\Large Hakim \textsc{Boulahya}\\
-\end{center}
-\begin{center} \large
-
-\emph{Supervisor:} \\
-Emmanuel \textsc{Filiot} \\
-
-\end{center}
-
-\vfill
-
-% Bottom of the page
-{\large \today}
-
-\end{center}
-\end{titlepage}
+\maketitle
 
 \tableofcontents
-\newpage
 
-\section{Introduction}
+\listoftodos
+
+\chapter{Introduction}
 
 
-\subsection{Motivation}
-
-\paragraph{}
-
+\section{Motivation}
 
 Automata theory is used in various field in Computer Science, especially
-in Computer-Aided Verification. Multiple algorithms has been theorized
-to provide more efficient way to resolve those problem
+in Computer-Aided Verification.
+
+\todo{cite the original papers of those problems}
+Problems such as synthesis \cite{ltl_rea}
+or the universality problem \cite{ant_univers}
+\todo{Ref for complexity of univers. pbl}
+has shown to be PSPACE-complete \cite{bsp, ant_univers}.
+
+More efficient algorithms to resolve those problems have been implemented
+using antichain based-algorithms. Antichains are data structures that allow
+to represent a partial order sets, in a more compact way.
 \todo{Talk about
 the problems, complexity and alternative (Safra vs antichain)}.
 
 
-\paragraph{}
-
-\todo{Talk about unversality and LTL real.}
-Those different algorithms used a data structure called antichain.
-An antichain is a subset of a set that allow to represent it, in a more
-compact way.
-
-\subsection{Objective}
+\section{Objective}
 
 The goal of this thesis is to provide an efficient implementation of
 data structures used in those algorithms, especially antichain. We will
@@ -165,7 +173,7 @@ As we mainly focus on effiency, it could be interesting to use a C
 implementation and provide binding to a Java class.
 \todo{This small paragraph is an open discussion}
 
-\subsection{Related work}
+\section{Related work}
 
 \paragraph{}
 
@@ -176,51 +184,76 @@ based algorithm for the synthesis problem.
 \paragraph{}
 
 Java already provide built-in implementation for Set.
+\todo{Includes limitation of Java built-in and different possible solution
+for antichains found on stack overflow}
 
-\section{Preliminaries}
+\chapter{Data Structures}
 
 In this section, we will provide formal definitions of the data
-structures that we will implement. We recall the notion of set, partially
-ordered set and total order set. We then give a definition for antichains.
+structures that we will implement. We recall the notion of binary relations
+and important propreties of such relations.
+We then define partially ordered set, totally order set and closed set.
+Finally we give a formal definition for antichains.
 
-The definitions and examples for this section are based on ...\todo{insert
-ref of examples}
+\paragraph{}
 
-\subsection{Formal definitions}
+The definitions and examples for this section are based on \cite{bohy_phd}.
 
 
-\paragraph{Binary relation}
+\section{Binary relations}
+
+\paragraph{}
 
 A binary relation for an arbitrary set $S$ is
 a set of pair $R \subseteq S \times S$.
-There are four important properties: reflexitivity, transitivity,
+There are five important properties: reflexitivity, transitivity,
 symmetry, antisymmetry and total.
 
 \paragraph{}
 
-A relation R on S is said to be:
+A relation $R$ on $S$ is said to be:
 
 \begin{itemize}
     \item Reflexive:
-    iff for all $s \in S$ it holds that $(s, s) \in R$
+    iff $\forall s \in S$ it holds that $(s, s) \in R$
     \item Transitive:
-    iff for all $s_1, s_2, s_3 \in S$,
-    if ($s1, s2) \in R$ and $(s2, s3) \in R$
-    then it holds that $(s1, s3) \in R$
+    iff $\forall s_1, s_2, s_3 \in S$,
+    if ($s_1, s_2) \in R$ and $(s_2, s_3) \in R$
+    then it holds that $(s_1, s_3) \in R$
     \item Symmetric: iff $(s_1, s_2) \in R$ then $(s_2, s_1) \in R$.
     \item Antisymmetric: iff $(s_1, s_2) \in R$
     and $(s_2, s_1) \in R$ then $s_1 = s_2$
-    \item Total: \todo{total definition}
+    \item Total: iff $\forall s_1, s_2 \in S$ then $(s_1, s_2) \in R$
+    or $(s_2, s_1) \in R$\todo{is this Total def correct ?}
+    
 \end{itemize}
 
-\paragraph{Order}
+\paragraph{Orders}
 
-A \textit{partial order} is a binary relation that is reflexive,
-transitive and antisymmetric. We note a
-partial order relation by ... To note the appartenance of a binary
-relation to a partial order, we note s1 .. s2 which is equivalent
-to (s1, s2) in ...
-A total order is a partial order that is total.
+A \textit{partial order} is a binary relation that is \textit{reflexive},
+\textit{transitive} and \textit{antisymmetric}. We note a
+partial order relation by $R$.
+We note $s_1 R  s_2$ to show the belonging of
+a binary relation to a partial order, which is equivalent
+to $(s_1, s_2) \in \ R$.
+A \textit{total order} is a partial order that is \textit{total}.
+
+\section{Partially ordered set}
+
+\paragraph{}
+
+An arbitrary set $S$ associated with a partial order $\preceq$
+is called a \textit{partially ordered set} or \textit{poset}.
+It is denoted by the pair $\langle S, \preceq \rangle$.
+
+\paragraph{Comparable}
+
+Let $s_1, s_2 \in S$ and $\langle S, \preceq \rangle$ a poset.
+The two elementes $s_1$ and $s_2$ are called \textit{comparable} if either
+$s_1 \preceq s_2$ or $s_2 \preceq s_1$. If neither of those two comparaisons
+are correct, then $s_1$ and $s_2$ are called \textit{uncomparable}.
+
+
 \todo{give definition of (un)comparable using partial order definition}
 
 \todo{Is this total order affirmation correct ?}
@@ -239,7 +272,31 @@ Antichain
 
 Includes propreties to implement
 
-\subsection{Existing implementation}
+\section{Antichains and pseudo-antichains}
+
+\chapter{Implementation}
+
+
+\section{Summary of objectives}
+
+\paragraph{}
+
+
+The main focus of the thesis is to be able to provide an efficient
+implementation of antichains and pseudo-antichains in \texttt{Java}.
+The first step is to provide an interface for the different operations that
+can be applied to antichains. We then give a description of the implementation.
+Antichains provide a way to represent
+in a compact way partially ordered set that are closed. Pseudo-antichains
+are an extension of antichains and provide a compact way to represent
+partially ordered sets. Pseudo-antichains does not specifically require
+closed set.
+
+
+
+\section{Existing implementation}
+
+
 
 
 \todo{Everything below is a fast/draft notes}
