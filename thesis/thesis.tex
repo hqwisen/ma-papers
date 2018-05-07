@@ -25,7 +25,7 @@
 \usepackage{hyperref}
 \usepackage{inconsolata}
 \usepackage{color}
-
+\usepackage{todonotes}
 
 \newenvironment{conditions}
   {\par\vspace{\abovedisplayskip}\noindent\begin{tabular}
@@ -93,8 +93,8 @@
 \includegraphics[width=0.3\textwidth]{images/ulblogo.jpg}~\\[1cm]
 
 \textsc{
-\large INFO-?-??? \\
-\Large  Prep. work for master thesis
+\large MEMO-F-403 \\
+\Large  Preparatory work for the master thesis
  \\[1cm]}
 % Title
 \HRule \\[0.7cm]
@@ -112,8 +112,8 @@
 \end{center}
 \begin{center} \large
 
-% \emph{Professor:} \\
-% Gilles \textsc{Geeraerts}\\
+\emph{Supervisor:} \\
+Emmanuel \textsc{Filiot} \\
 
 \end{center}
 
@@ -131,9 +131,123 @@
 \section{Introduction}
 
 
+\subsection{Motivation}
+
+\paragraph{}
+
+
+Automata theory is used in various field in Computer Science, especially
+in Computer-Aided Verification. Multiple algorithms has been theorized
+to provide more efficient way to resolve those problem
+\todo{Talk about
+the problems, complexity and alternative (Safra vs antichain)}.
+
+
+\paragraph{}
+
+\todo{Talk about unversality and LTL real.}
+Those different algorithms used a data structure called antichain.
+An antichain is a subset of a set that allow to represent it, in a more
+compact way.
+
+\subsection{Objective}
+
+The goal of this thesis is to provide an efficient implementation of
+data structures used in those algorithms, especially antichain. We will
+mainly focus on implementing antichain-related data structure and provide
+a library to be used in different tool such as Acacia+, Owl.
+
+The first, and main, objective is to implement an Antichain object
+in Java to be used in Owl. Then if possible used this implementation
+for other tool such as Acacia+, by either providing bindings or other.
+
+As we mainly focus on effiency, it could be interesting to use a C
+implementation and provide binding to a Java class.
+\todo{This small paragraph is an open discussion}
+
+\subsection{Related work}
+
+\paragraph{}
+
+AaPAL library is a that was implemented in the context of Bohy's PhD thesis
+to provide an antichain library and be able to implement the antichains
+based algorithm for the synthesis problem.
+
+\paragraph{}
+
+Java already provide built-in implementation for Set.
+
+\section{Preliminaries}
+
+In this section, we will provide formal definitions of the data
+structures that we will implement. We recall the notion of set, partially
+ordered set and total order set. We then give a definition for antichains.
+
+The definitions and examples for this section are based on ...\todo{insert
+ref of examples}
+
+\subsection{Formal definitions}
+
+
+\paragraph{Binary relation}
+
+A binary relation for an arbitrary set $S$ is
+a set of pair $R \subseteq S \times S$.
+There are four important properties: reflexitivity, transitivity,
+symmetry, antisymmetry and total.
+
+\paragraph{}
+
+A relation R on S is said to be:
+
+\begin{itemize}
+    \item Reflexive:
+    iff for all $s \in S$ it holds that $(s, s) \in R$
+    \item Transitive:
+    iff for all $s_1, s_2, s_3 \in S$,
+    if ($s1, s2) \in R$ and $(s2, s3) \in R$
+    then it holds that $(s1, s3) \in R$
+    \item Symmetric: iff $(s_1, s_2) \in R$ then $(s_2, s_1) \in R$.
+    \item Antisymmetric: iff $(s_1, s_2) \in R$
+    and $(s_2, s_1) \in R$ then $s_1 = s_2$
+    \item Total: \todo{total definition}
+\end{itemize}
+
+\paragraph{Order}
+
+A \textit{partial order} is a binary relation that is reflexive,
+transitive and antisymmetric. We note a
+partial order relation by ... To note the appartenance of a binary
+relation to a partial order, we note s1 .. s2 which is equivalent
+to (s1, s2) in ...
+A total order is a partial order that is total.
+\todo{give definition of (un)comparable using partial order definition}
+
+\todo{Is this total order affirmation correct ?}
+In this thesis we are more interested in partial ordered sets as
+total order sets can be easily implemented as lists.
+
+\paragraph{Ordered sets}
+
+Partial/Order sets
+
+Lattice (semi upper and lower)
+
+Closed sets
+
+Antichain
+
+Includes propreties to implement
+
+\subsection{Existing implementation}
+
+
+\todo{Everything below is a fast/draft notes}
+
 \section{Motivation and objective}
 
-For the moment, the implementation to represent the data strutures in Acacia+
+For the moment, the implementation to represent the data strutures in
+ Acacia+
 is specifically designed for a specific set. The idea is to propose a new
 library implementation to provide an API that will implement important
 data structures that are used in syntesis algorithms.
@@ -145,21 +259,32 @@ antichain data structures and implement different operation. An final
 goal is to be able to use this library within Aaron/Acacia.
 
 
+* Impl. datastrcture antichain in Java
+* Theoritacal context: synthesis,
+unverversality and automata theory known problem
+* Practical context: Owl, Acacia+ and AaPAL
+
+* Why interesting: More efficient than CTL symbolic with BDD
+
 \subsection{Related Work}
 
-\subsubsection{Acacia+}
-
-\subsubsection{AaPAL}
-
+* Java Built-in IMPL
+* AaPAL
+* Stackoverflow
+* Acacia ?
 
 \section{Notions}
 
 \subsection{Model checking and synthesis}
 
-Model checking is the process to verify a software model with specifications.
+Model checking is the process to verify a software model with
+specifications.
 
 Synthesis is the process to derive the system from specifications.
 
+\cite{bohyphd}
+
+\cite{ltl_rea}
 \subsection{Data structures}
 
 \paragraph{Binary Decision Diagram}
@@ -172,13 +297,13 @@ Antichain vs pseudo-antichain
 
 \section{Questions}
 
-* Maastricht library ?
+* Maastricht library ? \cite{acacia} \cite{aapal}
 * How to references ?
 * What to impl (about operations) ?
 
 * Is implementing LTL Rea. or Universality a final goal of the thesis ?
 
-\bibliographystyle{plain}
+\bibliographystyle{alpha}
 \bibliography{thesis}
 
 \end{document}
