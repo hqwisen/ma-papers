@@ -225,7 +225,7 @@ A relation $R$ on $S$ is said to be:
     and $(s_2, s_1) \in R$ then $s_1 = s_2$
     \item Total: iff $\forall s_1, s_2 \in S$ then $(s_1, s_2) \in R$
     or $(s_2, s_1) \in R$\todo{is this Total def correct ?}
-    
+
 \end{itemize}
 
 \paragraph{Orders}
@@ -254,6 +254,29 @@ $s_1 \preceq s_2$ or $s_2 \preceq s_1$. If neither of those two comparaisons
 are correct, then $s_1$ and $s_2$ are called \textit{uncomparable}.
 
 
+\paragraph{Bounds}
+
+\paragraph{Lattices}
+
+A poset where every elements has a LUB and GLB is called a lattice.
+
+lower semilattice: all elements have LUB.
+upper semilattice: all elements have GLB.
+
+
+\section{Antichains and pseudo-antichains}
+
+\paragraph{Closed sets}
+
+A closed set is a set $L \subseteq S$
+of a lower semilattice $\langle S, \preceq \rangle$
+where $\forall l \in L$ we have that $\forall s \in S$ such that
+$s \preceq l$, then $s \in L$.
+
+\paragraph{Closure}
+
+
+
 \todo{give definition of (un)comparable using partial order definition}
 
 \todo{Is this total order affirmation correct ?}
@@ -272,7 +295,7 @@ Antichain
 
 Includes propreties to implement
 
-\section{Antichains and pseudo-antichains}
+
 
 \chapter{Implementation}
 
