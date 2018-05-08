@@ -34,11 +34,11 @@
 
 
 
-% Ceiling and floor functions
+% Math function
 
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 \DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
-
+\DeclarePairedDelimiter{\tuple}{\langle}{\rangle}
 % \newenvironment{conditions}
 %   {\par\vspace{\abovedisplayskip}\noindent\begin{tabular}
 %   {>{$}l<{$} @{${}={}$} l}}
@@ -154,50 +154,51 @@
 
 \section{Motivation}
 
-Automata theory is used in various field in Computer Science, especially
-in Computer-Aided Verification.
+\paragraph{}
 
-\todo{cite the original papers of those problems}
-Problems such as synthesis \cite{ltl_rea}
-or the universality problem \cite{ant_univers}
-\todo{Ref for complexity of univers. pbl}
-has shown to be PSPACE-complete \cite{bsp, ant_univers}.
 
+Automata theory is used in various field in computer science and has shown
+to be an interesting way to resolve important problems,
+such as synthesis of computer systems
+or the universality problem. It has been proved that those problems are
+PSPACE-complete \cite{bsp, ant_univers}.
+\todo{cite the original papers of those problems (w/ complexity)}
+
+\todo{Talk about the problems, complexity and alternative (Safra vs antichain)}
 More efficient algorithms to resolve those problems have been implemented
 using antichain based-algorithms. Antichains are data structures that allow
-to represent a partial order sets, in a more compact way.
-\todo{Talk about
-the problems, complexity and alternative (Safra vs antichain)}.
+to represent a partially ordered set, in a more compact way.
+
+\paragraph{}
 
 
-\section{Objective}
+The goal of this thesis is to provide an efficient implementation of different
+data structures that allow to compactly
+represent partially ordered sets, specifically antichains and pseudo-antichains.
+The first step is to implement in Java, classes that will be provided to
+the \texttt{Owl} library \cite{owl}.
+\texttt{Owl} is a LTL to deterministic automata translations tool-set written
+in \texttt{Java}. A second step will be to implement
+antichain-based algorithms using the new antichains implementation and
+study the performance.
 
-The goal of this thesis is to provide an efficient implementation of
-data structures used in those algorithms, especially antichain. We will
-mainly focus on implementing antichain-related data structure and provide
-a library to be used in different tool such as Acacia+, Owl.
-
-The first, and main, objective is to implement an Antichain object
-in Java to be used in Owl. Then if possible used this implementation
-for other tool such as Acacia+, by either providing bindings or other.
-
-As we mainly focus on effiency, it could be interesting to use a C
-implementation and provide binding to a Java class.
-\todo{This small paragraph is an open discussion}
 
 \section{Related work}
 
 \paragraph{}
 
-AaPAL library is a that was implemented in the context of Bohy's PhD thesis
-to provide an antichain library and be able to implement the antichains
-based algorithm for the synthesis problem.
+\texttt{AaPAL} library is a that was implemented in the context of
+Aaron Bohy's PhD thesis \cite{bohy_phd}
+to provide an antichain library. It is implemented in \texttt{C}.
 
 \paragraph{}
 
-Java already provide built-in implementation for Set.
-\todo{Includes limitation of Java built-in and different possible solution
-for antichains found on stack overflow}
+\todo{This small paragraph is an open discussion}
+As we mainly focus on efficiency, it could be interesting to use a \texttt{C}
+implementation such as \texttt{AaPAL},
+and provide bindings to \texttt{Java}. We could try
+this method as an alternative to a pure \texttt{Java} implementation and
+compare performances.
 
 \chapter{Data Structures}
 
@@ -205,7 +206,7 @@ In this section, we will provide formal definitions of the data
 structures that we will implement. We recall the notion of binary relations
 and important propreties of such relations.
 We then define partially ordered set, totally order set and closed set.
-Finally we give a formal definition for antichains.
+Finally we give a formal definition for antichains and pseudo-antichains.
 
 \paragraph{}
 
@@ -260,21 +261,25 @@ It is denoted by the pair $\langle S, \preceq \rangle$.
 
 \paragraph{Comparable}
 
-Let $s_1, s_2 \in S$ and $\langle S, \preceq \rangle$ a poset.
+Let $s_1, s_2 \in S$ and $\tuple{S, \preceq}$ a poset.
 The two elementes $s_1$ and $s_2$ are called \textit{comparable} if either
 $s_1 \preceq s_2$ or $s_2 \preceq s_1$. If neither of those two comparaisons
 are correct, then $s_1$ and $s_2$ are called \textit{uncomparable}.
 
 
-\paragraph{Bounds}
+\paragraph{Bounds} Let $\tuple{S, \preceq}$ a partially ordered set.
+We denote the \textit{greatest lower bound} of the two elements $s_1, s_2 \in S$
+by $s_1 \sqcap s_2 \in S$.
+The greatest lower bound is defined as follow:
+$s_1 \sqcap s_2 \preceq s_1$,
+$s_1 \sqcap s_2 \preceq s_2$ and for all $s' \in S$ we have that
+if $s' \preceq s_1$ and $s' \preceq s_2$ then $s' \preceq s_1 \sqcap s_2$.
 
-\paragraph{Lattices}
+\todo{Include definition of least upper bound}
 
-A poset where every elements has a LUB and GLB is called a lattice.
-
-lower semilattice: all elements have LUB.
-upper semilattice: all elements have GLB.
-
+\paragraph{Lattices} A \textit{lower semilattice} is a poset
+$\tuple{S, \preceq}$ where for all pair of elements $s_1, s_2 \in S$,
+we have that the greatest lower bound $s_1 \sqcap s_2$ exists.
 
 \section{Antichains and pseudo-antichains}
 
@@ -292,41 +297,72 @@ Note that for two closed sets $L_1, L_2 \subseteq S$, we have that
 $L_1 \cup L_2$ and $L_1 \cap L_2$ are also closed sets,
 but $L_1 \setminus \L_2$ does not result necessarily to a closed set.
 
-\paragraph{Maximal/minimal elements} We denote by $\ceil{L}$ (resp. $\floor{L}$)
-the set of maximal (resp. minimal) elements of a closed set $L$ which
+\paragraph{Maximal/minimal elements} We denote by $\ceil{L}$
+the set of maximal elements of a closed set $L$ which
 \todo{Meaning of | vs . vs : in set definition ?}
 correspond to $\ceil{L} = \{ l \in L | \forall l' \in L :  l \preceq l'
- \Rightarrow l = l' \}$ and
- $\floor{L} = \{ l \in L | \forall l' \in L :  l' \preceq l
-  \Rightarrow l = l' \}$.
+ \Rightarrow l = l' \}$. Alternatively, to represent the set of minimal
+ elements, the noation $\floor{L}$ is used which has the following semantic
+$\floor{L} = \{ l \in L | \forall l' \in L :  l' \preceq l
+ \Rightarrow l = l' \}$.
 
 
-\paragraph{Closure}
+\paragraph{Closure} A \textit{lower closure} of a set $L$ on $S$
+noted $\downarrow L$ is the set of all elements of $S$ that are
+\textit{smaller or equal} to an element of $L$ i.e.
+$\downarrow L = \{ s \in S \ | \ \exists l \in L \cdot s \preceq l\}$.
+Note that for a closed set $L$ we have that $\downarrow L = L$.
 
 
+\subsection{Antichains}
 
+\paragraph{}
+
+An antichain of a poset $\tuple{S, \preceq}$
+is a set $\alpha \subseteq S$ where all element of $\alpha$
+are uncomparable with respect to the partial order $\preceq$.
+Antichains allow to represent closed set in a more compact way.
+For a closed set $L \subseteq S$ we can retrieve all elements of $L$ by using
+the antichain $\alpha = \ceil{L}$. With respect
+to the definition of the lower closure we have that $\downarrow \alpha = L$.
+
+\paragraph{Operations}
+
+Let $\alpha_1, \alpha_2 \subseteq S$ two antichains and $s \in S$:
+
+\begin{itemize}
+    \item $s \in \downarrow \alpha_1$
+    iff $\exists a \in \alpha_1$ s.t. $\preceq a$
+    \item $\downarrow \alpha_1 \subseteq \downarrow \alpha_2$
+    iff $\forall a_1 \in \alpha_1,
+    \exists a_2 \in \alpha_2$ s.t. $a_1 \preceq a_2$
+    \item $ \downarrow \alpha_1 \cup \downarrow \alpha_2 =
+    \downarrow \ceil{\alpha_1 \cup \alpha_2}$
+    \item $\downarrow \alpha_1 \ \cap \downarrow \alpha_2 =
+    \downarrow \ceil{\alpha_1 \sqcap \alpha_2}$
+\end{itemize}
+
+% \subsection{Pseudo-antichains}
+%
+% \paragraph{}
+%
+% An antichain is a subset of $S$ that allow to represent in a compact way
+% a set $L \subseteq S$ that is not necessarily closed.
+
+\chapter{Implementation}
+
+\paragraph{}
+
+Java already provide built-in implementation for \texttt{Set}.
+\todo{Includes limitation of Java built-in and different possible solution
+for antichains found on stack overflow}
+
+\paragraph{}
 
 
 \todo{Is this total order affirmation correct ?}
 In this thesis we are more interested in partial ordered sets as
 total order sets can be easily implemented as lists.
-
-\paragraph{Ordered sets}
-
-Partial/Order sets
-
-Lattice (semi upper and lower)
-
-Closed sets
-
-Antichain
-
-Includes propreties to implement
-
-
-
-\chapter{Implementation}
-
 
 \section{Summary of objectives}
 
