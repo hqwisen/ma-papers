@@ -161,7 +161,7 @@ Automata theory is used in various field in computer science and has shown
 to be an interesting way to resolve important problems,
 such as synthesis of computer systems
 or the universality problem. It has been proved that those problems are
-PSPACE-complete \cite{bsp, ant_univers}.
+PSPACE-complete \cite{ant_univers}.
 \todo{cite the original papers of those problems (w/ complexity)}
 
 \todo{Talk about the problems, complexity and alternative (Safra vs antichain)}
@@ -185,20 +185,33 @@ study the performance.
 
 \section{Related work}
 
+\todo{Include difference betweens BDDs and Antichains}
+
 \paragraph{}
 
-\texttt{AaPAL} library is a that was implemented in the context of
+\texttt{AaPAL} is a generic
+library is a that was implemented in the frame of
 Aaron Bohy's PhD thesis \cite{bohy_phd}
 to provide an antichain library. It is implemented in \texttt{C}.
+\todo{How are antichains implemented in Acacia+ ?
+Is it AaPAL or another impl. ?}
+
 
 \paragraph{}
 
-\todo{This small paragraph is an open discussion}
-As we mainly focus on efficiency, it could be interesting to use a \texttt{C}
-implementation such as \texttt{AaPAL},
-and provide bindings to \texttt{Java}. We could try
-this method as an alternative to a pure \texttt{Java} implementation and
-compare performances.
+An implementation of antichains in \texttt{Java} have been done
+by De Causmaecker and De Wannemacker in \cite{causemaecker1}. The algorithms
+to find the ninth Dedekind number uses antichains and they needed to
+implement a representation of antichains.
+To improve efficiency and performances, Hoedts in \cite{hoedt} has extended
+\cite{causemaecker1} antichains implementation by using bit sequence
+instead of tree reprensentation.
+
+
+\todo{Discuss impl. specifics etc in chapter Implementation}
+\todo{What operations are implemented in those papers ?}
+\todo{What domain (of sets) is is used in those papers ?}
+\todo{Research other possible related works}
 
 \chapter{Data Structures}
 
@@ -355,16 +368,17 @@ Let $\alpha_1, \alpha_2 \subseteq S$ two antichains and $s \in S$:
 
 Java already provide built-in implementation for \texttt{Set}.
 \todo{Includes limitation of Java built-in and different possible solution
-for antichains found on stack overflow}
+for antichains found on stack overflow and others}
 
 \paragraph{}
 
-
-\todo{Is this total order affirmation correct ?}
-In this thesis we are more interested in partial ordered sets as
-total order sets can be easily implemented as lists.
+In this thesis we are more interested in partially ordered sets as
+totally ordered sets are already implemented
+in\texttt{Java} built-in
+\texttt{SortedSet}.
 
 \section{Summary of objectives}
+
 
 \paragraph{}
 
@@ -383,69 +397,28 @@ closed set.
 
 \section{Existing implementation}
 
+\todo{Referring to \cite{hoedt}}
+\todo{Is actually \cite{hoedt} what we what to do, and if not, what will
+be the differences ?}
 
 
-
-\todo{Everything below is a fast/draft notes}
-
-\section{Motivation and objective}
-
-For the moment, the implementation to represent the data strutures in
- Acacia+
-is specifically designed for a specific set. The idea is to propose a new
-library implementation to provide an API that will implement important
-data structures that are used in syntesis algorithms.
-
-\paragraph{}
-
-The objective of the thesis is to provide an efficient library to represent
-antichain data structures and implement different operation. An final
-goal is to be able to use this library within Aaron/Acacia.
+\section{New implementation}
 
 
-* Impl. datastrcture antichain in Java
-* Theoritacal context: synthesis,
-unverversality and automata theory known problem
-* Practical context: Owl, Acacia+ and AaPAL
+\chapter{Conclusion}
 
-* Why interesting: More efficient than CTL symbolic with BDD
 
-\subsection{Related Work}
+\section{Possible extensions}
 
-* Java Built-in IMPL
-* AaPAL
-* Stackoverflow
-* Acacia ?
 
-\section{Notions}
+As we mainly focus on efficiency, it could be interesting to use a \texttt{C}
+implementation such as \texttt{AaPAL},
+and provide bindings to \texttt{Java}. We could try
+this method as an alternative to a pure \texttt{Java} implementation and
+compare performances.
 
-\subsection{Model checking and synthesis}
 
-Model checking is the process to verify a software model with
-specifications.
-
-Synthesis is the process to derive the system from specifications.
-
-\cite{bohyphd}
-
-\cite{ltl_rea}
-\subsection{Data structures}
-
-\paragraph{Binary Decision Diagram}
-
-\paragraph{Antichain}
-
-BDD vs antichain
-
-Antichain vs pseudo-antichain
-
-\section{Questions}
-
-* Maastricht library ? \cite{acacia} \cite{aapal}
-* How to references ?
-* What to impl (about operations) ?
-
-* Is implementing LTL Rea. or Universality a final goal of the thesis ?
+\todo{Fill-in bib correctly!}
 
 \bibliographystyle{alpha}
 \bibliography{thesis}
