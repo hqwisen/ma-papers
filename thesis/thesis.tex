@@ -393,13 +393,47 @@ are an extension of antichains and provide a compact way to represent
 partially ordered sets. Pseudo-antichains does not specifically require
 closed set.
 
-
-
 \section{Existing implementation}
 
+\subsection{AaPAL}
+
+Bohy's \texttt{A}ntichain
+\texttt{a}nd \texttt{P}seudo-\texttt{A}ntichain \texttt{L}ibrary \cite{aapal}
+is an open-source \texttt{C} library for the manipulation
+of antichains and pseudo-antichains data structures.
+
+
+\subsubsection{Antichain representation}
+
+\subsubsection{Operations implementation}
+
+
+\subsection{ABD}
+
+\subsection{Hoedt's ABD modifications}
 \todo{Referring to \cite{hoedt}}
 \todo{Is actually \cite{hoedt} what we what to do, and if not, what will
 be the differences ?}
+
+
+
+\section{Difficulties}
+
+\todo{What is the difference beetween domain, univers and set ?}
+
+One of the difficulties is to define the domain of the elements that
+the antichains should work on. In \texttt{AaPAL} the all complexity
+is implemented in the \texttt{compare\_elements} that must be given
+to the library functions. It that case, all the complexity of the
+must be implemented by the user to define the domain of the antichains.
+
+\section{Possible solutions}
+
+In the case of the domain specifications, a good approach could be to
+provide an interface/abstract class to the users, to let them provide
+their own implementation. In addition to that, usual domain such a
+natural numbers or others well known domain used, could be directly implemented
+in the library.
 
 
 \section{New implementation}
