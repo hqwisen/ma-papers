@@ -405,7 +405,15 @@ of antichains and pseudo-antichains data structures.
 
 \subsubsection{Antichain representation}
 
+An antichain is represented by a \texttt{struct}, containing as attributes
+the size of the antichain, and the incomparable elements of the antichains,
+as a list. The list is manipulated using the \texttt{GSList} object
+from the \texttt{glib} library. To allow modularity, the type of the elements
+is \texttt{void}.
+
 \subsubsection{Operations implementation}
+
+add element to antichain: uses compare
 
 
 \subsection{ABD}
