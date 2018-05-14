@@ -27,7 +27,7 @@
 % \usepackage{inconsolata}
 % \usepackage{color}
 
-% \usepackage{mathpazo}
+\usepackage{mathpazo}
 \usepackage{amsmath,amsfonts,amssymb,amsthm}
 \usepackage{mathtools}
 \usepackage{todonotes}
@@ -162,11 +162,7 @@
 
 \section{Introduction}
 
-
-\subsection{Motivation}
-
 \paragraph{}
-
 
 Automata theory is used in various field in computer science and has shown
 to be an interesting way to resolve important problems,
@@ -180,26 +176,13 @@ More efficient algorithms to resolve those problems have been implemented
 using antichain based-algorithms. Antichains are data structures that allow
 to represent a partially ordered set, in a more compact way.
 
-\paragraph{}
+The goal of this preparatory work is to motivate the interest that
+are made in the antichains data structure, and why we need an efficient
+implementation.
+It also defines the desired objectives
+and propose and state-of-the-art of the existing implementation.
 
-
-The goal of this thesis is to provide an efficient implementation of different
-data structures that allow to compactly
-represent partially ordered sets, specifically antichains and pseudo-antichains.
-The first step is to implement in Java, classes that will be provided to
-the \texttt{Owl} library \cite{owl}.
-\texttt{Owl} is a LTL to deterministic automata translations tool-set written
-in \texttt{Java}. A second step will be to implement
-antichain-based algorithms using the new antichains implementation and
-study the performance.
-
-
-\todo{Include that UP is a problem important because verif-related problem
-reduce to it}
-
-\subsection{Motivation example}
-
-\paragraph{}
+\paragraph{Motivation}
 
 An example that highlights the use of antichains in automata theory is
 the universality problem. It is the problem that for an automaton
@@ -245,13 +228,25 @@ to show that $A$ ends in a rejecting state.
 The protagonist only has a strategy to win the game if and only if $A$ is
 not universal.
 
+\todo{Include that UP is a problem important because verif-related problem
+reduce to it}
 
+\paragraph{Objective}
 
-\subsection{Related work}
+this thesis is to provide an efficient implementation of different
+data structures that allow to compactly
+represent partially ordered sets, specifically antichains and pseudo-antichains.
+The first step is to implement in Java, classes that will be provided to
+the \texttt{Owl} library \cite{owl}.
+\texttt{Owl} is a LTL to deterministic automata translations tool-set written
+in \texttt{Java}. A second step will be to implement
+antichain-based algorithms using the new antichains implementation and
+study the performance.
+
+\paragraph{Related work}
 
 \todo{Include difference betweens BDDs and Antichains}
 
-\paragraph{}
 
 \texttt{AaPAL} is a generic
 library is a that was implemented in the frame of
@@ -259,9 +254,6 @@ Aaron Bohy's PhD thesis \cite{bohy_phd}
 to provide an antichain library. It is implemented in \texttt{C}.
 \todo{How are antichains implemented in Acacia+ ?
 Is it AaPAL or another impl. ?}
-
-
-\paragraph{}
 
 An implementation of antichains in \texttt{Java} have been done
 by De Causmaecker and De Wannemacker in \cite{causemaecker1}. The algorithms
@@ -271,11 +263,23 @@ To improve efficiency and performances, Hoedts in \cite{hoedt} has extended
 \cite{causemaecker1} antichains implementation by using bit sequence
 instead of tree reprensentation.
 
-
 \todo{Discuss impl. specifics etc in chapter Implementation}
 \todo{What operations are implemented in those papers ?}
 \todo{What domain (of sets) is is used in those papers ?}
 \todo{Research other possible related works}
+
+\paragraph{Structure of the work}
+
+This work is the introduction to next year thesis. Therefore
+the content concern only the prelimenaries, the goal is to
+properly define the subject and existing implementation.
+In Section \ref{data_structures}, we formally define antichains,
+and give examples of such data structures. In Section \ref{impl},
+we cite and summarize the work that has been done by the community
+for antichains implementation. In \ref{conclusion}, we propose
+an overview of next year work and possibilities.
+
+
 
 \section{Data Structures}
 
@@ -556,7 +560,9 @@ in the library.
 \subsection{New implementation}
 
 
-\chapter{Conclusion}
+\section{Next year}
+
+\label{conclusion}
 
 
 \subsection{Possible extensions}
