@@ -1,4 +1,4 @@
-\documentclass[letterpaper]{memoir}
+\documentclass[letterpaper]{article}
 % \usepackage{natbib}
 \usepackage[utf8]{inputenc}
 % \usepackage[margin=3.5cm]{geometry}
@@ -17,7 +17,6 @@
 % \usepackage{mathtools}
 
 % \usepackage{array}
-% \usepackage{mathpazo}
 % \usepackage{subcaption}
 % \usepackage{float}
 % \usepackage{csvsimple}
@@ -28,6 +27,7 @@
 % \usepackage{inconsolata}
 % \usepackage{color}
 
+% \usepackage{mathpazo}
 \usepackage{amsmath,amsfonts,amssymb,amsthm}
 \usepackage{mathtools}
 \usepackage{todonotes}
@@ -145,7 +145,7 @@
 %\end{titlepage}
 
 
-\title{(Pre)Thesis draft}
+\title{Implementing data structures for \\ Partially Ordered Set}
 \author{Hakim Boulahya}
 
 \begin{document}
@@ -154,12 +154,16 @@
 
 \tableofcontents
 
+\newpage
+
 \listoftodos
 
-\chapter{Introduction}
+\newpage
+
+\section{Introduction}
 
 
-\section{Motivation}
+\subsection{Motivation}
 
 \paragraph{}
 
@@ -190,7 +194,60 @@ antichain-based algorithms using the new antichains implementation and
 study the performance.
 
 
-\section{Related work}
+\todo{Include that UP is a problem important because verif-related problem
+reduce to it}
+
+\subsection{Motivation example}
+
+\paragraph{}
+
+An example that highlights the use of antichains in automata theory is
+the universality problem. It is the problem that for an automaton
+\texttt{A}, is the language of \texttt{A} equivalent to the language
+of all the words on the alphabet, that is, is $L(A) = \Sigma^*$.
+The language of \texttt{A} is universal if and only if the language
+of the complementary of \texttt{A} accepts no words, that is,
+$L(A) = \Sigma^*$ if and only if $L(\bar{A}) = \emptyset$.
+The only way to compute the complementary of \texttt{A} is to first
+determinise it, which is hard. Now if $L(\bar{A})$ is the empty set,
+\todo{We have to define complementary with det. computation to understand
+why we use set of state}
+it means that there is no set of states that for which there exists a word
+such that this word is accepted by $\bar{A}$. A function can be
+defined to check the existence of such sets. Let the function
+\todo{Define F bar, final state of A bar}
+\todo{EAcc function def is not correct, how to correctly formulate it ?}
+\todo{EAcc, set or function ?}
+$EAcc^A(w) = X
+= \{ P \subseteq Q, P' \subseteq Q, P' \cap \bar{F} = \emptyset
+| \exists w \in \Sigma^* s.t. P \xrightarrow{w} P'\}$.
+The goal is to show that if there exists
+no set of states $P$ such that $P \cap F = \emptyset$ i.e.
+$X = \emptyset$, then it is shown that $L(\bar{A}) = \emptyset$, therefore
+$A$ is universal. The difficulty of the problem arise at the computation
+of $X$. Checking intersection between the accepting states set and all
+the subsets is costly.
+\todo{Costly vs expensive vs complexe vs hard etc..}
+For a subset $P \subseteq Q$, for all subsets $p$ such that $p \subseteq P$,
+it is known that, computing the work $w$ starting from $p$ or $P$, will lead
+to the same final state. Therefore it is more interesting to compute
+the maximal sets $\ceil{X}$, which correspond to an antichain of set of
+states that are $\subseteq$-uncomparable.
+
+In the antichain algorithms paper
+\cite{AC_universality}, the algorithm proposed follow an idea equivalent
+by using game theory. The universality problem is reduce to
+a two-player reachability game, which can be done in polynomial time.
+The objective of the game is for the protagonist to establish that
+the automaton $A$ is not universal. To this end, the protagonist will
+provide a word, a letter at a time, and find a strategy that try
+to show that $A$ ends in a rejecting state.
+The protagonist only has a strategy to win the game if and only if $A$ is
+not universal.
+
+
+
+\subsection{Related work}
 
 \todo{Include difference betweens BDDs and Antichains}
 
@@ -220,7 +277,7 @@ instead of tree reprensentation.
 \todo{What domain (of sets) is is used in those papers ?}
 \todo{Research other possible related works}
 
-\chapter{Data Structures}
+\section{Data Structures}
 
 In this section, we will provide formal definitions of the data
 structures that we will implement. We recall the notion of binary relations
@@ -233,7 +290,7 @@ Finally we give a formal definition for antichains and pseudo-antichains.
 The definitions and examples for this section are based on \cite{bohy_phd}.
 
 
-\section{Binary relations}
+\subsection{Binary relations}
 
 \paragraph{}
 
@@ -271,7 +328,7 @@ a binary relation to a partial order, which is equivalent
 to $(s_1, s_2) \in \ R$.
 A \textit{total order} is a partial order that is \textit{total}.
 
-\section{Partially ordered set}
+\subsection{Partially ordered set}
 
 \paragraph{}
 
@@ -301,9 +358,9 @@ if $s' \preceq s_1$ and $s' \preceq s_2$ then $s' \preceq s_1 \sqcap s_2$.
 $\tuple{S, \preceq}$ where for all pair of elements $s_1, s_2 \in S$,
 we have that the greatest lower bound $s_1 \sqcap s_2$ exists.
 
-\section{Antichains and pseudo-antichains}
+\subsection{Antichains}
 
-\subsection{Closed sets}
+\subsubsection{Closed sets}
 
 \paragraph{}
 
@@ -334,9 +391,8 @@ $\darrow L = \{ s \in S \ | \ \exists l \in L \cdot s \preceq l\}$.
 Note that for a closed set $L$ we have that $\darrow L = L$.
 
 
-\subsection{Antichains}
 
-\paragraph{}
+\paragraph{Antichain}
 
 An antichain of a poset $\tuple{S, \preceq}$
 is a set $\alpha \subseteq S$ where all element of $\alpha$
@@ -354,7 +410,7 @@ to the definition of the lower closure we have that $\darrow \alpha = L$.
 
 \begin{proposition}
 
-\ref{antichains_ops}
+\label{antichains_ops}
 
 Let $\alpha_1, \alpha_2 \subseteq S$ two antichains and $s \in S$:
 
@@ -384,7 +440,7 @@ Let $\alpha_1, \alpha_2 \subseteq S$ two antichains and $s \in S$:
 % An antichain is a subset of $S$ that allow to represent in a compact way
 % a set $L \subseteq S$ that is not necessarily closed.
 
-\chapter{Implementation}
+\section{Implementation}
 
 \paragraph{}
 
@@ -399,7 +455,7 @@ totally ordered sets are already implemented
 in\texttt{Java} built-in
 \texttt{SortedSet}.
 
-\section{Summary of objectives}
+\subsection{Summary of objectives}
 
 
 \paragraph{}
@@ -420,9 +476,9 @@ element of the antichain in memory, but be able to retrieve those elements
 or check the belonging of a closure element from the uncomparable elements
 of the antichain.
 
-\section{Existing implementation}
+\subsection{Existing implementation}
 
-\subsection{AaPAL}
+\subsubsection{AaPAL}
 
 Bohy's \textbf{A}ntichain
 \textbf{a}nd \textbf{P}seudo-\textbf{A}ntichain \textbf{L}ibrary \cite{aapal}
@@ -430,7 +486,7 @@ is an open-source \texttt{C} library for the manipulation
 of antichains and pseudo-antichains data structures.
 
 
-\subsubsection{Antichain representation}
+\paragraph{Antichain representation}
 
 An antichain is represented by a \texttt{struct}, containing as attributes
 the size of the antichain, and the incomparable elements of the antichains,
@@ -438,7 +494,7 @@ as a list. The list is manipulated using the \texttt{GSList} object
 from the \texttt{glib} library. To allow modularity, the type of the elements
 is \texttt{void}.
 
-\subsubsection{Operations}
+\paragraph{Operations}
 
 The operations implemented in \texttt{AaPAL}
 are described in this section.
@@ -466,16 +522,16 @@ closure size
 
 
 
-\subsection{ABD}
+\subsubsection{ABD}
 
-\subsection{Hoedt's ABD modifications}
+\subsubsection{Hoedt's ABD modifications}
 \todo{Referring to \cite{hoedt}}
 \todo{Is actually \cite{hoedt} what we what to do, and if not, what will
 be the differences ?}
 
 
 
-\section{Difficulties}
+\subsection{Difficulties}
 
 \todo{What is the difference beetween domain, univers and set ?}
 
@@ -485,10 +541,10 @@ is implemented in the \texttt{compare\_elements} that must be given
 to the library functions. It that case, all the complexity of the
 must be implemented by the user to define the domain of the antichains.
 
-\subsection{Tree vs Bitarray representations}
+\subsubsection{Tree vs Bitarray representations}
 
 
-\section{Possible solutions}
+\subsection{Possible solutions}
 
 In the case of the domain specifications, a good approach could be to
 provide an interface/abstract class to the users, to let them provide
@@ -497,13 +553,13 @@ natural numbers or others well known domain used, could be directly implemented
 in the library.
 
 
-\section{New implementation}
+\subsection{New implementation}
 
 
 \chapter{Conclusion}
 
 
-\section{Possible extensions}
+\subsection{Possible extensions}
 
 
 As we mainly focus on efficiency, it could be interesting to use a \texttt{C}
