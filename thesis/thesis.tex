@@ -33,6 +33,9 @@
 \usepackage{todonotes}
 
 
+% \usepackage{draftwatermark}
+% \SetWatermarkText{Draft}
+% \SetWatermarkScale{2}
 
 % Math function
 
@@ -340,8 +343,28 @@ a binary relation to a partial order, which is equivalent
 to $(s_1, s_2) \in \ R$.
 A \textit{total order} is a partial order that is \textit{total}.
 
-\begin{example} Hello this is an example
+\begin{example}
+
+For example, the comparison of natural numbers is a partial order.
+Let $\leq$ be a binary relation on $\mathbb{N}$
+such that $\leq \ \subseteq \mathbb{N}^2$. The binary relation is defined
+following the usual semantic of the symbol, i.e. $n_1 \leq n_2$ if and
+only if $n_1$ is smaller or equal to $n_2$.
+Based on this, $\leq$ is a partial order. It is
+reflexive, transitive and antisymmetric.
+The binary relation $\leq$ on natural numbers is actually a total
+order since all the natural numbers can be compared against each other.
+
 \end{example}
+
+\begin{example}
+    % the inclusion $\subseteq$ is a partial order on
+    % $2^{\mathbb{N}}$,
+    % the power set of natural numbers.
+
+A more interesting example is the set inclusion.
+
+\end{exameple}
 
 \subsection{Partially ordered set}
 
@@ -505,7 +528,7 @@ of antichains and pseudo-antichains data structures.
 \paragraph{Antichain representation}
 
 An antichain is represented by a \texttt{struct}, containing as attributes
-the size of the antichain, and the incomparable elements of the antichains,
+the size of the antichain, and the uncomparable elements of the antichains,
 as a list. The list is manipulated using the \texttt{GSList} object
 from the \texttt{glib} library. To allow modularity, the type of the elements
 is \texttt{void}.
