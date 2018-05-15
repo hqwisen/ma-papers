@@ -182,7 +182,8 @@ or the universality problem. It has been proved that those problems are
 PSPACE-complete \cite{ant_univers}.
 \todo{cite the original papers of those problems (w/ complexity)}
 
-\todo{Talk about the problems, complexity and alternative (Safra vs antichain)}
+\todo{Talk about the problems, complexity and alternative
+(Safra vs antichain)}
 More efficient algorithms to resolve those problems have been implemented
 using antichain based-algorithms. Antichains are data structures that allow
 to represent a partially ordered set, in a more compact way.
@@ -246,7 +247,8 @@ reduce to it}
 
 this thesis is to provide an efficient implementation of different
 data structures that allow to compactly
-represent partially ordered sets, specifically antichains and pseudo-antichains.
+represent partially ordered sets, specifically antichains and
+pseudo-antichains.
 The first step is to implement in Java, classes that will be provided to
 the \texttt{Owl} library \cite{owl}.
 \texttt{Owl} is a LTL to deterministic automata translations tool-set written
@@ -357,15 +359,6 @@ order since all the natural numbers can be compared against each other.
 
 \end{example}
 
-\begin{example}
-    % the inclusion $\subseteq$ is a partial order on
-    % $2^{\mathbb{N}}$,
-    % the power set of natural numbers.
-
-A more interesting example is the set inclusion.
-
-\end{exameple}
-
 \subsection{Partially ordered set}
 
 \paragraph{}
@@ -383,7 +376,8 @@ are correct, then $s_1$ and $s_2$ are called \textit{uncomparable}.
 
 
 \paragraph{Bounds} Let $\tuple{S, \preceq}$ a partially ordered set.
-We denote the \textit{greatest lower bound} of the two elements $s_1, s_2 \in S$
+We denote the \textit{greatest lower bound} of the two elements $s_1,
+s_2 \in S$
 by $s_1 \sqcap s_2 \in S$.
 The greatest lower bound is defined as follow:
 $s_1 \sqcap s_2 \preceq s_1$,
@@ -391,6 +385,20 @@ $s_1 \sqcap s_2 \preceq s_2$ and for all $s' \in S$ we have that
 if $s' \preceq s_1$ and $s' \preceq s_2$ then $s' \preceq s_1 \sqcap s_2$.
 
 \todo{Include definition of least upper bound}
+
+\begin{example}
+    % the inclusion $\subseteq$ is a partial order on
+    % $2^{\mathbb{N}}$,
+    % the power set of natural numbers.
+
+\todo{Still need to define the automaton, here or in another section.}
+A more interesting example is the set inclusion comparison.
+Let $A$ be automaton defined in Example \ref{universality_eg}.
+Let $\tuple{2^{Q_A}, \subseteq}$, a poset.
+
+
+
+\end{example}
 
 \paragraph{Lattices} A \textit{lower semilattice} is a poset
 $\tuple{S, \preceq}$ where for all pair of elements $s_1, s_2 \in S$,
@@ -503,7 +511,8 @@ in\texttt{Java} built-in
 The main focus of the thesis is to be able to provide an efficient
 implementation of antichains and pseudo-antichains in \texttt{Java}.
 The first step is to provide an interface for the different operations that
-can be applied to antichains. We then give a description of the implementation.
+can be applied to antichains. We then give a description
+of the implementation.
 Antichains provide a way to represent
 in a compact way partially ordered set that are closed. Pseudo-antichains
 are an extension of antichains and provide a compact way to represent
@@ -588,16 +597,22 @@ must be implemented by the user to define the domain of the antichains.
 In the case of the domain specifications, a good approach could be to
 provide an interface/abstract class to the users, to let them provide
 their own implementation. In addition to that, usual domain such a
-natural numbers or others well known domain used, could be directly implemented
+natural numbers or others well known domain used, could be directly
+implemented
 in the library.
 
 
 \subsection{New implementation}
 
 
-\section{Next year}
+\section{Next year overview}
 
 \label{conclusion}
+
+|\subsection{Interface and implementation}
+
+The interface proposed in \ref{oset_git} gives a first overview
+of the desired implementation.
 
 
 \subsection{Possible extensions}
