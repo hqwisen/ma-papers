@@ -44,7 +44,9 @@
 
 % Theorems styles
 
-\newtheorem{proposition}{Proposition}
+\theoremstyle{definition}
+\newtheorem{proposition}{Proposition}[subsection]
+\newtheorem{example}{Example}[subsection]
 
 % \newenvironment{conditions}
 %   {\par\vspace{\abovedisplayskip}\noindent\begin{tabular}
@@ -96,61 +98,65 @@
 % %\cfoot{}
 % %\lfoot{Academic Year 2017-18}
 %
-% \newcommand{\HRule}{\rule{\linewidth}{0.5mm}} %newcommand for cover page
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} %newcommand for cover page
 
-
-%\begin{titlepage}
-
-% \begin{center}
-
-%
-% \textsc{\LARGE universit\'e libre de bruxelles}\\[1.0cm]
-% \textsc{\Large D\'epartment d'Informatique}\\[1.5cm]
-%
-% % Upper part of the page. The '~' is needed because \\
-% % only works if a paragraph has started.
-% \includegraphics[width=0.3\textwidth]{images/ulblogo.jpg}~\\[1cm]
-%
-% \textsc{
-% \large MEMO-F-403 \\
-% \Large  Preparatory work for the master thesis
-%  \\[1cm]}
-% % Title
-% \HRule \\[0.7cm]
-%
-% { \huge \bfseries Thesis - draft \#1 \\[0.7cm] }
-%
-% \HRule \\[2cm]
-%
-% % Author and supervisor
-% \noindent
-% \begin{center} \large
-%
-% \emph{Author:}\\
-% \Large Hakim \textsc{Boulahya}\\
-% \end{center}
-% \begin{center} \large
-%
-% \emph{Supervisor:} \\
-% Emmanuel \textsc{Filiot} \\
-
-% \end{center}
-%
-% \vfill
-%
-% % Bottom of the page
-% {\large \today}
-%
-% \end{center}
-%\end{titlepage}
-
-
-\title{Implementing data structures for \\ Partially Ordered Set}
-\author{Hakim Boulahya}
 
 \begin{document}
 
-\maketitle
+\begin{titlepage}
+
+\begin{center}
+
+
+\textsc{\LARGE universit\'e libre de bruxelles}\\[1.0cm]
+\textsc{\Large D\'epartment d'Informatique}\\[1.5cm]
+
+% Upper part of the page. The '~' is needed because \\
+% only works if a paragraph has started.
+\includegraphics[width=0.3\textwidth]{images/ulblogo.jpg}~\\[1cm]
+
+\textsc{
+\large MEMO-F-403 \\
+\Large  Preparatory work for the master thesis
+ \\[1cm]}
+% Title
+\HRule \\[0.7cm]
+
+{ \huge \bfseries Implementing data structures for
+Partially Ordered Set \\[0.7cm] }
+
+\HRule \\[2cm]
+
+% Author and supervisor
+\noindent
+\begin{center} \large
+
+%\emph{Author:}\\
+\Large Hakim \textsc{Boulahya}\\
+\end{center}
+\begin{center} \large
+
+\emph{Supervised by} \\
+\Large Emmanuel \textsc{Filiot} \\
+
+\end{center}
+
+\vfill
+% Bottom of the page
+{\large \today}
+
+\end{center}
+\end{titlepage}
+
+
+% \title{Implementing data structures for \\ Partially Ordered Set}
+% \author{Hakim Boulahya}
+%
+
+
+% \maketitle
+
+\newpage
 
 \tableofcontents
 
@@ -161,6 +167,8 @@
 \newpage
 
 \section{Introduction}
+
+\todo{In the paper, should I use We or I, or nothing ?}
 
 \paragraph{}
 
@@ -318,7 +326,7 @@ A relation $R$ on $S$ is said to be:
     \item Antisymmetric: iff $(s_1, s_2) \in R$
     and $(s_2, s_1) \in R$ then $s_1 = s_2$
     \item Total: iff $\forall s_1, s_2 \in S$ then $(s_1, s_2) \in R$
-    or $(s_2, s_1) \in R$\todo{is this Total def correct ?}
+    or $(s_2, s_1) \in R$
 
 \end{itemize}
 
@@ -331,6 +339,9 @@ We note $s_1 R  s_2$ to show the belonging of
 a binary relation to a partial order, which is equivalent
 to $(s_1, s_2) \in \ R$.
 A \textit{total order} is a partial order that is \textit{total}.
+
+\begin{example} Hello this is an example
+\end{example}
 
 \subsection{Partially ordered set}
 
@@ -371,8 +382,8 @@ we have that the greatest lower bound $s_1 \sqcap s_2$ exists.
 
 A closed set is a set $L \subseteq S$
 of a lower semilattice $\langle S, \preceq \rangle$
-where $\forall l \in L$ we have that $\forall s \in S$ such that
-$s \preceq l$, then $s \in L$.
+where $\forall \ell \in L$ we have that $\forall s \in S$ such that
+$s \preceq \ell$, then $s \in L$.
 
 Note that for two closed sets $L_1, L_2 \subseteq S$, we have that
 $L_1 \cup L_2$ and $L_1 \cap L_2$ are also closed sets,
@@ -381,17 +392,18 @@ but $L_1 \setminus L_2$ does not result necessarily to a closed set.
 \paragraph{Maximal/minimal elements} We denote by $\ceil{L}$
 the set of maximal elements of a closed set $L$ which
 \todo{Meaning of | vs . vs : in set definition ?}
-correspond to $\ceil{L} = \{ l \in L | \forall l' \in L :  l \preceq l'
- \Rightarrow l = l' \}$. Alternatively, to represent the set of minimal
+correspond to $\ceil{L} =
+\{ \ell \in L | \forall \ell' \in L : \ell \preceq \ell'
+ \Rightarrow \ell = \ell' \}$. Alternatively, to represent the set of minimal
  elements, the noation $\floor{L}$ is used which has the following semantic
-$\floor{L} = \{ l \in L | \forall l' \in L :  l' \preceq l
- \Rightarrow l = l' \}$.
+$\floor{L} = \{ \ell \in L | \forall \ell' \in L :  \ell' \preceq \ell
+ \Rightarrow \ell = \ell' \}$.
 
 
 \paragraph{Closure} A \textit{lower closure} of a set $L$ on $S$
 noted $\darrow L$ is the set of all elements of $S$ that are
 \textit{smaller or equal} to an element of $L$ i.e.
-$\darrow L = \{ s \in S \ | \ \exists l \in L \cdot s \preceq l\}$.
+$\darrow L = \{ s \in S \ | \ \exists \ell \in L \cdot s \preceq \ell\}$.
 Note that for a closed set $L$ we have that $\darrow L = L$.
 
 
