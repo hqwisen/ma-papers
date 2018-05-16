@@ -237,8 +237,8 @@ For a subset $P \subseteq Q$, for all subsets $p$ such that $p \subseteq P$,
 it is known that, computing the word $w$ starting from $p$ or $P$, will lead
 to the same final state. Therefore it is more interesting to compute
 the maximal sets $\ceil{X}$, which correspond to an antichain of set of
-states that are $\subseteq$-uncomparable. In section \ref{data_structures},
-we give formal definition of notions such as maximal sets or uncomparable
+states that are $\subseteq$-incomparable. In section \ref{data_structures},
+we give formal definition of notions such as maximal sets or incomparable
 elements.
 \todo{Include Xi explanation}
 
@@ -390,7 +390,7 @@ It is denoted by the pair $\langle S, \preceq \rangle$.
 Let $s_1, s_2 \in S$ and $\tuple{S, \preceq}$ a poset.
 The two elementes $s_1$ and $s_2$ are called \textit{comparable} if either
 $s_1 \preceq s_2$ or $s_2 \preceq s_1$. If neither of those two comparaisons
-are correct, then $s_1$ and $s_2$ are called \textit{uncomparable}.
+are correct, then $s_1$ and $s_2$ are called \textit{incomparable}.
 
 
 \paragraph{Bounds} Let $\tuple{S, \preceq}$ a partially ordered set.
@@ -413,7 +413,7 @@ if $s' \preceq s_1$ and $s' \preceq s_2$ then $s' \preceq s_1 \sqcap s_2$.
 A more interesting example is the set inclusion comparison.
 Let $A$ be automaton defined in Example \ref{universality_eg}.
 Let $\tuple{2^{Q_A}, \subseteq}$, a poset. Figure \ref{fig:eg_antichain1}
-shows a graph with the uncomparable elements of such poset.
+shows a graph with the incomparable elements of such poset.
 
 \begin{figure}
 
@@ -456,7 +456,7 @@ shows a graph with the uncomparable elements of such poset.
     correspond to a valid comparison using the set inclusion. For example
     $\{q_0\} \rightarrow \{q_0, q_1\}$ corresponds to
      the inclusion $\{q_0\} \subseteq \{q_0, q_1\}$. Two elements of the graph
-     with no connection, means that the elements are uncomparable. For
+     with no connection, means that the elements are incomparable. For
      example, $\alpha = \{\{q_0\}, \{q_1\}, \{q_2\}\}$ is an antichain.}
      \label{fig:eg_antichain1}
 \end{figure}
@@ -509,7 +509,7 @@ Note that for a closed set $L$ we have that $\darrow L = L$.
 
 An antichain of a poset $\tuple{S, \preceq}$
 is a set $\alpha \subseteq S$ where all element of $\alpha$
-are uncomparable with respect to the partial order $\preceq$.
+are incomparable with respect to the partial order $\preceq$.
 Antichains allow to represent closed set in a more compact way.
 For a closed set $L \subseteq S$ we can retrieve all elements of $L$ by using
 the antichain $\alpha = \ceil{L}$. With respect
@@ -587,7 +587,7 @@ closed set.
 
 Our goal is to find a way to not keep all the closure all
 element of the antichain in memory, but be able to retrieve those elements
-or check the belonging of a closure element from the uncomparable elements
+or check the belonging of a closure element from the incomparable elements
 of the antichain.
 
 \subsection{Existing implementation}
@@ -603,7 +603,7 @@ of antichains and pseudo-antichains data structures.
 \paragraph{Antichain representation}
 
 An antichain is represented by a \texttt{struct}, containing as attributes
-the size of the antichain, and the uncomparable elements of the antichains,
+the size of the antichain, and the incomparable elements of the antichains,
 as a list. The list is manipulated using the \texttt{GSList} object
 from the \texttt{glib} library. To allow modularity, the type of the elements
 is \texttt{void}.
