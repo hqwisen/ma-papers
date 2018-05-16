@@ -1,7 +1,7 @@
 \documentclass[letterpaper]{article}
 % \usepackage{natbib}
 \usepackage[utf8]{inputenc}
-% \usepackage[margin=3.5cm]{geometry}
+%\usepackage[margin=7cm]{geometry}
 % \usepackage{listings}
 % \usepackage{adjustbox}
 % \usepackage{xcolor}
@@ -32,6 +32,9 @@
 \usepackage{mathtools}
 \usepackage{todonotes}
 
+
+\usepackage{tikz}
+\usetikzlibrary{arrows}
 
 % \usepackage{draftwatermark}
 % \SetWatermarkText{Draft}
@@ -101,7 +104,7 @@
 % %\cfoot{}
 % %\lfoot{Academic Year 2017-18}
 %
-\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} %newcommand for cover page
+\newcommand{\HRule}{\rule{\linewidth}{0.2mm}} %newcommand for cover page
 
 
 \begin{document}
@@ -112,7 +115,7 @@
 
 
 \textsc{\LARGE universit\'e libre de bruxelles}\\[1.0cm]
-\textsc{\Large D\'epartment d'Informatique}\\[1.5cm]
+\textsc{\Large D\'epartment d'Informatique}\\[1.0cm]
 
 % Upper part of the page. The '~' is needed because \\
 % only works if a paragraph has started.
@@ -121,14 +124,14 @@
 \textsc{
 \large MEMO-F-403 \\
 \Large  Preparatory work for the master thesis
- \\[1cm]}
+ \\[1.0cm]}
 % Title
-\HRule \\[0.7cm]
+\HRule \\[0.3cm]
 
 { \huge \bfseries Implementing data structures for
-Partially Ordered Set \\[0.7cm] }
+Partially Ordered Set \\[0.3cm] }
 
-\HRule \\[2cm]
+\HRule \\[1cm]
 
 % Author and supervisor
 \noindent
@@ -144,7 +147,7 @@ Partially Ordered Set \\[0.7cm] }
 
 \end{center}
 
-\vfill
+\\[1cm]
 % Bottom of the page
 {\large \today}
 
@@ -175,63 +178,74 @@ Partially Ordered Set \\[0.7cm] }
 
 \paragraph{}
 
-Automata theory is used in various field in computer science and has shown
-to be an interesting way to resolve important problems,
-such as synthesis of computer systems
-or the universality problem. It has been proved that those problems are
-PSPACE-complete \cite{ant_univers}.
-\todo{cite the original papers of those problems (w/ complexity)}
-
-\todo{Talk about the problems, complexity and alternative
-(Safra vs antichain)}
-More efficient algorithms to resolve those problems have been implemented
-using antichain based-algorithms. Antichains are data structures that allow
-to represent a partially ordered set, in a more compact way.
-
+Data structures play an important role in algorithms complexity.
+\todo{complexity vs efficiency ?}
+With the objective to improve standard algorithms in automata theory,
+researchers at the ULB
+\todo{References maybe ?}
+have implemented new algorithms to resolve
+important problems in the field. Those implementations uses antichains,
+which are data structures that allow to represent elements in a partially
+ordered set, in a more compact way.
 The goal of this preparatory work is to motivate the interest that
-are made in the antichains data structure, and why we need an efficient
+are made in data structures for partially ordered set, especially antichains,
+and why we need efficient
 implementation.
 It also defines the desired objectives
-and propose and state-of-the-art of the existing implementation.
+and propose a state of the art of the various existing implementations.
 
 \paragraph{Motivation}
 
 An example that highlights the use of antichains in automata theory is
-the universality problem. It is the problem that for an automaton
-\texttt{A}, is the language of \texttt{A} equivalent to the language
-of all the words on the alphabet, that is, is $L(A) = \Sigma^*$.
+the universality problem.
+It is the problem that for an automaton,
+check if the language of this automaton equivalent to the language
+of all the words on the alphabet. The universality problem is a classical
+theoritical problem, and many verifications-related problems can be
+reduced in polynomial time to it.
+\todo{Source of this reduce statement ?}
+
+
+Let $A$ be a non-deterministic finite automaton (NFA),
+we want to check whether or not
+the language of $A$ is universal, that is, $L(A) = \Sigma^*$.
 The language of \texttt{A} is universal if and only if the language
-of the complementary of \texttt{A} accepts no words, that is,
+of the complementary of $A$ accepts no words, that is,
 $L(A) = \Sigma^*$ if and only if $L(\bar{A}) = \emptyset$.
-The only way to compute the complementary of \texttt{A} is to first
-determinise it, which is hard. Now if $L(\bar{A})$ is the empty set,
-\todo{We have to define complementary with det. computation to understand
-why we use set of state}
+The only way to compute the complementary of $A$ is to first
+determinise it, which is hard. Let define $A_d$ as the deterministic finite
+automaton (DFA) of $A$ such that $L(A_d) = L(A)$.
+When $A$ is transformed to $A_d$,
+the set of states of the DFA is the powerset of states,
+that is a state of the DFA $A_d$ is represented by a subset of state of $A$.
+Now if $L(\bar{A})$ is the empty set,
 it means that there is no set of states that for which there exists a word
-such that this word is accepted by $\bar{A}$. A function can be
-defined to check the existence of such sets. Let the function
-\todo{Define F bar, final state of A bar}
-\todo{EAcc function def is not correct, how to correctly formulate it ?}
-\todo{EAcc, set or function ?}
-$EAcc^A(w) = X
-= \{ P \subseteq Q, P' \subseteq Q, P' \cap \bar{F} = \emptyset
-| \exists w \in \Sigma^* s.t. P \xrightarrow{w} P'\}$.
+such that, when computed by $\bar{A}$,
+this word is accepted.
+With the set
+$X = \{ P,  \subseteq Q, P' \subseteq Q, P' \cap \bar{F} = \emptyset
+| \exists w \in \Sigma^* s.t. P \xrightarrow{w} P'\}$, it provides
+a way to check the existence such set of states.
 The goal is to show that if there exists
-no set of states $P$ such that $P \cap F = \emptyset$ i.e.
+no set of states $P'$ such that $P' \cap F = \emptyset$ i.e.
 $X = \emptyset$, then it is shown that $L(\bar{A}) = \emptyset$, therefore
 $A$ is universal. The difficulty of the problem arise at the computation
 of $X$. Checking intersection between the accepting states set and all
 the subsets is costly.
 \todo{Costly vs expensive vs complexe vs hard etc..}
 For a subset $P \subseteq Q$, for all subsets $p$ such that $p \subseteq P$,
-it is known that, computing the work $w$ starting from $p$ or $P$, will lead
+it is known that, computing the word $w$ starting from $p$ or $P$, will lead
 to the same final state. Therefore it is more interesting to compute
 the maximal sets $\ceil{X}$, which correspond to an antichain of set of
-states that are $\subseteq$-uncomparable.
+states that are $\subseteq$-uncomparable. In section \ref{data_structures},
+we give formal definition of notions such as maximal sets or uncomparable
+elements.
+\todo{Include Xi explanation}
 
-In the antichain algorithms paper
-\cite{AC_universality}, the algorithm proposed follow an idea equivalent
-by using game theory. The universality problem is reduce to
+
+In
+\cite{AC_universality}, the algorithm proposed follow an equivalent
+idea by using game theory. The universality problem is reduce to
 a two-player reachability game, which can be done in polynomial time.
 The objective of the game is for the protagonist to establish that
 the automaton $A$ is not universal. To this end, the protagonist will
@@ -244,6 +258,8 @@ not universal.
 reduce to it}
 
 \paragraph{Objective}
+
+\todo{Either put this here in the intro, or in the next year section}
 
 this thesis is to provide an efficient implementation of different
 data structures that allow to compactly
@@ -258,8 +274,6 @@ study the performance.
 
 \paragraph{Related work}
 
-\todo{Include difference betweens BDDs and Antichains}
-
 
 \texttt{AaPAL} is a generic
 library is a that was implemented in the frame of
@@ -267,11 +281,12 @@ Aaron Bohy's PhD thesis \cite{bohy_phd}
 to provide an antichain library. It is implemented in \texttt{C}.
 \todo{How are antichains implemented in Acacia+ ?
 Is it AaPAL or another impl. ?}
-
-An implementation of antichains in \texttt{Java} have been done
+Another implementation of antichains
+have been done
 by De Causmaecker and De Wannemacker in \cite{causemaecker1}. The algorithms
 to find the ninth Dedekind number uses antichains and they needed to
-implement a representation of antichains.
+implement a representation of antichains. Their implementation is using
+\texttt{Java}.
 To improve efficiency and performances, Hoedts in \cite{hoedt} has extended
 \cite{causemaecker1} antichains implementation by using bit sequence
 instead of tree reprensentation.
@@ -280,21 +295,24 @@ instead of tree reprensentation.
 \todo{What operations are implemented in those papers ?}
 \todo{What domain (of sets) is is used in those papers ?}
 \todo{Research other possible related works}
+\todo{ABout impl, should i talk about BDD ?}
 
-\paragraph{Structure of the work}
+\paragraph{Structure of the preparatory work}
 
-This work is the introduction to next year thesis. Therefore
-the content concern only the prelimenaries, the goal is to
-properly define the subject and existing implementation.
+This work is the introduction to next year thesis, therefore
+the content concern only the prelimenaries. The goal is to
+properly define the subject, existing implementation and the desired objectives.
 In Section \ref{data_structures}, we formally define antichains,
 and give examples of such data structures. In Section \ref{impl},
-we cite and summarize the work that has been done by the community
+we summarize the work that has been done by others
 for antichains implementation. In \ref{conclusion}, we propose
 an overview of next year work and possibilities.
 
 
 
 \section{Data Structures}
+
+\label{data_structures}
 
 In this section, we will provide formal definitions of the data
 structures that we will implement. We recall the notion of binary relations
@@ -394,9 +412,57 @@ if $s' \preceq s_1$ and $s' \preceq s_2$ then $s' \preceq s_1 \sqcap s_2$.
 \todo{Still need to define the automaton, here or in another section.}
 A more interesting example is the set inclusion comparison.
 Let $A$ be automaton defined in Example \ref{universality_eg}.
-Let $\tuple{2^{Q_A}, \subseteq}$, a poset.
+Let $\tuple{2^{Q_A}, \subseteq}$, a poset. Figure \ref{fig:eg_antichain1}
+shows a graph with the uncomparable elements of such poset.
 
+\begin{figure}
 
+    \center
+    \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
+                        thick,
+                        main node/.style=
+                        {rectangle,draw,font=\sffamily\large\bfseries}]
+
+      \node[main node] (012) {$\{q_0, q_1, q_2\}$};
+      \node[main node] (02) [below of=012] {$\{q_0, q_2\}$};
+      \node[main node] (01) [left of=02] {$\{q_0, q_1\}$};
+      \node[main node] (12) [right of=02] {$\{q_1, q_2\}$};
+      \node[main node] (1) [below of=02] {$\{q_1\}$};
+      \node[main node] (0) [left of=1] {$\{q_0\}$};
+      \node[main node] (2) [right of=1] {$\{q_2\}$};
+      \node[main node] (EMPTY) [below of=1] {$\emptyset$};
+
+      \path[every node/.style={font=\sffamily\small}]
+          (02) edge node [] {} (012)
+          (01) edge node [] {} (012)
+          (12) edge node [] {} (012)
+
+          (0) edge node [] {} (01)
+              edge node [] {} (02)
+          (1) edge node [] {} (01)
+              edge node [] {} (12)
+          (2) edge node [] {} (02)
+              edge node [] {} (12)
+
+          (EMPTY) edge node [] {} (0)
+                  edge node [] {} (1)
+                  edge node [] {} (2)
+        ;
+    \end{tikzpicture}
+    \caption{Example of antichains using
+    the poset $\tuple{2^{Q_A}, \subseteq}$,
+    With $Q_A$ the set of state of the automaton $A$, which correspond
+    to $Q_A = \{q_0, q_1, q_2\}$. Each arrow of the graph
+    correspond to a valid comparison using the set inclusion. For example
+    $\{q_0\} \rightarrow \{q_0, q_1\}$ corresponds to
+     the inclusion $\{q_0\} \subseteq \{q_0, q_1\}$. Two elements of the graph
+     with no connection, means that the elements are uncomparable. For
+     example, $\alpha = \{\{q_0\}, \{q_1\}, \{q_2\}\}$ is an antichain.}
+     \label{fig:eg_antichain1}
+\end{figure}
+
+\todo{Fix figure formulation as we havent spoke about antichains at this
+section yet}
 
 \end{example}
 
