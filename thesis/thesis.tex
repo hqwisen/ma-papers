@@ -194,24 +194,44 @@ implementation.
 It also defines the desired objectives
 and propose a state of the art of the various existing implementations.
 
-\paragraph{Motivation}
+\subsection{Context and motivations}
+
+\paragraph{Theoritical context}
+
+
+\paragraph{Universality check with antichains}
 
 An example that highlights the use of antichains in automata theory is
 the universality problem.
-It is the problem that for an automaton,
+It is the problem that for a finite automaton, we want to
 check if the language of this automaton equivalent to the language
 of all the words on the alphabet. The universality problem is a classical
 theoritical problem, and many verifications-related problems can be
 reduced in polynomial time to it.
 \todo{Source of this reduce statement ?}
 
-
-Let $A$ be a non-deterministic finite automaton (NFA),
+Let $A = \{Q_A, \Sigma, q_0, \delta, F_A\}$ be a finite automaton,
 we want to check whether or not
 the language of $A$ is universal, that is, $L(A) = \Sigma^*$.
-The language of \texttt{A} is universal if and only if the language
+The language of $A$ is universal if and only if the language
 of the complementary of $A$ accepts no words, that is,
 $L(A) = \Sigma^*$ if and only if $L(\bar{A}) = \emptyset$.
+Therefore, the goal is to find a computation path of the
+automaton on a word such that the path start in the initial state,
+and the final target is a non-accepting state.
+Let $S$ a set of states such that $S \subseteq 2^{Q_A}$ and
+$S \cap F_A = \emptyset$. The goal is to find a state $s \in S$,
+which when computing a word $w = w_0w_1...w_n$, the automaton will ends
+in $s$. The idea is to first start with a set state with all non-accepting
+states, that is $T = Q_A \setminus F_A$. Then compute the sets that
+when reading a letter will lead to $T$, that is the function
+$Pre(S) = \{s \ | \ \exists s' \in S \cdot \exists \sigma \in \Sigma \ :
+ \ s \xrightarrow{\sigma} s'\}$.
+
+t prove that $A$ is not universabl
+
+
+
 The only way to compute the complementary of $A$ is to first
 determinise it, which is hard. Let define $A_d$ as the deterministic finite
 automaton (DFA) of $A$ such that $L(A_d) = L(A)$.
@@ -452,12 +472,14 @@ shows a graph with the incomparable elements of such poset.
     \caption{Example of antichains using
     the poset $\tuple{2^{Q_A}, \subseteq}$,
     With $Q_A$ the set of state of the automaton $A$, which correspond
-    to $Q_A = \{q_0, q_1, q_2\}$. Each arrow of the graph
-    correspond to a valid comparison using the set inclusion. For example
+    to $Q_A = \{q_0, q_1, q_2\}$. Each directed edge of the graph
+    correspond to a valid comparison using the set inclusion $\subseteq$.
+    For example
     $\{q_0\} \rightarrow \{q_0, q_1\}$ corresponds to
      the inclusion $\{q_0\} \subseteq \{q_0, q_1\}$. Two elements of the graph
      with no connection, means that the elements are incomparable. For
-     example, $\alpha = \{\{q_0\}, \{q_1\}, \{q_2\}\}$ is an antichain.}
+     example, $\alpha = \{\{q_0\}, \{q_1\}, \{q_2\}\}$ is a set
+     of incomparable elements and $\alpha$ is called an antichain.}
      \label{fig:eg_antichain1}
 \end{figure}
 
