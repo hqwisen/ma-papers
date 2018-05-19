@@ -196,8 +196,11 @@ and propose a state of the art of the various existing implementations.
 
 \subsection{Context and motivations}
 
-\paragraph{Theoritical context}
-
+\paragraph{Theoritical context} In this work, we will mainly focus
+on the usage of partially ordered sets and antichains in
+automata theory-related problems.
+\todo{Extend this paragraph by talking about diffent problems/algorihtms
+where antichains can be used}.
 
 \paragraph{Universality check with antichains}
 
@@ -228,39 +231,38 @@ when reading a letter will lead to $T$, that is the function
 $Pre(S) = \{s \ | \ \exists s' \in S \cdot \exists \sigma \in \Sigma \ :
  \ s \xrightarrow{\sigma} s'\}$.
 
-t prove that $A$ is not universabl
+ \todo{Example is not finished!}
 
 
-
-The only way to compute the complementary of $A$ is to first
-determinise it, which is hard. Let define $A_d$ as the deterministic finite
-automaton (DFA) of $A$ such that $L(A_d) = L(A)$.
-When $A$ is transformed to $A_d$,
-the set of states of the DFA is the powerset of states,
-that is a state of the DFA $A_d$ is represented by a subset of state of $A$.
-Now if $L(\bar{A})$ is the empty set,
-it means that there is no set of states that for which there exists a word
-such that, when computed by $\bar{A}$,
-this word is accepted.
-With the set
-$X = \{ P,  \subseteq Q, P' \subseteq Q, P' \cap \bar{F} = \emptyset
-| \exists w \in \Sigma^* s.t. P \xrightarrow{w} P'\}$, it provides
-a way to check the existence such set of states.
-The goal is to show that if there exists
-no set of states $P'$ such that $P' \cap F = \emptyset$ i.e.
-$X = \emptyset$, then it is shown that $L(\bar{A}) = \emptyset$, therefore
-$A$ is universal. The difficulty of the problem arise at the computation
-of $X$. Checking intersection between the accepting states set and all
-the subsets is costly.
-\todo{Costly vs expensive vs complexe vs hard etc..}
-For a subset $P \subseteq Q$, for all subsets $p$ such that $p \subseteq P$,
-it is known that, computing the word $w$ starting from $p$ or $P$, will lead
-to the same final state. Therefore it is more interesting to compute
-the maximal sets $\ceil{X}$, which correspond to an antichain of set of
-states that are $\subseteq$-incomparable. In section \ref{data_structures},
-we give formal definition of notions such as maximal sets or incomparable
-elements.
-\todo{Include Xi explanation}
+% The only way to compute the complementary of $A$ is to first
+% determinise it, which is hard. Let define $A_d$ as the deterministic finite
+% automaton (DFA) of $A$ such that $L(A_d) = L(A)$.
+% When $A$ is transformed to $A_d$,
+% the set of states of the DFA is the powerset of states,
+% that is a state of the DFA $A_d$ is represented by a subset of state of $A$.
+% Now if $L(\bar{A})$ is the empty set,
+% it means that there is no set of states that for which there exists a word
+% such that, when computed by $\bar{A}$,
+% this word is accepted.
+% With the set
+% $X = \{ P,  \subseteq Q, P' \subseteq Q, P' \cap \bar{F} = \emptyset
+% | \exists w \in \Sigma^* s.t. P \xrightarrow{w} P'\}$, it provides
+% a way to check the existence such set of states.
+% The goal is to show that if there exists
+% no set of states $P'$ such that $P' \cap F = \emptyset$ i.e.
+% $X = \emptyset$, then it is shown that $L(\bar{A}) = \emptyset$, therefore
+% $A$ is universal. The difficulty of the problem arise at the computation
+% of $X$. Checking intersection between the accepting states set and all
+% the subsets is costly.
+% \todo{Costly vs expensive vs complexe vs hard etc..}
+% For a subset $P \subseteq Q$, for all subsets $p$ such that $p \subseteq P$,
+% it is known that, computing the word $w$ starting from $p$ or $P$, will lead
+% to the same final state. Therefore it is more interesting to compute
+% the maximal sets $\ceil{X}$, which correspond to an antichain of set of
+% states that are $\subseteq$-incomparable. In section \ref{data_structures},
+% we give formal definition of notions such as maximal sets or incomparable
+% elements.
+% \todo{Include Xi explanation}
 
 
 In
@@ -279,56 +281,49 @@ reduce to it}
 
 \paragraph{Objective}
 
-\todo{Either put this here in the intro, or in the next year section}
-
-this thesis is to provide an efficient implementation of different
+The objective of the final work
+is to provide an efficient implementation of different
 data structures that allow to compactly
-represent partially ordered sets, specifically antichains and
-pseudo-antichains.
+represent partially ordered sets, specifically antichains.
 The first step is to implement in Java, classes that will be provided to
 the \texttt{Owl} library \cite{owl}.
 \texttt{Owl} is a LTL to deterministic automata translations tool-set written
 in \texttt{Java}. A second step will be to implement
 antichain-based algorithms using the new antichains implementation and
 study the performance.
+\todo{Include examples from Guillermo correction}
 
 \paragraph{Related work}
 
-
-\texttt{AaPAL} is a generic
-library is a that was implemented in the frame of
+There are two interesting implementations that were found.
+The first one is \texttt{AaPAL} (
+Antichain and Pseudo-Antichain Library), a generic
+library that was implemented in the frame of
 Aaron Bohy's PhD thesis \cite{bohy_phd}
 to provide an antichain library. It is implemented in \texttt{C}.
-\todo{How are antichains implemented in Acacia+ ?
-Is it AaPAL or another impl. ?}
-Another implementation of antichains
+The other implementation of antichains
 have been done
 by De Causmaecker and De Wannemacker in \cite{causemaecker1}. The algorithms
 to find the ninth Dedekind number uses antichains and they needed to
 implement a representation of antichains. Their implementation is using
 \texttt{Java}.
-To improve efficiency and performances, Hoedts in \cite{hoedt} has extended
+To improve efficiency and performances, Hoedt in \cite{hoedt} has extended
 \cite{causemaecker1} antichains implementation by using bit sequence
 instead of tree reprensentation.
 
-\todo{Discuss impl. specifics etc in chapter Implementation}
-\todo{What operations are implemented in those papers ?}
-\todo{What domain (of sets) is is used in those papers ?}
-\todo{Research other possible related works}
-\todo{ABout impl, should i talk about BDD ?}
-
 \paragraph{Structure of the preparatory work}
 
-This work is the introduction to next year thesis, therefore
-the content concern only the prelimenaries. The goal is to
-properly define the subject, existing implementation and the desired objectives.
+This paper is the introduction to next year thesis, therefore
+the content concern only the preliminaries. The goal is to
+properly define the subject,
+existing implementations and the desired objectives.
 In Section \ref{data_structures}, we formally define antichains,
 and give examples of such data structures. In Section \ref{impl},
 we summarize the work that has been done by others
 for antichains implementation. In \ref{conclusion}, we propose
 an overview of next year work and possibilities.
 
-
+\newpage
 
 \section{Data Structures}
 
@@ -575,6 +570,8 @@ Let $\alpha_1, \alpha_2 \subseteq S$ two antichains and $s \in S$:
 % An antichain is a subset of $S$ that allow to represent in a compact way
 % a set $L \subseteq S$ that is not necessarily closed.
 
+\newpage
+
 \section{Implementation}
 
 \paragraph{}
@@ -614,12 +611,23 @@ of the antichain.
 
 \subsection{Existing implementation}
 
+\todo{Discuss impl. specifics etc in chapter Implementation}
+\todo{What operations are implemented in those papers ?}
+\todo{What domain (of sets) is is used in those papers ?}
+\todo{Research other possible related works}
+\todo{ABout impl, should i talk about BDD ?}
+
 \subsubsection{AaPAL}
+
+\todo{Talk about AaPAL in Acacia+ ?}
 
 Bohy's \textbf{A}ntichain
 \textbf{a}nd \textbf{P}seudo-\textbf{A}ntichain \textbf{L}ibrary \cite{aapal}
-is an open-source \texttt{C} library for the manipulation
-of antichains and pseudo-antichains data structures.
+is an open-source generic library for the manipulation
+of antichains and pseudo-antichains data structures,
+implemented in \texttt{C}. In this section we will mainly focus
+on the implementation of antichains.
+\todo{Pseudo-antichains might be interesting for next year maybe ?}
 
 
 \paragraph{Antichain representation}
@@ -627,45 +635,52 @@ of antichains and pseudo-antichains data structures.
 An antichain is represented by a \texttt{struct}, containing as attributes
 the size of the antichain, and the incomparable elements of the antichains,
 as a list. The list is manipulated using the \texttt{GSList} object
-from the \texttt{glib} library. To allow modularity, the type of the elements
+from the \texttt{glib} library.
+\todo{Cite glib library}
+To allow modularity, the type of the elements
 is \texttt{void}.
+\todo{Find usage of AaPAL (see Bohy's PHD)}
 
 \paragraph{Operations}
 
 The operations implemented in \texttt{AaPAL}
-are described in this section.
+are the union, intersection and appartenance
+defined in Proposition \ref{antichains_ops}.
 An interesting remark is that most of the complexity is given as a paramater
 to the functions. For example the function to compare two elements in
 an antichain is given as a parameter. It means that the complexity to define
 the domain of the antichain, must be implemented in the compare function.
-
-Operations such as creating an antichain,
+Same pattern goes for the intersection operation,
+the function to compute the intersection must be provided by the user.
+Also basic
+operations such as creating an antichain,
 adding an element to
-an antichain, checking emptiness or cloning an antichain are implemented
-in \texttt{AaPAL}. In addition to that
+an antichain, checking emptiness or cloning an antichain are implemented.
+in \texttt{AaPAL}.
 
-create
-add elem
-clone
+\subsubsection{Antichains for Dedekind numbers algorithms}
 
-interesection
-Union
+De Causemaecker and De Wannemacker only provide the executable of
+their algorithm in their paper for
+the Dedekind algorithm \cite{causemaecker1}. Hoedt proposed in \cite{hoedt}
+a algorithm to find the ninth Dedekind number, which requires an representation
+of antichains. The representation used is an extension of the implementation
+proposed by De Causmaecker and De Wannemacker. The source of his
+implementation was found in is personal GitHub \cite{hoedt_src}.
+We will therefore only focus on the implementation
+of Hoedt, which is an extension of the implementation proposed
+by De Causmaecker and De Wannemacker, but by representing an antichains
+using bitarray-like methods.
 
-compare 2 antichains
+\paragraph{Antichains representation}
 
-containing element
-closure size
-
-
-
-\subsubsection{ABD}
-
-\subsubsection{Hoedt's ABD modifications}
-\todo{Referring to \cite{hoedt}}
-\todo{Is actually \cite{hoedt} what we what to do, and if not, what will
-be the differences ?}
-
-
+According to Hoedt in
+\cite{hoedt}, the first proposed representation
+in \cite{causemaecker1} was done by using
+a \texttt{TreeSet}. With the objective to improve the performance of
+the important operations, for example the intersection, Hoedt used
+another way to represent antichains, by using a bitarray-like representation.
+This representation
 
 \subsection{Difficulties}
 
@@ -697,10 +712,29 @@ in the library.
 
 \label{conclusion}
 
-|\subsection{Interface and implementation}
+\subsection{Requirements}
+
+Java + Owl
+
+\todo{Talk about Owl}
+
+The requirements of the
+
+\subsection{Framework and implementation}
+
+\paragraph{}
 
 The interface proposed in \ref{oset_git} gives a first overview
-of the desired implementation.
+of the desired implementation. The goal will be to try to find a good
+way to implement antichains. One of the possible way to do so is to provide
+operations depending on the universe of the antichains. For example,
+the implementation of Hoedt presented in section \ref{sota_hoedts}
+using bitarray can only be applied to natural numbers. An first step
+is to proposed an framework for users to implement the specifics of the
+universe necessary for their algorithms. The goal of the thesis will
+be to propose a generic and abstract API, and implement specifics
+for known universe and test them of state-of-the-art algorithms,
+especially in automata theory.
 
 
 \subsection{Possible extensions}
