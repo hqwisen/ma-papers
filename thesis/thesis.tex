@@ -229,7 +229,9 @@ in $s$. The idea is to first start with a set state with all non-accepting
 states, that is $T = Q_A \setminus F_A$. Then compute the sets that
 when reading a letter will lead to $T$, that is the function
 $Pre(S) = \{s \ | \ \exists s' \in S \cdot \exists \sigma \in \Sigma \ :
- \ s \xrightarrow{\sigma} s'\}$.
+ \ s \xrightarrow{\sigma} s'\}$. The intersting here is that
+ for the set $S$ and $S'$, we know that for if $S' \subseteq S$,
+ 
 
  \todo{Example is not finished!}
 
