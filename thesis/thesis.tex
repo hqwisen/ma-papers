@@ -202,7 +202,7 @@ automata theory-related problems.
 \todo{Extend this paragraph by talking about diffent problems/algorihtms
 where antichains can be used}.
 
-\paragraph{Universality check with antichains}
+\paragraph{Checking universality with antichains}
 
 An example that highlights the use of antichains in automata theory is
 the universality problem.
@@ -229,11 +229,35 @@ in $s$. The idea is to first start with a set state with all non-accepting
 states, that is $T = Q_A \setminus F_A$. Then compute the sets that
 when reading a letter will lead to $T$, that is the function
 $Pre(S) = \{s \ | \ \exists s' \in S \cdot \exists \sigma \in \Sigma \ :
- \ s \xrightarrow{\sigma} s'\}$. The intersting here is that
- for the set $S$ and $S'$, we know that for if $S' \subseteq S$,
- 
+\ s \xrightarrow{\sigma} s'\}$.
+The idea is to compute recursively
+the sets using the function $Pre(\cdot)$, until an initial state
+is found in a transition. This will build a word that starts
+from an initial state and ends up in a non-accepting state,
+which will state that $A$ is not universal.
+ Let $X_0$ be the initial set such that
+it is the set of states of all non-accepting state, that is $X_0 = T$
+and the recursive construction $X_i = Pre(X_{i-1})$. The improvment
+of antichains is this example is that, since we
+known that $S \xrightarrow{\sigma}
+S'$, for all $s \subseteq S$, computing $s \xrightarrow{\sigma} s'$
+means that $s' \subseteq S'$, instead of keeping all states
+at each level of computation, it is equivalent to store the maximal
+states, such that $X_i = \ceil{Pre(X_{i-1})}$. A set
+$X_i$ is called an antichain
+of $\subseteq$-incomparable elements
+(in section \ref{data_structures},
+we give formal definitions of these notions). At the end of a computation,
+if an initial state $q_0$ is found in $X_i$, for any level,
+it means that there exists a word that will end in a non-accepting state,
+that is $A$ is not universal. If $A$ is universal, initial state will never
+appear in the computation of $X_i$.
+This algorithm keeps the determination implicit.
+The standard algorithm to check the universality of an automaton
+is to compute first the deterministic equivalent of the automaton, which
+can lead to an exponational blew-up.
 
- \todo{Example is not finished!}
+\todo{Where is $Pre(S) \cup T$ in the recusirve explantion ?}
 
 % The only way to compute the complementary of $A$ is to first
 % determinise it, which is hard. Let define $A_d$ as the deterministic finite
