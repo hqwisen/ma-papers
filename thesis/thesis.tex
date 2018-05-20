@@ -233,7 +233,6 @@ $Pre(S) = \{s \ | \ \exists s' \in S \cdot \exists \sigma \in \Sigma \ :
 
  \todo{Example is not finished!}
 
-
 % The only way to compute the complementary of $A$ is to first
 % determinise it, which is hard. Let define $A_d$ as the deterministic finite
 % automaton (DFA) of $A$ such that $L(A_d) = L(A)$.
@@ -329,15 +328,18 @@ an overview of next year work and possibilities.
 
 \label{data_structures}
 
+\paragraph{}
+
 In this section, we will provide formal definitions of the data
 structures that we will implement. We recall the notion of binary relations
 and important propreties of such relations.
 We then define partially ordered set, totally order set and closed set.
-Finally we give a formal definition for antichains and pseudo-antichains.
+Finally we give a formal definition for antichains.
 
 \paragraph{}
 
-The definitions and examples for this section are based on \cite{bohy_phd}.
+The definitions and examples for this section are based on \cite{bohy_phd}
+and \cite{maquet_phd}.
 
 
 \subsection{Binary relations}
@@ -403,14 +405,22 @@ It is denoted by the pair $\langle S, \preceq \rangle$.
 \paragraph{Comparable}
 
 Let $s_1, s_2 \in S$ and $\tuple{S, \preceq}$ a poset.
-The two elementes $s_1$ and $s_2$ are called \textit{comparable} if either
+The two elementes $s_1$ and $s_2$ are said to be \textit{comparable} if either
 $s_1 \preceq s_2$ or $s_2 \preceq s_1$. If neither of those two comparaisons
-are correct, then $s_1$ and $s_2$ are called \textit{incomparable}.
+are correct, then $s_1$ and $s_2$ are said to be \textit{incomparable}.
 
 
 \paragraph{Bounds} Let $\tuple{S, \preceq}$ a partially ordered set.
-We denote the \textit{greatest lower bound} of the two elements $s_1,
-s_2 \in S$
+A \textit{lower bound} of $P \subseteq S$ is an element $s \in S$
+such that for all $p \in P$, it holds that $s \preceq p$.
+A \textit{greatest lower bound} of elements of a set $P \supbseteq S$
+of the two elements $s_1,
+s_2 \in S$ is an element $s \in S$ such that
+$s \preceq s_1$,
+$s \preceq s_2$ and for all $s' \in S$ we have that
+if $s' \preceq s_1$ and $s' \preceq s_2$ then $s' \preceq s_1 \sqcap s_2$.
+
+
 by $s_1 \sqcap s_2 \in S$.
 The greatest lower bound is defined as follow:
 $s_1 \sqcap s_2 \preceq s_1$,
@@ -520,13 +530,12 @@ noted $\darrow L$ is the set of all elements of $S$ that are
 $\darrow L = \{ s \in S \ | \ \exists \ell \in L \cdot s \preceq \ell\}$.
 Note that for a closed set $L$ we have that $\darrow L = L$.
 
-
-
 \paragraph{Antichain}
 
-An antichain of a poset $\tuple{S, \preceq}$
+An \textit{antichain} of a poset $\tuple{S, \preceq}$
 is a set $\alpha \subseteq S$ where all element of $\alpha$
 are incomparable with respect to the partial order $\preceq$.
+Otherwise, if all elements are comparable the set is called a \textit{chain}.
 Antichains allow to represent closed set in a more compact way.
 For a closed set $L \subseteq S$ we can retrieve all elements of $L$ by using
 the antichain $\alpha = \ceil{L}$. With respect
@@ -714,11 +723,11 @@ in the library.
 
 \subsection{Requirements}
 
-Java + Owl
+Different requirements were defined regarding the desired implementation.
+The first requirement is that the library will have to be used in
+\texttt{Owl}, therefore the language of reference is \texttt{Java 10}.
 
 \todo{Talk about Owl}
-
-The requirements of the
 
 \subsection{Framework and implementation}
 
@@ -726,8 +735,11 @@ The requirements of the
 
 The interface proposed in \ref{oset_git} gives a first overview
 of the desired implementation. The goal will be to try to find a good
-way to implement antichains. One of the possible way to do so is to provide
-operations depending on the universe of the antichains. For example,
+way to implement antichains representation
+and operations. One of the possible way to do so is to provide
+a framework that will allow to implement
+operations functions
+depending on the universe of the antichains. For example,
 the implementation of Hoedt presented in section \ref{sota_hoedts}
 using bitarray can only be applied to natural numbers. An first step
 is to proposed an framework for users to implement the specifics of the
@@ -736,9 +748,11 @@ be to propose a generic and abstract API, and implement specifics
 for known universe and test them of state-of-the-art algorithms,
 especially in automata theory.
 
+\todo{Include algorithms to test i.e. Boolean function from Guillermo}
 
 \subsection{Possible extensions}
 
+\paragraph{}
 
 As we mainly focus on efficiency, it could be interesting to use a \texttt{C}
 implementation such as \texttt{AaPAL},
