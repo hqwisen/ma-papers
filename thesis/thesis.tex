@@ -174,15 +174,12 @@ Partially Ordered Set \\[0.3cm] }
 
 \section{Introduction}
 
-\todo{In the paper, should I use We or I, or nothing ?}
-
 \paragraph{}
 
 Data structures play an important role in algorithms complexity.
-\todo{complexity vs efficiency ?}
 With the objective to improve standard algorithms in automata theory,
-researchers at the ULB
-\todo{References maybe ?}
+researchers at ULB
+\todo{Reference researchers ?}
 have implemented new algorithms to resolve
 important problems in the field. Those implementations uses antichains,
 which are data structures that allow to represent elements in a partially
@@ -199,7 +196,7 @@ and propose a state of the art of the various existing implementations.
 \paragraph{Theoritical context} In this work, we will mainly focus
 on the usage of partially ordered sets and antichains in
 automata theory-related problems.
-\todo{Extend this paragraph by talking about diffent problems/algorihtms
+\todo{Extend this paragraph by talking about diffent problems;algorihtms
 where antichains can be used}.
 
 \paragraph{Checking universality with antichains}
@@ -225,23 +222,25 @@ and the final target is a non-accepting state.
 Let $S$ a set of states such that $S \subseteq 2^{Q_A}$ and
 $S \cap F_A = \emptyset$. The goal is to find a state $s \in S$,
 which when computing a word $w = w_0w_1...w_n$, the automaton will ends
-in $s$. The idea is to first start with a set state with all non-accepting
-states, that is $T = Q_A \setminus F_A$. Then compute the sets that
-when reading a letter will lead to $T$, that is the function
+in $s$. The idea is to first start with a set states with all non-accepting
+states, that is the target $T = Q_A \setminus F_A$. The algorithm
+objective is to update the target, that by reading a letter at a time,
+will contains at one point, the initial state.
+This can be done by using the function
 $Pre(S) = \{s \ | \ \exists s' \in S \cdot \exists \sigma \in \Sigma \ :
-\ s \xrightarrow{\sigma} s'\}$.
-The idea is to compute recursively
+\ s \xrightarrow{\sigma} s'\}$ where $s$ is a set of states.
+The computation is done by building recursively
 the sets using the function $Pre(\cdot)$, until an initial state
 is found in a transition. This will build a word that starts
 from an initial state and ends up in a non-accepting state,
 which will state that $A$ is not universal.
  Let $X_0$ be the initial set such that
 it is the set of states of all non-accepting state, that is $X_0 = T$
-and the recursive construction $X_i = Pre(X_{i-1})$. The improvment
-of antichains is this example is that, since we
-known that $S \xrightarrow{\sigma}
-S'$, for all $s \subseteq S$, computing $s \xrightarrow{\sigma} s'$
-means that $s' \subseteq S'$, instead of keeping all states
+and the recursive construction $X_i = Pre(X_{i-1})$. The improvement
+of antichains in this example is that: with
+the computation $S \xrightarrow{\sigma}
+S'$, for all $s \subseteq S$, when computing $s \xrightarrow{\sigma} s'$
+it holds that $s' \subseteq S'$. Therefore, instead of keeping all states
 at each level of computation, it is equivalent to store the maximal
 states, such that $X_i = \ceil{Pre(X_{i-1})}$. A set
 $X_i$ is called an antichain
@@ -256,6 +255,8 @@ This algorithm keeps the determination implicit.
 The standard algorithm to check the universality of an automaton
 is to compute first the deterministic equivalent of the automaton, which
 can lead to an exponational blew-up.
+
+\todo{I think my explanation might be wrong, at least for NFA ?}
 
 \todo{Where is $Pre(S) \cup T$ in the recusirve explantion ?}
 
@@ -300,9 +301,6 @@ provide a word, a letter at a time, and find a strategy that try
 to show that $A$ ends in a rejecting state.
 The protagonist only has a strategy to win the game if and only if $A$ is
 not universal.
-
-\todo{Include that UP is a problem important because verif-related problem
-reduce to it}
 
 \paragraph{Objective}
 
@@ -432,38 +430,45 @@ It is denoted by the pair $\langle S, \preceq \rangle$.
 
 Let $s_1, s_2 \in S$ and $\tuple{S, \preceq}$ a poset.
 The two elementes $s_1$ and $s_2$ are said to be \textit{comparable} if either
-$s_1 \preceq s_2$ or $s_2 \preceq s_1$. If neither of those two comparaisons
+$s_1 \preceq s_2$ or $s_2 \preceq s_1$. If neither of those two comparisons
 are correct, then $s_1$ and $s_2$ are said to be \textit{incomparable}.
 
 
 \paragraph{Bounds} Let $\tuple{S, \preceq}$ a partially ordered set.
 A \textit{lower bound} of $P \subseteq S$ is an element $s \in S$
 such that for all $p \in P$, it holds that $s \preceq p$.
-A \textit{greatest lower bound} of elements of a set $P \supbseteq S$
-of the two elements $s_1,
-s_2 \in S$ is an element $s \in S$ such that
-$s \preceq s_1$,
-$s \preceq s_2$ and for all $s' \in S$ we have that
-if $s' \preceq s_1$ and $s' \preceq s_2$ then $s' \preceq s_1 \sqcap s_2$.
+The \textit{greatest lower bound} of elements of a set $P \subseteq S$
+is an element $s \in S$ defineds as follow:
+for all $p \in P$
+it holds that $s \preceq p$, and for all $s' \in S$ we have that
+if $s' \preceq p$ then $s' \preceq s$.
+
+The greatest lower bound is unique. It means that if two elements
+$s_1, s_2 \in S$ are $\preceq$-incomparable and for a subset $P \subseteq S$,
+for all $p \in P$, if it holds that $s_1 \preceq p$ and $s_2 \preceq p$
+and if all others elements $s' \in S$ with $s'$ a lower-bound
+for $P$ such that $s' \preceq s_1$ and $s' \preceq s_2$;
+the greatest lower bound is said to be undefined.
+
+For a set of two elements
+$P = \{p_1, p_2\}$, we denote by $p_1 \sqcap p_2$ the greatest lower bound.
+
+\paragraph{Lattices} A \textit{lower semilattice} is a poset
+$\tuple{S, \preceq}$ where for all pair of elements $s_1, s_2 \in S$,
+we have that the greatest lower bound $s_1 \sqcap s_2$ exists.
 
 
-by $s_1 \sqcap s_2 \in S$.
-The greatest lower bound is defined as follow:
-$s_1 \sqcap s_2 \preceq s_1$,
-$s_1 \sqcap s_2 \preceq s_2$ and for all $s' \in S$ we have that
-if $s' \preceq s_1$ and $s' \preceq s_2$ then $s' \preceq s_1 \sqcap s_2$.
-
-\todo{Include definition of least upper bound}
+\todo{Include definition of least upper bound, if necessary}
 
 \begin{example}
     % the inclusion $\subseteq$ is a partial order on
     % $2^{\mathbb{N}}$,
     % the power set of natural numbers.
 
-\todo{Still need to define the automaton, here or in another section.}
-A more interesting example is the set inclusion comparison.
-Let $A$ be automaton defined in Example \ref{universality_eg}.
-Let $\tuple{2^{Q_A}, \subseteq}$, a poset. Figure \ref{fig:eg_antichain1}
+%A more interesting example is the set inclusion comparison.
+%Let $A$ be automaton defined in Example \ref{universality_eg}.
+Let $\tuple{2^{Q_A}, \subseteq}$, a poset with
+$Q_A$ a set of 3 elements. Figure \ref{fig:eg_antichain1}
 shows a graph with the incomparable elements of such poset.
 
 \begin{figure}
@@ -502,7 +507,7 @@ shows a graph with the incomparable elements of such poset.
     \end{tikzpicture}
     \caption{Example of antichains using
     the poset $\tuple{2^{Q_A}, \subseteq}$,
-    With $Q_A$ the set of state of the automaton $A$, which correspond
+    with $Q_A$ the set of states of an automaton $A$, which correspond
     to $Q_A = \{q_0, q_1, q_2\}$. Each directed edge of the graph
     correspond to a valid comparison using the set inclusion $\subseteq$.
     For example
@@ -519,22 +524,14 @@ section yet}
 
 \end{example}
 
-\paragraph{Lattices} A \textit{lower semilattice} is a poset
-$\tuple{S, \preceq}$ where for all pair of elements $s_1, s_2 \in S$,
-we have that the greatest lower bound $s_1 \sqcap s_2$ exists.
-
 \subsection{Antichains}
 
-\subsubsection{Closed sets}
-
-\paragraph{}
-
+\paragraph{Closed sets}
 
 A closed set is a set $L \subseteq S$
 of a lower semilattice $\langle S, \preceq \rangle$
 where $\forall \ell \in L$ we have that $\forall s \in S$ such that
 $s \preceq \ell$, then $s \in L$.
-
 Note that for two closed sets $L_1, L_2 \subseteq S$, we have that
 $L_1 \cup L_2$ and $L_1 \cap L_2$ are also closed sets,
 but $L_1 \setminus L_2$ does not result necessarily to a closed set.
@@ -607,52 +604,13 @@ Let $\alpha_1, \alpha_2 \subseteq S$ two antichains and $s \in S$:
 
 \newpage
 
-\section{Implementation}
 
-\paragraph{}
+\section{Existing implementations}
 
-Java already provide built-in implementation for \texttt{Set}.
-\todo{Includes limitation of Java built-in and different possible solution
-for antichains found on stack overflow and others}
-
-\paragraph{}
-
-In this thesis we are more interested in partially ordered sets as
-totally ordered sets are already implemented
-in\texttt{Java} built-in
-\texttt{SortedSet}.
-
-\subsection{Summary of objectives}
-
-
-\paragraph{}
-
-
-The main focus of the thesis is to be able to provide an efficient
-implementation of antichains and pseudo-antichains in \texttt{Java}.
-The first step is to provide an interface for the different operations that
-can be applied to antichains. We then give a description
-of the implementation.
-Antichains provide a way to represent
-in a compact way partially ordered set that are closed. Pseudo-antichains
-are an extension of antichains and provide a compact way to represent
-partially ordered sets. Pseudo-antichains does not specifically require
-closed set.
-
-Our goal is to find a way to not keep all the closure all
-element of the antichain in memory, but be able to retrieve those elements
-or check the belonging of a closure element from the incomparable elements
-of the antichain.
-
-\subsection{Existing implementation}
-
-\todo{Discuss impl. specifics etc in chapter Implementation}
-\todo{What operations are implemented in those papers ?}
-\todo{What domain (of sets) is is used in those papers ?}
 \todo{Research other possible related works}
-\todo{ABout impl, should i talk about BDD ?}
+%\todo{About impl, should i talk about BDD ?}
 
-\subsubsection{AaPAL}
+\subsection{AaPAL}
 
 \todo{Talk about AaPAL in Acacia+ ?}
 
@@ -693,7 +651,9 @@ adding an element to
 an antichain, checking emptiness or cloning an antichain are implemented.
 in \texttt{AaPAL}.
 
-\subsubsection{Antichains for Dedekind numbers algorithms}
+\subsection{Antichains for Dedekind numbers algorithms}
+
+\label{sota_hoedts}
 
 De Causemaecker and De Wannemacker only provide the executable of
 their algorithm in their paper for
@@ -715,32 +675,18 @@ in \cite{causemaecker1} was done by using
 a \texttt{TreeSet}. With the objective to improve the performance of
 the important operations, for example the intersection, Hoedt used
 another way to represent antichains, by using a bitarray-like representation.
-This representation
-
-\subsection{Difficulties}
-
-\todo{What is the difference beetween domain, univers and set ?}
-
-One of the difficulties is to define the domain of the elements that
-the antichains should work on. In \texttt{AaPAL} the all complexity
-is implemented in the \texttt{compare\_elements} that must be given
-to the library functions. It that case, all the complexity of the
-must be implemented by the user to define the domain of the antichains.
-
-\subsubsection{Tree vs Bitarray representations}
+The goal of the bitarray representation is to represent set of natural numbers
+by a binary representation. For example the subset $\{1, 2\}$ would be
+represented by the binary number $11_2$ and the subset $\{1, 3\}$
+by $101_2$ corresping respectively to $3_{10}$ and $5_{10}$. Then an antichain
+is represented by enabling the bit of the corresponding number of an element
+of the antichain. Therefore, an antichain $\alpha = \{\{1, 2\}, \{1, 3\}\}$
+is represented by the bitarray  where the bit at indices $3$ and $5$
+are enabled, that is $10100$.
 
 
-\subsection{Possible solutions}
 
-In the case of the domain specifications, a good approach could be to
-provide an interface/abstract class to the users, to let them provide
-their own implementation. In addition to that, usual domain such a
-natural numbers or others well known domain used, could be directly
-implemented
-in the library.
-
-
-\subsection{New implementation}
+\todo{Tree vs Bitarray representations}
 
 
 \section{Next year overview}
@@ -749,43 +695,65 @@ in the library.
 
 \subsection{Requirements}
 
+\paragraph{}
+
+
 Different requirements were defined regarding the desired implementation.
 The first requirement is that the library will have to be used in
 \texttt{Owl}, therefore the language of reference is \texttt{Java 10}.
 
 \todo{Talk about Owl}
 
+% \subsection{Summary of objectives}
+%
+% \paragraph{}
+%
+% The main focus of the thesis is to be able to provide an efficient
+% implementation of antichains in \texttt{Java}.
+% The first step is to provide an interface for the different operations that
+% can be applied to antichains. We then give a description
+% of the implementation.
+% Antichains provide a way to represent
+% in a compact way partially ordered set that are closed. Pseudo-antichains
+% are an extension of antichains and provide a compact way to represent
+% partially ordered sets. Pseudo-antichains does not specifically require
+% closed set.
+%
+% Our goal is to find a way to not keep all the closure all
+% element of the antichain in memory, but be able to retrieve those elements
+% or check the belonging of a closure element from the incomparable elements
+% of the antichain.
+
 \subsection{Framework and implementation}
 
 \paragraph{}
 
-The interface proposed in \ref{oset_git} gives a first overview
-of the desired implementation. The goal will be to try to find a good
+% The \texttt{Java}
+% interface proposed in \ref{oset_git} gives a first overview
+% of the desired implementation.
+
+The goal will be to try to find a good
 way to implement antichains representation
 and operations. One of the possible way to do so is to provide
 a framework that will allow to implement
 operations functions
-depending on the universe of the antichains. For example,
-the implementation of Hoedt presented in section \ref{sota_hoedts}
-using bitarray can only be applied to natural numbers. An first step
+depending on the universe of the antichains.
+In \texttt{AaPAL} all the complexity
+is implemented in the \texttt{compare\_elements} that must be given
+to the library functions. It that case, all the complexity
+must be implemented by the user to define the universe of the antichains.
+An example of specific implementation for natural numbers is the one
+proposed by Hoedt, presented in section \ref{sota_hoedts},
+using bitarray. A first step
 is to proposed an framework for users to implement the specifics of the
-universe necessary for their algorithms. The goal of the thesis will
+universe necessary for their algorithms. Next year thesis objective will
 be to propose a generic and abstract API, and implement specifics
-for known universe and test them of state-of-the-art algorithms,
+for known universe and test them on state-of-the-art algorithms,
 especially in automata theory.
 
 \todo{Include algorithms to test i.e. Boolean function from Guillermo}
 
-\subsection{Possible extensions}
-
-\paragraph{}
-
-As we mainly focus on efficiency, it could be interesting to use a \texttt{C}
-implementation such as \texttt{AaPAL},
-and provide bindings to \texttt{Java}. We could try
-this method as an alternative to a pure \texttt{Java} implementation and
-compare performances.
-
+\todo{Write a paragraph about why Java and not C}
 
 \todo{Fill-in bib correctly!}
 
