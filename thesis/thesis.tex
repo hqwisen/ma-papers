@@ -34,7 +34,7 @@
 
 
 \usepackage{tikz}
-\usetikzlibrary{arrows}
+\usetikzlibrary{arrows, automata, positioning}
 
 % \usepackage{draftwatermark}
 % \SetWatermarkText{Draft}
@@ -128,8 +128,8 @@
 % Title
 \HRule \\[0.3cm]
 
-{ \huge \bfseries Implementing data structures for
-Partially Ordered Set \\[0.3cm] }
+{ \huge \bfseries Data structures for \\
+Partially Ordered Sets \\[0.3cm] }
 
 \HRule \\[1cm]
 
@@ -144,6 +144,7 @@ Partially Ordered Set \\[0.3cm] }
 
 \emph{Supervised by} \\
 \Large Emmanuel \textsc{Filiot} \\
+\Large Guillermo A. \textsc{Perez} \\
 
 \end{center}
 
@@ -259,6 +260,39 @@ can lead to an exponational blew-up.
 \todo{I think my explanation might be wrong, at least for NFA ?}
 
 \todo{Where is $Pre(S) \cup T$ in the recusirve explantion ?}
+
+
+\begin{example}
+
+
+\begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
+   \node[state,accepting,initial] (l0)   {$\ell_0$};
+   \node[state,accepting] (l0l1) [right=of l0] {$\ell_0,\ell_1$};
+   \node[state,accepting] (l0l2) [right=of l0l1] {$\ell_0, \ell_2$};
+   \node[state,accepting] (l0l1l2) [below=of l0l2] {$\ell_0,\ell_1,\ell_2$};
+   \node[state,accepting] (l0l3) [right=of l0l2] {$\ell_0, \ell_3$};
+   \node[state,accepting] (l0l2l3) [below=of l0l3] {$\ell_0,\ell_2,\ell_3$};
+   \node[state,accepting] (l0l1l2l3) [below =of l0l2l3]
+                                     {$\ell_0,\ell_1,\ell_2, \ell_3$};
+   \path[->]
+    (l0)
+    edge  node {1} (l0l1)
+    edge [loop above] node {0} ()
+    (l0l1)
+    edge node {0} (l0l2)
+    edge node {1} (l0l1l2)
+    (l0l2)
+    %       edge  node [swap] {1} (q_2)
+    % (q_1) edge  node  {1} (q_3)
+    %       edge [loop above] node {0} ()
+    % (q_2) edge  node [swap] {0} (q_3)
+    %       edge [loop below] node {1} ()
+    ;
+\end{tikzpicture}
+
+
+\end{example}
+
 
 % The only way to compute the complementary of $A$ is to first
 % determinise it, which is hard. Let define $A_d$ as the deterministic finite
