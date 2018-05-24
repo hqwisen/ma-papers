@@ -175,7 +175,7 @@ Partially Ordered Sets \\[0.3cm] }
 
 \section{Introduction}
 
-\paragraph{}
+\paragraph{Theoritical context}
 
 Data structures play an important role in algorithms complexity.
 With the objective to improve standard algorithms in automata theory,
@@ -191,10 +191,7 @@ and why we need efficient
 implementation.
 It also defines the desired objectives
 and propose a state of the art of the various existing implementations.
-
-\subsection{Context and motivations}
-
-\paragraph{Theoritical context} In this work, we will mainly focus
+In this work, we will mainly focus
 on the usage of partially ordered sets and antichains in
 automata theory-related problems.
 \todo{Extend this paragraph by talking about diffent problems;algorihtms
@@ -209,9 +206,8 @@ check if the language of this automaton equivalent to the language
 of all the words on the alphabet. The universality problem is a classical
 theoritical problem, and many verifications-related problems can be
 reduced in polynomial time to it.
-\todo{Source of this reduce statement ?}
 
-Let $A = \{Q_A, \Sigma, q_0, \delta, F_A\}$ be a finite automaton,
+Let $A = \tuple{Q_A, \Sigma, q_0, \delta, F_A}$ be a finite automaton,
 we want to check whether or not
 the language of $A$ is universal, that is, $L(A) = \Sigma^*$.
 The language of $A$ is universal if and only if the language
@@ -220,50 +216,77 @@ $L(A) = \Sigma^*$ if and only if $L(\bar{A}) = \emptyset$.
 Therefore, the goal is to find a computation path of the
 automaton on a word such that the path start in the initial state,
 and the final target is a non-accepting state.
-Let $S$ a set of states such that $S \subseteq 2^{Q_A}$ and
-$S \cap F_A = \emptyset$. The goal is to find a state $s \in S$,
-which when computing a word $w = w_0w_1...w_n$, the automaton will ends
-in $s$. The idea is to first start with a set states with all non-accepting
-states, that is the target $T = Q_A \setminus F_A$. The algorithm
-objective is to update the target, that by reading a letter at a time,
-will contains at one point, the initial state.
-This can be done by using the function
-$Pre(S) = \{s \ | \ \exists s' \in S \cdot \exists \sigma \in \Sigma \ :
-\ s \xrightarrow{\sigma} s'\}$ where $s$ is a set of states.
-The computation is done by building recursively
-the sets using the function $Pre(\cdot)$, until an initial state
-is found in a transition. This will build a word that starts
-from an initial state and ends up in a non-accepting state,
-which will state that $A$ is not universal.
- Let $X_0$ be the initial set such that
-it is the set of states of all non-accepting state, that is $X_0 = T$
-and the recursive construction $X_i = Pre(X_{i-1})$. The improvement
-of antichains in this example is that: with
-the computation $S \xrightarrow{\sigma}
-S'$, for all $s \subseteq S$, when computing $s \xrightarrow{\sigma} s'$
-it holds that $s' \subseteq S'$. Therefore, instead of keeping all states
-at each level of computation, it is equivalent to store the maximal
-states, such that $X_i = \ceil{Pre(X_{i-1})}$. A set
-$X_i$ is called an antichain
-of $\subseteq$-incomparable elements
-(in section \ref{data_structures},
-we give formal definitions of these notions). At the end of a computation,
-if an initial state $q_0$ is found in $X_i$, for any level,
-it means that there exists a word that will end in a non-accepting state,
-that is $A$ is not universal. If $A$ is universal, initial state will never
-appear in the computation of $X_i$.
-This algorithm keeps the determination implicit.
-The standard algorithm to check the universality of an automaton
-is to compute first the deterministic equivalent of the automaton, which
-can lead to an exponational blew-up.
 
-\todo{I think my explanation might be wrong, at least for NFA ?}
+Let's first define some interesting proprety of non-deterministic automaton
+before explaining the use of antichains for the universality problem.
+Let $q$ and $f$ two subsets of states such that $q, f \subseteq Q_A$.
+When computing a letter $\sigma$ on the deterministic equivalent
+$A_d$, that is $q \xrightarrow{\sigma} f$, it is known that
+for all set of states $q' \subseteq q$, the resulting subset
+$f'$ when computed on $A_d$ such that $q' \xrightarrow{\sigma} f'$,
+it holds that $f' \subseteq f$. What this proprety shows is that
+when computing a letter, the resulting subset
 
-\todo{Where is $Pre(S) \cup T$ in the recusirve explantion ?}
+
+
+% Let $X_0$ be the initial set such that
+% it is the set of states of all non-accepting state, that is $X_0 = T$
+% and the recursive construction $X_i = Pre(X_{i-1})$. The improvement
+% of antichains in this example is that: with
+% the computation $S \xrightarrow{\sigma}
+% S'$, for all $s \subseteq S$, when computing $s \xrightarrow{\sigma} s'$
+% it holds that $s' \subseteq S'$. Therefore, instead of keeping all states
+% at each level of computation, it is equivalent to store the maximal
+% states, such that $X_i = \ceil{Pre(X_{i-1})}$. A set
+% $X_i$ is called an antichain
+% of $\subseteq$-incomparable elements
+% (in section \ref{data_structures},
+% we give formal definitions of these notions). At the end of a computation,
+% if an initial state $q_0$ is found in $X_i$, for any level,
+% it means that there exists a word that will end in a non-accepting state,
+% that is $A$ is not universal. If $A$ is universal, initial state will never
+% appear in the computation of $X_i$.
+% This algorithm keeps the determination implicit.
+% The standard algorithm to check the universality of an automaton
+% is to compute first the deterministic equivalent of the automaton, which
+% can lead to an exponational blew-up.
+
+\paragraph{Universality example}
+
+Let's take the example from \cite{AC_universality}
+shown in Figure \ref{univ_eg_nondet}. This example is an
+non-deterministic finite automata. The goal is to check
+if wheter or not this automata is universal.
+The standard algorithm for this problem is to first
+build the deterministic equivalent automata.
+\todo{talk about subset construction}
+Figure \ref{univ_eg_det} shows the equivalent deterministic finite
+automata. Instead of building the deterministic automaton,
+Raskin et al. \cite{AC_universality} have proposed an algorithm
+that will focus on maximal sets because of specifics of proprety
+in automata theory.
+
+In the specific example of \ref{univ_eg_det}. Instead on checking
+each state of the deterministic finite automata, it is
+better to check only the maximal path. Indeed, the focus
+is made on checking if the final state of a word computation is
+non-accepting i.e. $q_f \cap F_A = \emptyset$. Because of the
+proprety of the inclusion computation, checking only the
+maximal set of states is sufficient.
+
+The algorithms proposed in \cite{AC_universality}, doesn't build
+the deterministic automaton, but rather do it implicitly.
+The algorithms procedures is to build iteratively a set of subsets of states
+that have as target the non-accepting states.At each iteration,
+only maximal set of states, based on the inclusion operation are kept
+in memory for the next iteration. Also, the idea is based on
+adding in the targets, all the predecessors.
+
 
 
 \begin{example}
 
+\begin{figure}
 
 \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
    \node[state,accepting,initial] (l0)   {$\ell_0$};
@@ -273,7 +296,7 @@ can lead to an exponational blew-up.
    \node[state,accepting] (l0l3) [right=of l0l2] {$\ell_0, \ell_3$};
    \node[state,accepting] (l0l2l3) [below=of l0l3] {$\ell_0,\ell_2,\ell_3$};
    \node[state,accepting] (l0l1l2l3) [below =of l0l2l3]
-                                     {$\ell_0,\ell_1,\ell_2, \ell_3$};
+                                     {$q_{0,1,2,3}$};
    \path[->]
     (l0)
     edge  node {1} (l0l1)
@@ -282,6 +305,10 @@ can lead to an exponational blew-up.
     edge node {0} (l0l2)
     edge node {1} (l0l1l2)
     (l0l2)
+    edge node {0} (l0l3)
+    (l0l1l2)
+    edge node {0} (l0l2l3)
+    edge node {1} (l0l1l2l3)
     %       edge  node [swap] {1} (q_2)
     % (q_1) edge  node  {1} (q_3)
     %       edge [loop above] node {0} ()
@@ -290,6 +317,35 @@ can lead to an exponational blew-up.
     ;
 \end{tikzpicture}
 
+\caption{}
+\label{univ_eg_det}
+
+\end{figure}
+
+\begin{figure}
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
+       \node[state,accepting,initial] (l0)   {$\ell_0$};
+       \node[state,accepting] (l1) [right=of l0] {$\ell_1$};
+       \node[state,accepting] (l2) [right=of l1] {$\ell_2$};
+       \node[state] (l3) [right=of l2] {$\ell_3$};
+       \path[->]
+        (l0)
+        edge  node {1} (l1)
+        edge [loop above] node {0,1} ()
+        (l1)
+        edge node {0,1} (l2)
+        (l2)
+        edge node {0,1} (l3)
+        (l3)
+        edge [loop above] node {0,1} ()
+        ;
+    \end{tikzpicture}
+
+    \caption{}
+    \label{univ_eg_nondet}
+
+
+\end{figure}
 
 \end{example}
 
@@ -499,6 +555,8 @@ we have that the greatest lower bound $s_1 \sqcap s_2$ exists.
     % $2^{\mathbb{N}}$,
     % the power set of natural numbers.
 
+    \label{eg:poset2}
+
 %A more interesting example is the set inclusion comparison.
 %Let $A$ be automaton defined in Example \ref{universality_eg}.
 Let $\tuple{2^{Q_A}, \subseteq}$, a poset with
@@ -509,36 +567,90 @@ shows a graph with the incomparable elements of such poset.
 
     \center
     \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
-                        thick,
-                        main node/.style=
-                        {rectangle,draw,font=\sffamily\large\bfseries}]
+                    thick,
+                    main node/.style=
+                    {rectangle,draw,font=\sffamily\large\bfseries}]
 
-      \node[main node] (012) {$\{q_0, q_1, q_2\}$};
-      \node[main node] (02) [below of=012] {$\{q_0, q_2\}$};
-      \node[main node] (01) [left of=02] {$\{q_0, q_1\}$};
-      \node[main node] (12) [right of=02] {$\{q_1, q_2\}$};
-      \node[main node] (1) [below of=02] {$\{q_1\}$};
-      \node[main node] (0) [left of=1] {$\{q_0\}$};
-      \node[main node] (2) [right of=1] {$\{q_2\}$};
-      \node[main node] (EMPTY) [below of=1] {$\emptyset$};
+  \node[main node] (012) {$\{q_0, q_1, q_2\}$};
+  \node[main node] (02) [below of=012] {$\{q_0, q_2\}$};
+  \node[main node] (01) [left of=02] {$\{q_0, q_1\}$};
+  \node[main node] (12) [right of=02] {$\{q_1, q_2\}$};
+  \node[main node] (1) [below of=02] {$\{q_1\}$};
+  \node[main node] (0) [left of=1] {$\{q_0\}$};
+  \node[main node] (2) [right of=1] {$\{q_2\}$};
+  \node[main node] (EMPTY) [below of=1] {$\emptyset$};
 
-      \path[every node/.style={font=\sffamily\small}]
-          (02) edge node [] {} (012)
-          (01) edge node [] {} (012)
-          (12) edge node [] {} (012)
+  \path[every node/.style={font=\sffamily\small}]
+      (02) edge node [] {} (012)
+      (01) edge node [] {} (012)
+      (12) edge node [] {} (012)
 
-          (0) edge node [] {} (01)
-              edge node [] {} (02)
-          (1) edge node [] {} (01)
-              edge node [] {} (12)
-          (2) edge node [] {} (02)
-              edge node [] {} (12)
+      (0) edge node [] {} (01)
+          edge node [] {} (02)
+      (1) edge node [] {} (01)
+          edge node [] {} (12)
+      (2) edge node [] {} (02)
+          edge node [] {} (12)
 
-          (EMPTY) edge node [] {} (0)
-                  edge node [] {} (1)
-                  edge node [] {} (2)
-        ;
-    \end{tikzpicture}
+      (EMPTY) edge node [] {} (0)
+              edge node [] {} (1)
+              edge node [] {} (2)
+    ;
+\end{tikzpicture}
+    % \begin{tikzpicture}[->,>=stealth',shorten >=0.5pt,auto,node distance=2.3cm,
+    %                     thick,
+    %                     main node/.style=
+    %                     {rectangle,draw,font=\sffamily\large\bfseries}]
+    %
+    %   % \node[main node] (012) {$\{q_0, q_1, q_2\}$};
+    %   \node[main node] (0)  {$\{q_0\}$};
+    %   \node[main node] (1) [right of=0] {$\{q_1\}$};
+    %   \node[main node] (2) [right of=1] {$\{q_2\}$};
+    %   \node[main node] (3) [right of=2] {$\{q_3\}$};
+    %
+    %   \node[main node] (01) [above of=0] {$\{q_0, q_1\}$};
+    %   \node[main node] (02) [right of=01] {$\{q_0, q_2\}$};
+    %   \node[main node] (03) [right of=02] {$\{q_0, q_3\}$};
+    %   \node[main node] (12) [right of=03] {$\{q_1, q_2\}$};
+    %   \node[main node] (13) [right of=12] {$\{q_1, q_3\}$};
+    %   \node[main node] (23) [right of=13] {$\{q_2, q_3\}$};
+    %
+    %   \node[main node] (012) [above of=01] {$\{q_0, q_1, q_2\}$};
+    %   \node[main node] (013) [right of=012] {$\{q_0, q_1, q_3\}$};
+    %   \node[main node] (123) [right of=013] {$\{q_1, q_2, q_3\}$};
+    %   \node[main node] (023) [right of=123] {$\{q_0, q_2, q_3\}$};
+    %
+    %   \node[main node] (0123) [above of=123] {$\{q_0, q_1, q_2, q_3\}$};
+    %
+    %   \node[main node] (EMPTY) [below of=1] {$\emptyset$};
+    %
+    %   \path[every node/.style={font=\sffamily\small}]
+    %       % (01) edge node [] {} (012)
+    %       % (02) edge node [] {} (012)
+    %       % (03) edge node [] {} (012)
+    %       % (12) edge node [] {} (012)
+    %       % (13) edge node [] {} (012)
+    %       % (23) edge node [] {} (012)
+    %       %
+    %       (0)   edge node [] {} (01)
+    %             edge node [] {} (02)
+    %             edge node [] {} (03)
+    %       (1) edge node [] {} (01)
+    %           edge node [] {} (12)
+    %           edge node [] {} (13)
+    %       (2)   edge node [] {} (02)
+    %             edge node [] {} (12)
+    %             edge node [] {} (23)
+    %       (3) edge node [] {} (03)
+    %             edge node [] {} (13)
+    %             edge node [] {} (23)
+    %       %
+    %       (EMPTY) edge node [] {} (0)
+    %               edge node [] {} (1)
+    %               edge node [] {} (2)
+    %               edge node [] {} (3)
+    %     ;
+    % \end{tikzpicture}
     \caption{Example of antichains using
     the poset $\tuple{2^{Q_A}, \subseteq}$,
     with $Q_A$ the set of states of an automaton $A$, which correspond
@@ -600,9 +712,11 @@ to the definition of the lower closure we have that $\darrow \alpha = L$.
 
 \subsection{Operations on antichains}
 
-\todo{Cite original paper, FJR11 from Bohy' phd}
+\paragraph{}
 
-
+This section list the classical propreties of antichains.
+All the examples are based on the poset
+defined in Example \ref{eg:poset2}.
 
 \begin{proposition}
 
@@ -612,14 +726,31 @@ Let $\alpha_1, \alpha_2 \subseteq S$ two antichains and $s \in S$:
 
 \begin{itemize}
     \item $s \in \darrow \alpha_1$
-    iff $\exists a \in \alpha_1$ such that $\preceq a$
+    iff $\exists a \in \alpha_1$ such that $s \preceq a$
+
+    \begin{example}
+        Let $\alpha_1 = \{\{q_0, q_1\}\}$, $\{q_0\}$ belongs to
+        the lower closure $\xdownarrow{\alpha_1}$ because,
+        $\{q_0\} \subseteq \{q_0, q_1\}$.
+    \end{example}
+
     \item $\darrow \alpha_1 \subseteq \darrow \alpha_2$
     iff $\forall a_1 \in \alpha_1,
     \exists a_2 \in \alpha_2$ such that $a_1 \preceq a_2$
+    \begin{example}
+
+    \end{example}
     \item $ \darrow \alpha_1 \ \cup \darrow \alpha_2 =
     \darrow \ceil{\alpha_1 \cup \alpha_2}$
+    \begin{example}
+    \end{example}
     \item $\darrow \alpha_1 \ \cap \darrow \alpha_2 =
-    \darrow \ceil{\alpha_1 \sqcap \alpha_2}$
+    \darrow \ceil{\alpha_1 \sqcap \alpha_2}$ where $\alpha_1 \sqcap \alpha_2$
+    is defined as
+    $\alpha_1 \sqcap \alpha_2 = \{a_1 \sqcap a_2 | a_1
+    \in \alpha_1, a_2 \in \alpha_2\}$
+    \begin{example}
+    \end{example}
 
 \todo{Give complete definition for interesection}
 
@@ -685,14 +816,32 @@ adding an element to
 an antichain, checking emptiness or cloning an antichain are implemented.
 in \texttt{AaPAL}.
 
-\subsection{Antichains for Dedekind numbers algorithms}
+\subsection{Antichains for Dedekind's problem}
 
 \label{sota_hoedts}
+
+\paragraph{Dedekind's problem}
+
+The Dedekind's problem correspond to a problem introduced by Richard
+Dedekind in the 19th century. He defined a rapidly growing sequence
+of natural numbers. The $n_{th}$ Dedekind number is the count
+of antichains in the powerset of set with $n$ elements.
+
+\paragraph{}
+
+De Causemaecker and De Wannemacker \cite{causemaecker1} improved and
+implemented a multithreaded algorithm to find the $n_{th}$ Dedekind number
+that allow to compute the $n_{th}$ Dedekind number from the powerset
+of a set with $(n-2)$-elements, that is re-use the number of antichains
+for $(n-2)$-set to compute the $n_{th}$ Dedekind number.
+
+
+\paragraph{}
 
 De Causemaecker and De Wannemacker only provide the executable of
 their algorithm in their paper for
 the Dedekind algorithm \cite{causemaecker1}. Hoedt proposed in \cite{hoedt}
-a algorithm to find the ninth Dedekind number, which requires an representation
+an algorithm to find the ninth Dedekind number, which requires a representation
 of antichains. The representation used is an extension of the implementation
 proposed by De Causmaecker and De Wannemacker. The source of his
 implementation was found in is personal GitHub \cite{hoedt_src}.
