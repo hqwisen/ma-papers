@@ -169,16 +169,13 @@ Partially Ordered Sets \\[0.3cm] }
 
 \newpage
 
-\listoftodos
+% \listoftodos
 
 \newpage
 
 \section{Introduction}
 
 \subsection{Theoritical context}
-
-\paragraph{}
-
 
 Data structures play an important role in algorithms complexity.
 With the objective to improve standard algorithms in automata theory,
@@ -197,11 +194,11 @@ also known as model checking. The major issue regarding problem
 such as model checking is the state explostion problem.
 Verification techiques are based on representing
 models and specifications using automata, and the combination
-can lead to an eponential blow-up. To face the state explosion
+can lead to an exponential blow-up. To face the state explosion
 problem methods that allow to represent larger system using
 smaller models were developped. A known method is called
 symbolic model checking and uses data structure called
-Binary Decision Diagram or BDD.
+Binary Decision Diagram, used to represent boolean function.
 
 \paragraph{}
 
@@ -217,11 +214,15 @@ space of the subset constructions. Since it has been
 proven that the set is closed for this partial order,
 antichains are well suited to resolve such problem.
 Indeed, antichains are a set of incomparable elements, and
-allow to represent partially ordered set in a more compact way,
-because when applied on closed set and a partial order,
-antichains and the associated operations such as the lower
-and upper closure allow to retrieve more elements from the
-closed set. We define formally
+allow to represent partially ordered set in a more compact way.
+This is possible through different operations on the antichains.
+When the set of a partial order is closed, the antichains
+can represent a bigger set by only keeping
+either maximal or minimal elements,
+and other elements can be retrieved using an upper or lower closure,
+that is all the elements that are either bigger or smaller
+compared to the elements of the antichains.
+We define formally
 those notions in section \ref{data_structures}.
 
 \paragraph{}
@@ -236,13 +237,7 @@ In this work, we will mainly focus
 on the usage of partially ordered sets and antichains in
 automata theory-related problems.
 
-\todo{Extend this paragraph by talking about diffent problems;algorihtms
-where antichains can be used}.
-
-\subsection{A concrete example: Universality problem}
-
-
-\paragraph{Checking universality with antichains}
+\subsection{Checking universality with antichains}
 
 An example that highlights the use of antichains in automata theory is
 the universality problem.
@@ -251,6 +246,8 @@ check if the language of this automaton equivalent to the language
 of all the words on the alphabet. The universality problem is a classical
 theoritical problem, and many verifications-related problems can be
 reduced in polynomial time to it.
+
+\paragraph{}
 
 Let $A = \tuple{Q_A, \Sigma, q_0, \delta, F_A}$ be a finite automaton,
 we want to check whether or not
@@ -262,6 +259,8 @@ Therefore, the goal is to find a computation path of the
 automaton on a word such that the path start in the initial state,
 and the final target is a non-accepting state.
 
+\paragraph{}
+
 Let's first define an interesting proprety of non-deterministic automaton
 before explaining the use of antichains for the universality problem.
 Let $q$ and $f$ two subsets of states such that $q, f \subseteq Q_A$.
@@ -270,107 +269,61 @@ $A_d$, that is $q \xrightarrow{\sigma} f$, it is known that
 for all set of states $q' \subseteq q$, the resulting subset
 $f'$ when computed on $A_d$ such that $q' \xrightarrow{\sigma} f'$,
 it holds that $f' \subseteq f$.
-
-The algorithms proposed in \cite{AC_universality}, doesn't build
-the deterministic automaton, but rather do it implicitly.
-The algorithms procedures is to build iteratively a set of subsets of states
-that have as target the non-accepting states.At each iteration,
-only maximal set of states, based on the inclusion operation are kept
-in memory for the next iteration. Also, the idea is based on
-adding in the targets, all the predecessors.
-
-
-
-% Let $X_0$ be the initial set such that
-% it is the set of states of all non-accepting state, that is $X_0 = T$
-% and the recursive construction $X_i = Pre(X_{i-1})$. The improvement
-% of antichains in this example is that: with
-% the computation $S \xrightarrow{\sigma}
-% S'$, for all $s \subseteq S$, when computing $s \xrightarrow{\sigma} s'$
-% it holds that $s' \subseteq S'$. Therefore, instead of keeping all states
-% at each level of computation, it is equivalent to store the maximal
-% states, such that $X_i = \ceil{Pre(X_{i-1})}$. A set
-% $X_i$ is called an antichain
-% of $\subseteq$-incomparable elements
-% (in section \ref{data_structures},
-% we give formal definitions of these notions). At the end of a computation,
-% if an initial state $q_0$ is found in $X_i$, for any level,
-% it means that there exists a word that will end in a non-accepting state,
-% that is $A$ is not universal. If $A$ is universal, initial state will never
-% appear in the computation of $X_i$.
-% This algorithm keeps the determination implicit.
-% The standard algorithm to check the universality of an automaton
-% is to compute first the deterministic equivalent of the automaton, which
-% can lead to an exponational blew-up.
+%\todo{Does this proprety have a specific name ?}
 
 \paragraph{Concrete example}
 
 Let's take the example from \cite{AC_universality}
-shown in Figure \ref{univ_eg_nondet}. This example is an
-non-deterministic finite automata. The goal is to check
-if wheter or not this automata is universal.
-The standard algorithm for this problem is to first
-build the deterministic equivalent automata.
-\todo{talk about subset construction}
-Figure \ref{univ_eg_det} shows the equivalent deterministic finite
-automata. Instead of building the deterministic automaton,
-Raskin et al. \cite{AC_universality} have proposed an algorithm
-that will focus on maximal sets because of specifics of proprety
-in automata theory.
+shown in Figure \ref{univ_eg_nondet}. This example is a
+non-deterministic finite automata with 4 states where
+only the last state is non-accepting.
+The goal is to check
+if whether or not this automaton is universal.
+One approach to check universality, is to check if the
+complementary automaton accepts the empty set.
+This is actually the standard algorithm that first build
+the equivalent deterministric automaton, build the complementary
+and then check the emptiness of this final construction.
+The complexity here rely on building the equivalent deterministic
+which is exponential in time. The idea of the antichain based
+algorithm is instead of determinize the automaton, is to
+do it implicitly by checking only maximal subsets of states.
 
-In the specific example of \ref{univ_eg_det}. Instead on checking
-each state of the deterministic finite automata, it is
-better to check only the maximal path. Indeed, the focus
+\paragraph{}
+
+Figure \ref{univ_eg_det} shows the equivalent deterministic finite
+automaton of the one
+shown in Figure \ref{univ_eg_nondet}.
+In the specific example of \ref{univ_eg_det}, instead on checking
+each state of the deterministic finite automaton, it is
+better to check only the maximal path.
+We refer to maximal path, a path where each subset of states
+when computing any letter is maximal.
+
+
+Indeed, the focus
 is made on checking if the final state of a word computation is
-non-accepting i.e. $q_f \cap F_A = \emptyset$. Because of the
-proprety of the inclusion computation, checking only the
-maximal set of states is sufficient. Computing the workd $1^k$,
-will lead to a maximal path for this automaton. For any word $w < 1^k$
-of size $k$,
-the path of computation will be included in the path of $1^k$.
+non-accepting that is $q \xrightarrow{w} f$ we have that
+ $f \cap F_A = \emptyset$.
+Because of the
+proprety of state inclusion, checking only the
+maximal set of states is sufficient. Let $k=3$, computing the word $1^k$,
+will lead to a maximal path for this automaton.
+For any word $w < 1^k$
+of size $k$ such that $w = \sigma_1..\sigma_k$ with $\sigma_i \in \Sigma$,
+the path of computation will be included in the path of $1^k$,
+\textit{i.e.} the subset of states $q_i$ will be included
+in $p_i$, that is $q_i \subseteq p_i$,
+corresponding respectively to the subsets of states
+when computing the $i^{th}$ letter of the word $w$ and $1^k$.
 Since the objective is to find the final state as a non-accepting,
 if the final state is non-accepting for $1^k$,
-that is $f_{1^k} \cap F = \emptyset$ then for the word $w$,
-since $f_w \subseteq f_{1^k}$, it holds that $f_w \cap F = \emptyset$.
+that is $p_k \cap F = \emptyset$ then for the word $w$,
+since $q_k \subseteq p_k$, it holds that $q_k \cap F = \emptyset$.
+This method allow to bypass some computation, \textit{i.e.}
+checking the intersection with the accepting states set, by only checking
+the maximal subsets of states.
 
-
-\begin{example}
-
-\begin{figure}
-
-\begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
-   \node[state,accepting,initial] (l0)   {$\ell_0$};
-   \node[state,accepting] (l0l1) [right=of l0] {$\ell_0,\ell_1$};
-   \node[state,accepting] (l0l2) [right=of l0l1] {$\ell_0, \ell_2$};
-   \node[state,accepting] (l0l1l2) [below=of l0l2] {$\ell_0,\ell_1,\ell_2$};
-   \node[state,accepting] (l0l3) [right=of l0l2] {$\ell_0, \ell_3$};
-   \node[state,accepting] (l0l2l3) [below=of l0l3] {$\ell_0,\ell_2,\ell_3$};
-   \node[state,accepting] (l0l1l2l3) [below =of l0l2l3]
-                                     {$q_{0,1,2,3}$};
-   \path[->]
-    (l0)
-    edge  node {1} (l0l1)
-    edge [loop above] node {0} ()
-    (l0l1)
-    edge node {0} (l0l2)
-    edge node {1} (l0l1l2)
-    (l0l2)
-    edge node {0} (l0l3)
-    (l0l1l2)
-    edge node {0} (l0l2l3)
-    edge node {1} (l0l1l2l3)
-    %       edge  node [swap] {1} (q_2)
-    % (q_1) edge  node  {1} (q_3)
-    %       edge [loop above] node {0} ()
-    % (q_2) edge  node [swap] {0} (q_3)
-    %       edge [loop below] node {1} ()
-    ;
-\end{tikzpicture}
-
-\caption{}
-\label{univ_eg_det}
-
-\end{figure}
 
 \begin{figure}
     \center
@@ -392,13 +345,57 @@ since $f_w \subseteq f_{1^k}$, it holds that $f_w \cap F = \emptyset$.
         ;
     \end{tikzpicture}
 
-    \caption{}
+    \caption{Non-deterministic finite automaton from the
+    family of automata $A_k$,
+    from \cite{AC_universality}, with $k=3$.}
     \label{univ_eg_nondet}
 
 
 \end{figure}
 
-\end{example}
+\begin{figure}
+\center
+\begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
+   \node[state,accepting,initial] (l0)   {$\ell_0$};
+   \node[state,accepting] (l0l1) [right=of l0] {$\ell_0,\ell_1$};
+   \node[state,accepting] (l0l2) [right=of l0l1] {$\ell_0, \ell_2$};
+   \node[state,accepting] (l0l1l2) [below=of l0l2] {$\ell_0,\ell_1,\ell_2$};
+   \node[state,accepting] (l0l3) [right=of l0l2] {$\ell_0, \ell_3$};
+   \node[state,accepting] (l0l2l3) [below=of l0l3] {$\ell_0,\ell_2,\ell_3$};
+   \node[state,accepting] (l0l1l2l3) [below =of l0l2l3]
+                                     {$\ell_0,\ell_1,\ell_2,\ell_3$};
+   \path[->]
+    (l0)
+    edge  node {1} (l0l1)
+    edge [loop above] node {0} ()
+    (l0l1)
+    edge node {0} (l0l2)
+    edge node {1} (l0l1l2)
+    (l0l2)
+    edge node {0} (l0l3)
+    (l0l1l2)
+    edge node {0} (l0l2l3)
+    edge node {1} (l0l1l2l3)
+    (l0l3)
+    edge [loop right] node {0,1} ()
+    (l0l2l3)
+    edge [loop right] node {0,1} ()
+    (l0l1l2l3)
+    edge [loop right] node {0,1} ()
+
+    %       edge  node [swap] {1} (q_2)
+    % (q_1) edge  node  {1} (q_3)
+    %       edge [loop above] node {0} ()
+    % (q_2) edge  node [swap] {0} (q_3)
+    %       edge [loop below] node {1} ()
+    ;
+\end{tikzpicture}
+
+\caption{Deterministic automaton equivalent of the non-deterministic
+automaton shown in Figure \ref{univ_eg_nondet}.}
+\label{univ_eg_det}
+
+\end{figure}
 
 
 % The only way to compute the complementary of $A$ is to first
@@ -432,16 +429,35 @@ since $f_w \subseteq f_{1^k}$, it holds that $f_w \cap F = \emptyset$.
 % \todo{Include Xi explanation}
 
 
-In
-\cite{AC_universality}, the algorithm proposed follow an equivalent
-idea by using game theory. The universality problem is reduce to
-a two-player reachability game, which can be done in polynomial time.
-The objective of the game is for the protagonist to establish that
-the automaton $A$ is not universal. To this end, the protagonist will
-provide a word, a letter at a time, and find a strategy that try
-to show that $A$ ends in a rejecting state.
-The protagonist only has a strategy to win the game if and only if $A$ is
-not universal.
+\paragraph{}
+
+The algorithms proposed in \cite{AC_universality}, doesn't build
+the deterministic automaton, but rather do it implicitly.
+The algorithms procedures is to build iteratively a set of subsets of states
+that have as initial targets the non-accepting states.
+At each iteration,
+it adds direct
+predecessors to the targets, until a fixed point is reached.
+Also, at each iteration,
+only maximal set of states, that is an antichain,
+based on the inclusion partial order are kept
+in memory for the next iteration.
+The final condition is to check if the initial state is found
+in the targets. It the initial state is included, it means that
+there exists a word such that it is not accepted by
+the automaton, it means that the automaton is not universal.
+
+
+% In
+% \cite{AC_universality}, the algorithm proposed follow an equivalent
+% idea by using game theory. The universality problem is reduce to
+% a two-player reachability game, which can be done in polynomial time.
+% The objective of the game is for the protagonist to establish that
+% the automaton $A$ is not universal. To this end, the protagonist will
+% provide a word, a letter at a time, and find a strategy that try
+% to show that $A$ ends in a rejecting state.
+% The protagonist only has a strategy to win the game if and only if $A$ is
+% not universal.
 
 \subsection{Objective}
 
@@ -452,12 +468,14 @@ represent partially ordered sets, specifically antichains.
 The first step is to implement in Java, classes that will be provided to
 the \texttt{Owl} library \cite{owl}.
 \texttt{Owl} is a LTL to deterministic automata translations tool-set written
-in \texttt{Java}. A second step will be to implement
+in \texttt{Java}. We present in more details
+the \texttt{Owl} library in section \ref{sec:owl}.
+A second step will be to implement
 antichain-based algorithms using the new antichains implementation and
 study the performance.
-\todo{Include examples from Guillermo correction}
+%\todo{Include examples from Guillermo correction}
 
-\paragraph{Related work}
+\subsection{Related work}
 
 There are two interesting implementations that were found.
 The first one is \texttt{AaPAL} (
@@ -475,16 +493,16 @@ To improve efficiency and performances, Hoedt in \cite{hoedt} has extended
 \cite{causemaecker1} antichains implementation by using bit sequence
 instead of tree reprensentation.
 
-\paragraph{Structure of the preparatory work}
+\subsection{Structure of the preparatory work}
 
 This paper is the introduction to next year thesis, therefore
 the content concern only the preliminaries. The goal is to
 properly define the subject,
 existing implementations and the desired objectives.
-In Section \ref{data_structures}, we formally define antichains,
-and give examples of such data structures. In Section \ref{impl},
+In section \ref{data_structures}, we formally define antichains,
+and give examples of such data structures. In section \ref{impl},
 we summarize the work that has been done by others
-for antichains implementation. In \ref{conclusion}, we propose
+for antichains implementation. In section \ref{conclusion}, we propose
 an overview of next year work and possibilities.
 
 \newpage
@@ -599,7 +617,7 @@ $\tuple{S, \preceq}$ where for all pair of elements $s_1, s_2 \in S$,
 we have that the greatest lower bound $s_1 \sqcap s_2$ exists.
 
 
-\todo{Include definition of least upper bound, if necessary}
+%\todo{Include definition of least upper bound, if necessary}
 
 \begin{example}
     % the inclusion $\subseteq$ is a partial order on
@@ -716,9 +734,6 @@ shows a graph with the incomparable elements of such poset.
      \label{fig:eg_antichain1}
 \end{figure}
 
-\todo{Fix figure formulation as we havent spoke about antichains at this
-section yet}
-
 \end{example}
 
 \subsection{Antichains}
@@ -735,7 +750,7 @@ but $L_1 \setminus L_2$ does not result necessarily to a closed set.
 
 \paragraph{Maximal/minimal elements} We denote by $\ceil{L}$
 the set of maximal elements of a closed set $L$ which
-\todo{Meaning of | vs . vs : in set definition ?}
+%\todo{Meaning of | vs . vs : in set definition ?}
 correspond to $\ceil{L} =
 \{ \ell \in L | \forall \ell' \in L : \ell \preceq \ell'
  \Rightarrow \ell = \ell' \}$. Alternatively, to represent the set of minimal
@@ -789,21 +804,21 @@ Let $\alpha_1, \alpha_2 \subseteq S$ two antichains and $s \in S$:
     iff $\forall a_1 \in \alpha_1,
     \exists a_2 \in \alpha_2$ such that $a_1 \preceq a_2$
     \begin{example}
-
+    Let $\alpha_1 = \{\{q_0\}, \{q_1\}\}$ and
+    $\alpha_2 = \{\{q_0, q_1\}\}$,
+    $\darrow{\alpha_1} \subseteq \darrow{\alpha_2}$, since
+    all elements of $\alpha_1$ are included
+    in the single element of $\alpha_2$.
     \end{example}
     \item $ \darrow \alpha_1 \ \cup \darrow \alpha_2 =
     \darrow \ceil{\alpha_1 \cup \alpha_2}$
-    \begin{example}
-    \end{example}
+
     \item $\darrow \alpha_1 \ \cap \darrow \alpha_2 =
     \darrow \ceil{\alpha_1 \sqcap \alpha_2}$ where $\alpha_1 \sqcap \alpha_2$
     is defined as
     $\alpha_1 \sqcap \alpha_2 = \{a_1 \sqcap a_2 | a_1
-    \in \alpha_1, a_2 \in \alpha_2\}$
-    \begin{example}
-    \end{example}
-
-\todo{Give complete definition for interesection}
+    \in \alpha_1, a_2 \in \alpha_2\}$, that is the greatest lower bound
+    of elements between the two antichains.
 
 \end{itemize}
 
@@ -823,12 +838,9 @@ Let $\alpha_1, \alpha_2 \subseteq S$ two antichains and $s \in S$:
 
 \section{Existing implementations}
 
-\todo{Research other possible related works}
-%\todo{About impl, should i talk about BDD ?}
+\label{impl}
 
 \subsection{AaPAL}
-
-\todo{Talk about AaPAL in Acacia+ ?}
 
 Bohy's \textbf{A}ntichain
 \textbf{a}nd \textbf{P}seudo-\textbf{A}ntichain \textbf{L}ibrary \cite{aapal}
@@ -836,7 +848,7 @@ is an open-source generic library for the manipulation
 of antichains and pseudo-antichains data structures,
 implemented in \texttt{C}. In this section we will mainly focus
 on the implementation of antichains.
-\todo{Pseudo-antichains might be interesting for next year maybe ?}
+%\todo{Pseudo-antichains might be interesting for next year maybe ?}
 
 
 \paragraph{Antichain representation}
@@ -845,10 +857,9 @@ An antichain is represented by a \texttt{struct}, containing as attributes
 the size of the antichain, and the incomparable elements of the antichains,
 as a list. The list is manipulated using the \texttt{GSList} object
 from the \texttt{glib} library.
-\todo{Cite glib library}
 To allow modularity, the type of the elements
 is \texttt{void}.
-\todo{Find usage of AaPAL (see Bohy's PHD)}
+%\todo{Find usage of AaPAL (see Bohy's PHD)}
 
 \paragraph{Operations}
 
@@ -881,10 +892,10 @@ of antichains in the powerset of set with $n$ elements.
 \paragraph{}
 
 De Causemaecker and De Wannemacker \cite{causemaecker1} improved and
-implemented a multithreaded algorithm to find the $n_{th}$ Dedekind number
-that allow to compute the $n_{th}$ Dedekind number from the powerset
+implemented a multithreaded algorithm to find the $n^{th}$ Dedekind number
+that allow to compute the $n^{th}$ Dedekind number from the powerset
 of a set with $(n-2)$-elements, that is re-use the number of antichains
-for $(n-2)$-set to compute the $n_{th}$ Dedekind number.
+for $(n-2)$-set to compute the $n{th}$ Dedekind number.
 
 
 \paragraph{}
@@ -918,11 +929,6 @@ of the antichain. Therefore, an antichain $\alpha = \{\{1, 2\}, \{1, 3\}\}$
 is represented by the bitarray  where the bit at indices $3$ and $5$
 are enabled, that is $10100$.
 
-
-
-\todo{Tree vs Bitarray representations}
-
-
 \section{Next year overview}
 
 \label{conclusion}
@@ -935,10 +941,15 @@ are enabled, that is $10100$.
 Different requirements were defined regarding the desired implementation.
 The first requirement is that the library will have to be used in
 \texttt{Owl}, therefore the language of reference is \texttt{Java 10}.
+the choice of the language, even if highly encouraged by
+the library \texttt{Owl}, is also interesting due to features that
+are available in \texttt{Java}. One of which would interest us
+in our work, is the ability to profile our implementation.
+Profiling is a form of measurement of the time complexity or
+the memory usage of a program execution. There exists multiple
+tools to profile a \texttt{Java} program such as VisualVM, YourKit
+or JProfiler.
 
-\todo{Talk about Owl}
-
-\todo{Java profiling}
 % \subsection{Summary of objectives}
 %
 % \paragraph{}
@@ -958,6 +969,30 @@ The first requirement is that the library will have to be used in
 % element of the antichain in memory, but be able to retrieve those elements
 % or check the belonging of a closure element from the incomparable elements
 % of the antichain.
+
+\subsection{Owl library}
+
+\label{sec:owl}
+
+\textit{Owl (Omega Word and automata Library)
+is a library and tool-set tailored for – but not
+limited to – semantic-based translations
+from LTL to deterministic automata.}
+
+\paragraph{}
+
+\texttt{Owl} is a library developed at the
+\textit{Technische Universität München}
+maintained by Salomon Sickert.
+The library can be used as a command line tools or from an
+online version available at \textit{http://rabinizer-owl.pe.hu/}.
+It is implemented in \texttt{Java}.
+
+It mainly provide classes for \texttt{LTL} parsing
+and automata representation.
+
+\todo{This still need to be completed
+as I'm not sure yet what to talk about}
 
 \subsection{Framework and implementation}
 
@@ -986,9 +1021,8 @@ be to propose a generic and abstract API, and implement specifics
 for known universe and test them on state-of-the-art algorithms,
 especially in automata theory.
 
-\todo{Include algorithms to test i.e. Boolean function from Guillermo}
+%\todo{Include algorithms to test i.e. Boolean function from Guillermo}
 
-\todo{Write a paragraph about why Java and not C}
 
 \todo{Fill-in bib correctly!}
 
