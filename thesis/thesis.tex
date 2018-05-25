@@ -175,16 +175,57 @@ Partially Ordered Sets \\[0.3cm] }
 
 \section{Introduction}
 
-\paragraph{Theoritical context}
+\subsection{Theoritical context}
+
+\paragraph{}
+
 
 Data structures play an important role in algorithms complexity.
 With the objective to improve standard algorithms in automata theory,
 researchers at ULB
-\todo{Reference researchers ?}
 have implemented new algorithms to resolve
-important problems in the field. Those implementations uses antichains,
-which are data structures that allow to represent elements in a partially
-ordered set, in a more compact way.
+important problems in the field.
+
+\paragraph{}
+
+One computer science
+field that gain from
+those new implementation is formal verification of computer systems.
+Verifiying a system consists in checking for a given model, if
+it respect some formal specifications,
+also known as model checking. The major issue regarding problem
+such as model checking is the state explostion problem.
+Verification techiques are based on representing
+models and specifications using automata, and the combination
+can lead to an eponential blow-up. To face the state explosion
+problem methods that allow to represent larger system using
+smaller models were developped. A known method is called
+symbolic model checking and uses data structure called
+Binary Decision Diagram or BDD.
+
+\paragraph{}
+
+Another well known problem in automata theory is the synthesis problem.
+It is the problem that for
+some model of a controller and an environment,
+to check if there exists a winning strategy for the controller.
+In order to develop more efficient algorithms to resolve such
+problem Filiot et al. proposed in \cite{ltl_rea} a new approach
+to resolve the synthesis problem, using antichains.
+This is possible due to a partial order that exists on the state
+space of the subset constructions. Since it has been
+proven that the set is closed for this partial order,
+antichains are well suited to resolve such problem.
+Indeed, antichains are a set of incomparable elements, and
+allow to represent partially ordered set in a more compact way,
+because when applied on closed set and a partial order,
+antichains and the associated operations such as the lower
+and upper closure allow to retrieve more elements from the
+closed set. We define formally
+those notions in section \ref{data_structures}.
+
+\paragraph{}
+
 The goal of this preparatory work is to motivate the interest that
 are made in data structures for partially ordered set, especially antichains,
 and why we need efficient
@@ -197,6 +238,9 @@ automata theory-related problems.
 
 \todo{Extend this paragraph by talking about diffent problems;algorihtms
 where antichains can be used}.
+
+\subsection{A concrete example: Universality problem}
+
 
 \paragraph{Checking universality with antichains}
 
@@ -399,7 +443,7 @@ to show that $A$ ends in a rejecting state.
 The protagonist only has a strategy to win the game if and only if $A$ is
 not universal.
 
-\paragraph{Objective}
+\subsection{Objective}
 
 The objective of the final work
 is to provide an efficient implementation of different
