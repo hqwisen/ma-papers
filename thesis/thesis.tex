@@ -194,6 +194,7 @@ and propose a state of the art of the various existing implementations.
 In this work, we will mainly focus
 on the usage of partially ordered sets and antichains in
 automata theory-related problems.
+
 \todo{Extend this paragraph by talking about diffent problems;algorihtms
 where antichains can be used}.
 
@@ -217,15 +218,22 @@ Therefore, the goal is to find a computation path of the
 automaton on a word such that the path start in the initial state,
 and the final target is a non-accepting state.
 
-Let's first define some interesting proprety of non-deterministic automaton
+Let's first define an interesting proprety of non-deterministic automaton
 before explaining the use of antichains for the universality problem.
 Let $q$ and $f$ two subsets of states such that $q, f \subseteq Q_A$.
 When computing a letter $\sigma$ on the deterministic equivalent
 $A_d$, that is $q \xrightarrow{\sigma} f$, it is known that
 for all set of states $q' \subseteq q$, the resulting subset
 $f'$ when computed on $A_d$ such that $q' \xrightarrow{\sigma} f'$,
-it holds that $f' \subseteq f$. What this proprety shows is that
-when computing a letter, the resulting subset
+it holds that $f' \subseteq f$.
+
+The algorithms proposed in \cite{AC_universality}, doesn't build
+the deterministic automaton, but rather do it implicitly.
+The algorithms procedures is to build iteratively a set of subsets of states
+that have as target the non-accepting states.At each iteration,
+only maximal set of states, based on the inclusion operation are kept
+in memory for the next iteration. Also, the idea is based on
+adding in the targets, all the predecessors.
 
 
 
@@ -251,7 +259,7 @@ when computing a letter, the resulting subset
 % is to compute first the deterministic equivalent of the automaton, which
 % can lead to an exponational blew-up.
 
-\paragraph{Universality example}
+\paragraph{Concrete example}
 
 Let's take the example from \cite{AC_universality}
 shown in Figure \ref{univ_eg_nondet}. This example is an
@@ -272,16 +280,14 @@ better to check only the maximal path. Indeed, the focus
 is made on checking if the final state of a word computation is
 non-accepting i.e. $q_f \cap F_A = \emptyset$. Because of the
 proprety of the inclusion computation, checking only the
-maximal set of states is sufficient.
-
-The algorithms proposed in \cite{AC_universality}, doesn't build
-the deterministic automaton, but rather do it implicitly.
-The algorithms procedures is to build iteratively a set of subsets of states
-that have as target the non-accepting states.At each iteration,
-only maximal set of states, based on the inclusion operation are kept
-in memory for the next iteration. Also, the idea is based on
-adding in the targets, all the predecessors.
-
+maximal set of states is sufficient. Computing the workd $1^k$,
+will lead to a maximal path for this automaton. For any word $w < 1^k$
+of size $k$,
+the path of computation will be included in the path of $1^k$.
+Since the objective is to find the final state as a non-accepting,
+if the final state is non-accepting for $1^k$,
+that is $f_{1^k} \cap F = \emptyset$ then for the word $w$,
+since $f_w \subseteq f_{1^k}$, it holds that $f_w \cap F = \emptyset$.
 
 
 \begin{example}
@@ -323,6 +329,7 @@ adding in the targets, all the predecessors.
 \end{figure}
 
 \begin{figure}
+    \center
     \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
        \node[state,accepting,initial] (l0)   {$\ell_0$};
        \node[state,accepting] (l1) [right=of l0] {$\ell_1$};
@@ -887,6 +894,7 @@ The first requirement is that the library will have to be used in
 
 \todo{Talk about Owl}
 
+\todo{Java profiling}
 % \subsection{Summary of objectives}
 %
 % \paragraph{}
