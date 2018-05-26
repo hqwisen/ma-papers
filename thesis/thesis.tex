@@ -144,7 +144,7 @@ Partially Ordered Sets \\[0.3cm] }
 
 \emph{Supervised by} \\
 \Large Emmanuel \textsc{Filiot} \\
-\Large Guillermo A. \textsc{Perez} \\
+\Large Guillermo A. \textsc{Pérez} \\
 
 \end{center}
 
@@ -180,35 +180,35 @@ Partially Ordered Sets \\[0.3cm] }
 Data structures play an important role in algorithms complexity.
 With the objective to improve standard algorithms in automata theory,
 researchers at ULB
-have implemented new algorithms to resolve
-important problems in the field.
+have implemented new algorithms to solve
+important problems therein.
 
 \paragraph{}
 
 One computer science
-field that gain from
+field that benefits from
 those new implementation is formal verification of computer systems.
 Verifiying a system consists in checking for a given model, if
-it respect some formal specifications,
-also known as model checking. The major issue regarding problem
-such as model checking is the state explostion problem.
+it respect some formal specifications.
+The major issue regarding problems
+such as model checking is the state-space explostion problem.
 Verification techiques are based on representing
 models and specifications using automata, and the combination
 can lead to an exponential blow-up. To face the state explosion
-problem methods that allow to represent larger system using
+problem, methods that allow to represent larger system using
 smaller models were developped. A known method is called
-symbolic model checking and uses data structure called
-Binary Decision Diagram, used to represent boolean function.
+symbolic model checking and sometimes uses a data structure called
+Binary Decision Diagram, used to represent boolean functions.
 
 \paragraph{}
 
-Another well known problem in automata theory is the synthesis problem.
-It is the problem that for
+Another well known problem in verification is the synthesis problem.
+It is, for
 some model of a controller and an environment,
 to check if there exists a winning strategy for the controller.
 In order to develop more efficient algorithms to resolve such
-problem Filiot et al. proposed in \cite{ltl_rea} a new approach
-to resolve the synthesis problem, using antichains.
+problems Filiot et al. proposed in \cite{ltl_rea} a new approach
+using antichains.
 This is possible due to a partial order that exists on the state
 space of the subset constructions. Since it has been
 proven that the set is closed for this partial order,
@@ -228,32 +228,33 @@ those notions in section \ref{data_structures}.
 \paragraph{}
 
 The goal of this preparatory work is to motivate the interest that
-are made in data structures for partially ordered set, especially antichains,
+are made in data structures for partially ordered sets,
+especially antichains,
 and why we need efficient
-implementation.
-It also defines the desired objectives
-and propose a state of the art of the various existing implementations.
+implementations.
+It also defines the objectives
+and recalls the a state of the art of the various existing implementations.
 In this work, we will mainly focus
 on the usage of partially ordered sets and antichains in
 automata theory-related problems.
 
-\subsection{Checking universality with antichains}
+\subsection{An application: language universality}
 
 An example that highlights the use of antichains in automata theory is
 the universality problem.
 It is the problem that for a finite automaton, we want to
 check if the language of this automaton equivalent to the language
 of all the words on the alphabet. The universality problem is a classical
-theoritical problem, and many verifications-related problems can be
-reduced in polynomial time to it.
+theoritical problem, and many verification-related problems can be
+reduced to it.
 
 \paragraph{}
 
 Let $A = \tuple{Q_A, \Sigma, q_0, \delta, F_A}$ be a finite automaton,
-we want to check whether or not
+we want to check whether
 the language of $A$ is universal, that is, $L(A) = \Sigma^*$.
 The language of $A$ is universal if and only if the language
-of the complementary of $A$ accepts no words, that is,
+of the complement of $A$ accepts no words, that is,
 $L(A) = \Sigma^*$ if and only if $L(\bar{A}) = \emptyset$.
 Therefore, the goal is to find a computation path of the
 automaton on a word such that the path start in the initial state,
@@ -261,13 +262,13 @@ and the final target is a non-accepting state.
 
 \paragraph{}
 
-Let's first define an interesting proprety of non-deterministic automaton
+Let's first define an interesting proprety of non-deterministic automata
 before explaining the use of antichains for the universality problem.
-Let $q$ and $f$ two subsets of states such that $q, f \subseteq Q_A$.
-When computing a letter $\sigma$ on the deterministic equivalent
+Let $q$ and $f$ be two subsets of states such that $q, f \subseteq Q_A$.
+When reading a letter $\sigma$ on the deterministic equivalent
 $A_d$, that is $q \xrightarrow{\sigma} f$, it is known that
-for all set of states $q' \subseteq q$, the resulting subset
-$f'$ when computed on $A_d$ such that $q' \xrightarrow{\sigma} f'$,
+for all sets of states $q' \subseteq q$, the resulting subset
+$f'$, when computed on $A_d$ such that $q' \xrightarrow{\sigma} f'$,
 it holds that $f' \subseteq f$.
 %\todo{Does this proprety have a specific name ?}
 
@@ -281,12 +282,12 @@ The goal is to check
 if whether or not this automaton is universal.
 One approach to check universality, is to check if the
 complementary automaton accepts the empty set.
-This is actually the standard algorithm that first build
-the equivalent deterministric automaton, build the complementary
+This is actually the standard algorithm that first builds
+the equivalent deterministric automaton, builds the complement
 and then check the emptiness of this final construction.
 The complexity here rely on building the equivalent deterministic
-which is exponential in time. The idea of the antichain based
-algorithm is instead of determinize the automaton, is to
+which is exponential in size. The idea of the antichain based
+algorithm is instead of determinize the automaton, to
 do it implicitly by checking only maximal subsets of states.
 
 \paragraph{}
@@ -315,7 +316,7 @@ the path of computation will be included in the path of $1^k$,
 \textit{i.e.} the subset of states $q_i$ will be included
 in $p_i$, that is $q_i \subseteq p_i$,
 corresponding respectively to the subsets of states
-when computing the $i^{th}$ letter of the word $w$ and $1^k$.
+when reading the $i^{th}$ letter of the word $w$ and $1^k$.
 Since the objective is to find the final state as a non-accepting,
 if the final state is non-accepting for $1^k$,
 that is $p_k \cap F = \emptyset$ then for the word $w$,
@@ -431,9 +432,9 @@ automaton shown in Figure \ref{univ_eg_nondet}.}
 
 \paragraph{}
 
-The algorithms proposed in \cite{AC_universality}, doesn't build
-the deterministic automaton, but rather do it implicitly.
-The algorithms procedures is to build iteratively a set of subsets of states
+The algorithm proposed in \cite{AC_universality}, doesn't build
+the deterministic automaton, but rather does it implicitly.
+It builds iteratively a set of subsets of states
 that have as initial targets the non-accepting states.
 At each iteration,
 it adds direct
@@ -988,8 +989,13 @@ The library can be used as a command line tools or from an
 online version available at \textit{http://rabinizer-owl.pe.hu/}.
 It is implemented in \texttt{Java}.
 
-It mainly provide classes for \texttt{LTL} parsing
-and automata representation.
+% It mainly provide classes for \texttt{LTL} parsing
+% and automata representation.
+
+It provides automata transformation and analysis
+tools as well as synthesis algorithms.
+
+Symbolic antichain-based algorithms are missing.
 
 \todo{This still need to be completed
 as I'm not sure yet what to talk about}
