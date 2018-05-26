@@ -1,6 +1,8 @@
-\documentclass[letterpaper]{article}
+\documentclass[11pt,a4paper]{article}
 % \usepackage{natbib}
+
 \usepackage[utf8]{inputenc}
+
 %\usepackage[margin=7cm]{geometry}
 % \usepackage{listings}
 % \usepackage{adjustbox}
@@ -144,11 +146,10 @@ Partially Ordered Sets \\[0.3cm] }
 
 \emph{Supervised by} \\
 \Large Emmanuel \textsc{Filiot} \\
-\Large Guillermo A. \textsc{Pérez} \\
+\Large Guillermo A. \textsc{Pérez} \\[1cm]
 
 \end{center}
 
-\\[1cm]
 % Bottom of the page
 {\large \today}
 
@@ -233,7 +234,7 @@ especially antichains,
 and why we need efficient
 implementations.
 It also defines the objectives
-and recalls the a state of the art of the various existing implementations.
+and recalls the state of the art of the various existing implementations.
 In this work, we will mainly focus
 on the usage of partially ordered sets and antichains in
 automata theory-related problems.
@@ -272,10 +273,12 @@ $f'$, when computed on $A_d$ such that $q' \xrightarrow{\sigma} f'$,
 it holds that $f' \subseteq f$.
 %\todo{Does this proprety have a specific name ?}
 
-\paragraph{Concrete example}
+\subsubsection{Concrete example}
+
+\paragraph{}
 
 Let's take the example from \cite{AC_universality}
-shown in Figure \ref{univ_eg_nondet}. This example is a
+shown in Figure \ref{fig:univnondet}. This example is a
 non-deterministic finite automata with 4 states where
 only the last state is non-accepting.
 The goal is to check
@@ -292,10 +295,10 @@ do it implicitly by checking only maximal subsets of states.
 
 \paragraph{}
 
-Figure \ref{univ_eg_det} shows the equivalent deterministic finite
+Figure \ref{fig:univdet} shows the equivalent deterministic finite
 automaton of the one
-shown in Figure \ref{univ_eg_nondet}.
-In the specific example of \ref{univ_eg_det}, instead on checking
+shown in Figure \ref{fig:univnondet}.
+In the specific example of \ref{fig:univdet}, instead on checking
 each state of the deterministic finite automaton, it is
 better to check only the maximal path.
 We refer to maximal path, a path where each subset of states
@@ -349,7 +352,7 @@ the maximal subsets of states.
     \caption{Non-deterministic finite automaton from the
     family of automata $A_k$,
     from \cite{AC_universality}, with $k=3$.}
-    \label{univ_eg_nondet}
+    \label{fig:univnondet}
 
 
 \end{figure}
@@ -393,8 +396,8 @@ the maximal subsets of states.
 \end{tikzpicture}
 
 \caption{Deterministic automaton equivalent of the non-deterministic
-automaton shown in Figure \ref{univ_eg_nondet}.}
-\label{univ_eg_det}
+automaton shown in Figure \ref{fig:univnondet}.}
+\label{fig:univdet}
 
 \end{figure}
 
@@ -797,7 +800,7 @@ Let $\alpha_1, \alpha_2 \subseteq S$ two antichains and $s \in S$:
 
     \begin{example}
         Let $\alpha_1 = \{\{q_0, q_1\}\}$, $\{q_0\}$ belongs to
-        the lower closure $\xdownarrow{\alpha_1}$ because,
+        the lower closure $\darrow{\alpha_1}$ because,
         $\{q_0\} \subseteq \{q_0, q_1\}$.
     \end{example}
 
@@ -1031,6 +1034,7 @@ especially in automata theory.
 
 
 \todo{Fill-in bib correctly!}
+\newpage
 
 \bibliographystyle{alpha}
 \bibliography{thesis}
