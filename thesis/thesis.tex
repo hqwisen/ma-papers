@@ -844,6 +844,12 @@ Let $\alpha_1, \alpha_2 \subseteq S$ two antichains and $s \in S$:
 
 \label{impl}
 
+In this section, we recall a state of the art of the different
+antichain implementation. Two academic implementation were found.
+First, we describe the \texttt{AaPAL}
+library. Secondly, we describe another antichain utilization
+in the context of the Dedekind problem.
+
 \subsection{AaPAL}
 
 Bohy's \textbf{A}ntichain
@@ -933,9 +939,45 @@ of the antichain. Therefore, an antichain $\alpha = \{\{1, 2\}, \{1, 3\}\}$
 is represented by the bitarray  where the bit at indices $3$ and $5$
 are enabled, that is $10100$.
 
+\newpage
+
 \section{Next year overview}
 
 \label{conclusion}
+
+This paper introduces the preliminaries for the thesis
+and gives a first insight of the final
+work objectives. Therefore in this section, we will first describe
+the \texttt{Owl} project, the library where our contribution should
+be implemented. Finally we give a first possibility for the
+antichain implementation.
+
+\subsection{Owl library}
+
+\label{sec:owl}
+
+\paragraph{Description from the offical website \cite{owl}}
+\textit{Owl (Omega Word and automata Library)
+is a library and tool-set tailored for – but not
+limited to – semantic-based translations
+from LTL to deterministic automata.}
+
+\paragraph{}
+
+\texttt{Owl} is a library developed at the
+\textit{Technische Universität München}
+maintained by Salomon Sickert and the community.
+The library can be used as a command line tools or from an
+online version available at \textit{http://rabinizer-owl.pe.hu/}.
+It is implemented in \texttt{Java}.
+It provides automata transformation, such as LTL formulae
+to Rabin automata, and analysis
+tools as well as synthesis algorithms.
+Symbolic antichain-based algorithms are missing, which motivate
+our work to implement such algorithms and will provide
+to the community an enriched library.
+
+
 
 \subsection{Requirements}
 
@@ -974,34 +1016,6 @@ or JProfiler.
 % or check the belonging of a closure element from the incomparable elements
 % of the antichain.
 
-\subsection{Owl library}
-
-\label{sec:owl}
-
-\textit{Owl (Omega Word and automata Library)
-is a library and tool-set tailored for – but not
-limited to – semantic-based translations
-from LTL to deterministic automata.}
-
-\paragraph{}
-
-\texttt{Owl} is a library developed at the
-\textit{Technische Universität München}
-maintained by Salomon Sickert.
-The library can be used as a command line tools or from an
-online version available at \textit{http://rabinizer-owl.pe.hu/}.
-It is implemented in \texttt{Java}.
-
-% It mainly provide classes for \texttt{LTL} parsing
-% and automata representation.
-
-It provides automata transformation and analysis
-tools as well as synthesis algorithms.
-
-Symbolic antichain-based algorithms are missing.
-
-\todo{This still need to be completed
-as I'm not sure yet what to talk about}
 
 \subsection{Framework and implementation}
 
@@ -1032,8 +1046,6 @@ especially in automata theory.
 
 %\todo{Include algorithms to test i.e. Boolean function from Guillermo}
 
-
-\todo{Fill-in bib correctly!}
 \newpage
 
 \bibliographystyle{alpha}
