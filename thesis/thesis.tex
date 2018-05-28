@@ -180,7 +180,7 @@ Partially Ordered Sets \\[0.3cm] }
 
 Data structures play an important role in algorithms complexity.
 With the objective to improve standard algorithms in automata theory,
-researchers at ULB
+researchers
 have implemented new algorithms to solve
 important problems therein.
 
@@ -195,24 +195,49 @@ The major issue regarding problems
 such as model checking is the state-space explostion problem.
 Verification techiques are based on representing
 models and specifications using automata, and the combination
-can lead to an exponential blow-up. To face the state explosion
+can lead to an exponential blow-up. To face the state-space explosion
 problem, methods that allow to represent larger system using
-smaller models were developped. A known method is called
+smaller models were developed. A known method is called
 symbolic model checking and sometimes uses a data structure called
-Binary Decision Diagram, used to represent boolean functions.
+Binary Decision Diagram, used to represent boolean functions
+\cite{baier_principles_2008}.
+
 
 \paragraph{}
 
-Another well known problem in verification is the synthesis problem.
+With the same objective to improve algorithms for model checking,
+L. Doyen and J-F. Raskin proposed
+in \cite{grumberg_improved_2007} improved algorithms
+for the automata-based approach to model checking.
+In this improvement, they use another type of data structure
+called antichains.
+Also, another well known problem in verification is the synthesis problem.
 It is, for
 some model of a controller and an environment,
 to check if there exists a winning strategy for the controller.
 In order to develop more efficient algorithms to resolve such
 problems Filiot et al. proposed in \cite{ltl_rea} a new approach
 using antichains.
-This is possible due to a partial order that exists on the state
-space of the subset constructions. Since it has been
-proven that the set is closed for this partial order,
+
+\paragraph{}
+
+
+Those new \textit{antichain} approaches
+are possible due to a partial order that exists on the state
+space of the subset constructions.
+A partial order is a binary relations,
+that is comparison between two elements,
+of a specific set.
+In the case of verification-related
+problem, the partial order is define
+between set of states of an automaton.
+
+\paragraph{}
+
+Since it has been
+proven that subsets of the
+state space are closed for some partial order
+\cite{grumberg_improved_2007, AC_universality},
 antichains are well suited to resolve such problem.
 Indeed, antichains are a set of incomparable elements, and
 allow to represent partially ordered set in a more compact way.
@@ -220,11 +245,11 @@ This is possible through different operations on the antichains.
 When the set of a partial order is closed, the antichains
 can represent a bigger set by only keeping
 either maximal or minimal elements,
-and other elements can be retrieved using an upper or lower closure,
-that is all the elements that are either bigger or smaller
-compared to the elements of the antichains.
-We define formally
-those notions in section \ref{data_structures}.
+and other elements can be retrieved using a lower or upper closure,
+that is all the elements that are either smaller or bigger
+compared to the elements of the antichains
+(we define formally
+those notions in section \ref{data_structures}).
 
 \paragraph{}
 
@@ -251,8 +276,8 @@ reduced to it.
 
 \paragraph{}
 
-Let $A = \tuple{Q_A, \Sigma, q_0, \delta, F_A}$ be a finite automaton,
-we want to check whether
+Let $A=\tuple{Q_A, \Sigma, q_0, \delta, F_A}$ be a finite automaton,
+we want to check if
 the language of $A$ is universal, that is, $L(A) = \Sigma^*$.
 The language of $A$ is universal if and only if the language
 of the complement of $A$ accepts no words, that is,
@@ -286,8 +311,8 @@ if whether or not this automaton is universal.
 One approach to check universality, is to check if the
 complementary automaton accepts the empty set.
 This is actually the standard algorithm that first builds
-the equivalent deterministric automaton, builds the complement
-and then check the emptiness of this final construction.
+the equivalent deterministric automaton, then builds the complement
+and finally check the emptiness of this final construction.
 The complexity here rely on building the equivalent deterministic
 which is exponential in size. The idea of the antichain based
 algorithm is instead of determinize the automaton, to
@@ -502,12 +527,12 @@ instead of tree reprensentation.
 This paper is the introduction to next year thesis, therefore
 the content concern only the preliminaries. The goal is to
 properly define the subject,
-existing implementations and the desired objectives.
+existing implementations and the objectives.
 In section \ref{data_structures}, we formally define antichains,
 and give examples of such data structures. In section \ref{impl},
 we summarize the work that has been done by others
 for antichains implementation. In section \ref{conclusion}, we propose
-an overview of next year work and possibilities.
+an overview of the thesis work and possibilities.
 
 \newpage
 
@@ -941,16 +966,34 @@ are enabled, that is $10100$.
 
 \newpage
 
-\section{Next year overview}
+\section{Thesis overview}
 
 \label{conclusion}
 
+\paragraph{}
+
 This paper introduces the preliminaries for the thesis
 and gives a first insight of the final
-work objectives. Therefore in this section, we will first describe
+work objectives. Therefore in this section,
+we will first list the important steps of our contribution.
+We then describe
 the \texttt{Owl} project, the library where our contribution should
 be implemented. Finally we give a first possibility for the
 antichain implementation.
+
+\paragraph{Overview}
+
+This following list describe the important
+steps of this thesis: (1) Research and document
+the \texttt{Owl} library and how our contribution will be applied
+against the already existing source code
+(2) provide an API and an implementation to be used within
+the library
+(3) Define the algorithms to be implemented to test our antichain
+data structures against, and implement them (4) Study the performance
+of those algorithms implementation
+and compare them with the standard implementation.
+
 
 \subsection{Owl library}
 
