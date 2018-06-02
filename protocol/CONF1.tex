@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper]{article}
+\documentclass[10pt,a4paper]{article}
 % \usepackage{natbib}
 
 \usepackage[utf8]{inputenc}
@@ -23,6 +23,59 @@ Atos Wordline}
 
 \section{Introduction}
 
+During the conference of 28 March, Cedric Meuter
+talk about his activity in Atos Worldline company.
+The subject of the conference was the use of
+cryptographic technology within cashless banking payment.
+
+In this paper, we will propose a summary of the content of the
+conference. We will first describe fundamentals of security.
+Then we will propose a description of the important
+cryptographic protocol uses in the doman. Then an important
+part of the job in banking is to handle the keys used
+during the communication of the devices during a payment,
+we will then describe the key management.
+Finally we will propose some interesting details about
+engineering in security.
+
+
+\section{Fundamentals of security}
+
+It is important for a company to analyse the risk
+of the infrastrucutre deployed. Two important questions must
+be asked for (1) How likely an attacker will try to compromise
+you and acquire your data (2) What's the impact of the compromisation
+of your data. A good example of of an attack that highlights
+the importance of such risk analysis is the Sony Playstation Network
+Attack \cite{raiu_cyber-threat_2012}. Sony acknowledge that
+personal informations were stolen, including credit cards number.
+There are three important fundamentals of security:
+(1) Confidentiality (2) Integrity (3) Authenticity.
+
+\section{Cryptographic protocols}
+
+The Payment Card Industry (PCI) must rely on standard to make
+sure that the transactions follow the fundamentals of security.
+Those standards used by the PCI are defined by different institution, such
+as NIST, FIPS or ANSI. An important protocol used in terminal payment
+is the DUKPT protocol defined in \cite{dukpt_std}.
+
+\paragraph{DUKPT}
+
+DUKPT or Derived Unique Key Per Transaction, is at it's named
+says to generate a unique key per transaction.
+The goal of such a protocol, if a single transaction is compromised,
+it will not compromised the all infrastructure.
+To do so, it is necessary to have a centralized server, usually
+a HSM (we discuss in more details HSM in section \ref{sec:hsm}).
+
+
+Trouver des ref pour DUKPT explnation and HSM
+
+Give more technicals details about DUKPT and HSM
+\section{Key Management}
+
+\label{sec:hsù}
 
 
 \bibliographystyle{alpha}
