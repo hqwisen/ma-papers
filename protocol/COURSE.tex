@@ -32,9 +32,34 @@ to resolve secure computations.
 
 \section{Secure computation}
 
+A secure multi-part computation problem, is a problem where a computation,
+or a result, must be computed but the input that each party must used
+is confidential and not share between all parties. Such problem
+can be defined as a function $f(\cdot)$, that takes $n$ parameters.
+The idea is to be able to compute the function $f(x_0, .., x_n)$
+where the input $x_i$ can only be accessed by the party $i$.
+The final results is accessible to everyone.
+\todo{cite f(.)}
+
+\section{Problems}
+
+\paragraph{}
 
 
+There exists multiple problems that used the secure computation definition.
+For example the millionaires problem, is the problem that for two millionaires
+they both want to know which one of them is the richer, but they
+don't want to know the difference. In this problem, the computation
+function is the usual comparison $<$, and the inputs are the incomes of
+the individuals.
 
+
+\paragraph{}
+Another problem is the Oblivious Transfer introduced by Rabin during
+in 1982 \cite{rabin}.
+
+
+\todo{cite mill problem}
 
 \bibliographystyle{alpha}
 \bibliography{CONF2}
