@@ -8,7 +8,7 @@
 \usepackage{todonotes}
 
 
-\title{INFO-F-??? -     Course Report \\
+\title{INFO-F-541 -     Course Report \\
 Secure computation}
 \author{Université Libre de Bruxelles \\
 \\ Hakim Boulahya}
@@ -27,7 +27,8 @@ In this paper we will propose formal definitions of secure
 computation, also refered as secure multiparty computation.
 We will also gives known example in the litterature
 that are defined following the logical of secure computation.
-We will then gives techniques and protocols that allow
+We will then recall
+state of the art techniques and protocols that allow
 to resolve secure computations.
 
 \section{Secure computation}
@@ -47,21 +48,73 @@ The final results is accessible to everyone.
 
 
 There exists multiple problems that used the secure computation definition.
-For example the millionaires problem, is the problem that for two millionaires
+For example the millionaires problem
+\cite{yao_protocols_1982}, is the problem that for two millionaires
 they both want to know which one of them is the richer, but they
 don't want to know the difference. In this problem, the computation
 function is the usual comparison $<$, and the inputs are the incomes of
 the individuals.
 
 
-\paragraph{}
+\paragraph{Oblivious Transfer}
+
 Another problem is the Oblivious Transfer introduced by Rabin during
-in 1982 \cite{rabin}.
+in 1982 \cite{rabin_how_nodate}. The Oblivious Transfer has many application
+and has been first introduced has a protocol to resolve the Exchange Of
+Secret problem. In the context of secure computation,
+The 1-out-of-2 Oblivious Transfer ($OT^1_2$),
+an another approach to the original Oblivious Transfer, is the problem
+that for a sender and a receiver, one of two message must be sent
+from the receiver to the sender. The message receive can be chosen
+by the receiver. Two constraints are that the sender must never know
+which message has been chosen, and the receiver must not know
+the content of the other message.
+
+1-out-of-n Oblivious Transfer ($OT^1_n$) is an extension of $OT^1_2$,
+where the sender has $n$ messages to send and the receiver must choose
+one of theme. Those two protocols are theorically equivalent
+has proven in \cite{goos_equivalence_1988, goos_foundations_1998}.
+
+\section{Original Oblivious Transfer}
+
+\section{1-out-of-2 Oblivious Transfer protocol}
+
+On possible protocol for the $OT^1_2$ problem is by using a pair of
+key using the RSA protocol, first proposed in \cite{even_randomized_1985}.
+
+Let Alice be the sender and Bob the receiver.
+Alice has two messages $m_0,m_1$, and in addition to that
+a public RSA key $(e, d, n)$. The protocol is a multi-step
+communication between the two parties using the RSA public key
+of Alice.
+
+The first step is for Alice
+to send the public key and two random values, that is
+the public key $(e, n)$ and two random values $x_0, x_1$
+contains in the domain $[1, n-1]$. Now that Bob has those inputs,
+he will generates on his side two other random values.
+The first one is the bit $b$ which value is either $0$ or $1$,
+and is used to choose which random inputs received from Alice,
+that is $x_b$ would be either $x_0$ or $x_1$. The second
+generated random value of Bob is a value $k$ in the domain
+$[1, n-1]$.
+
+The second step is for Bob to return his response. Since
+we don't want Alice to know which value has been chosen, Bob
+will encrypt the value $x_b$ by bliding it using the random value $k$
+that he generated. That is Bob will send to Alice
+the value $v = (x_b + k^e) \mod n$.
+Upon receival of $v$, Alice
+
+\todo{Give propoer def of RSA public key}
 
 
-\todo{cite mill problem}
+
+\todo{explain rsa key pair (add a reminder section)}
+\todo{OT12 vs OT equivalence (check article that OT12 -> OT but not OT OT12)}
+
 
 \bibliographystyle{alpha}
-\bibliography{CONF2}
+\bibliography{COURSE}
 
 \end{document}
