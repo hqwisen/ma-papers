@@ -1,4 +1,4 @@
-\documentclass[11pt]{beamer}
+\documentclass[10pt]{beamer}
 \usepackage{etex}
 \usetheme[
 %%% options passed to the outer theme
@@ -85,10 +85,7 @@
 \date{June 7, 2018}
 
 \author{
-  \textbf{Hakim Boulahya}\\
-  \small supervised by\\
-  \small \textbf{Emmanuel Filiot},
-  \textbf{Guillermo A. Pérez}
+  Hakim \textsc{Boulahya}
 }
 
 % - Give the names in the same order as they appear in the paper.
@@ -102,6 +99,10 @@
   Belgium
 ] % optional - is placed in the bottom of the sidebar on every slide
 {% is placed on the bottom of the title page
+    supervised by \\
+    Emmanuel Filiot and
+    Guillermo A. Pérez \\\
+
   Département d'Informatique \\
   Université Libre de Bruxelles \\
   Belgium
@@ -158,11 +159,12 @@
     \end{block}
     \begin{block}{Motivations}
         \begin{itemize}
-            \item There exists new algorithms that uses antichains:
+            \item There exists new algorithms that uses antichains,
+            for known pratical and theoritical problems:
             \begin{itemize}
-                \item Model checking
-                \item Synthesis problem
-                \item Language universality
+                \item Model checking \cite{grumberg_improved_2007}
+                \item Synthesis problem \cite{ltl_rea}
+                \item Language universality \cite{AC_universality}
             \end{itemize}
             \item There is a need for an efficient implementation of antichains
         \end{itemize}
@@ -256,12 +258,13 @@
     \begin{block}{Do implementation already exists ?}
         Yes, 2 for antichains:
         \begin{enumerate}
-            \item \textbf{AaPAL}: Antichains implementation in $C$
+            \item \textbf{AaPAL}\cite{aapal}: Antichains implementation in $C$
             \begin{itemize}
                 \item More of an API: user must implement
                 comparison and intersection
             \end{itemize}
             \item Antichains for the Dedekind number problem
+            \cite{hoedt}
             \begin{itemize}
                 \item Bitarray represention (a bit is a subset)
                 \item Can only be applied to natural numbers
@@ -300,10 +303,18 @@
 \end{frame}
 
 
+%%%%%%%%%%%%%%%%
+
+{\aauwavesbg
+\begin{frame}[allowframebreaks]
+    \frametitle{References}
+\bibliographystyle{plain}
+\bibliography{../thesis}
+\end{frame}}
+
 {\aauwavesbg
 \begin{frame}[plain,noframenumbering]
   \finalpage{Thank you!}
 \end{frame}}
-%%%%%%%%%%%%%%%%
 
 \end{document}
