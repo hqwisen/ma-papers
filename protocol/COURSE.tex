@@ -7,7 +7,7 @@
 \usepackage{mathtools}
 \usepackage{todonotes}
 
-\usepackage[margin=3cm]{geometry}
+%\usepackage[margin=2.5cm]{geometry}
 
 
 
@@ -21,8 +21,6 @@ Secure computation}
 
 \maketitle
 
-\newpage
-
 % \begin{abstract}
 % \end{abstract}
 
@@ -34,31 +32,45 @@ We will also gives known example in the litterature
 that are defined following the logical of secure computation.
 We will then recall
 state of the art techniques and protocols that allow
-to resolve secure computations, specifically Oblivious Transfer.
+to resolve secure computations.
 
 \section{Secure computation}
 
-A secure multi-part computation problem, is a problem where a computation,
+\paragraph{}
+
+A secure multi-party computation problem, is a problem where a computation,
 or a result, must be computed but the input that each party must used
 is confidential and not share between all parties. Such problem
 can be defined as a function $f(\cdot)$, that takes $n$ parameters.
 The idea is to be able to compute the function $f(x_0, .., x_n)$
 where the input $x_i$ can only be accessed by the party $i$.
 The final results is accessible to everyone.
-\todo{cite f(.)}
 
-Secure computation was first introduced by Yao's
+\paragraph{}
 
-Two party protocol
+The first secure computation problem was first introduced by
+Yao in 1985 \cite{yao_protocols_1982}, with the millionnaires problem.
+This problem is a secure two-party computation, a subproblem
+of multi-party computation problem. Unlike other cryptographic
+protocols, the malicious behaviour come from the
+participant in the exchange. Indeed in secure computation
+we can define two party behaviour. A \textit{semi-honest adversary}
+is a party in the protocol that will always follow the steps
+that must be performed as stated in the protocol. That is, a semi-honest
+adversary will always send well-formed messages. It is not
+fully honest because such adversaries will try to learn other
+participants secrets by analyzing their protocol messages.
+A \textit{malicious adversary} can behave in the worst way possible.
+That is it can deviate from the protocol, send mal-formed message,
+and can use any other possible way to find the other parties secrets.
 
-\cite{killian} prooved that all secure computation
-can be reduced to OT12.
-
-OT12 is equivalement to OT ?
 
 \section{Oblivious Transfer}
 
 \subsection{Definition and variants}
+
+\paragraph{}
+
 
 The Oblivious Transfer introduced by Rabin during
 in 1982 \cite{rabin_how_nodate}. The Oblivious Transfer has many application
@@ -70,22 +82,32 @@ must not be able to tell if the receiver got the message, that
 is there is a probability of $\frac{1}{2}$, that the message
 has been sent to the receiver.
 
+\paragraph{}
+
+
 In the context of secure computation,
 The 1-out-of-2 Oblivious Transfer ($OT^1_2$),
-an another approach to the original Oblivious Transfer, is the problem
+an another approach to the original Oblivious Transfer, is used.
+It is the problem
 that for a sender and a receiver, one of two message must be sent
 from the receiver to the sender. The message receive can be chosen
 by the receiver. Two constraints are that the sender must never know
 which message has been chosen, and the receiver must not know
 the content of the other message.
 
+\paragraph{}
+
+
+There exists also
 1-out-of-n Oblivious Transfer ($OT^1_n$) is an extension of $OT^1_2$,
 where the sender has $n$ messages to send and the receiver must choose
-one of theme. Those two protocols are theorically equivalent
+one of them. Those two protocols are theorically equivalent
 has proven in \cite{goos_equivalence_1988, goos_foundations_1998}.
 
 
 \subsection{1-out-of-2 Oblivious Transfer protocol}
+
+\label{sec:ot}
 
 On possible protocol for the $OT^1_2$ problem is by using a pair of
 key using the RSA protocol, first proposed in \cite{even_randomized_1985}.
@@ -133,15 +155,21 @@ the message with $k$, that is $m_b = m'_b - k$. Since Bob
 only has the $k_i$ value associate to his message, he will not be
 able to decrypt the other message.
 
-\todo{Give propoer def of RSA public key}
-
-
 \section{An application: Yao's millionaires problem}
 
 \paragraph{}
 
-There exists multiple problems that used the secure computation definition.
-One example is the millionaires problem introduced by Yao in
+Oblivious Transfer provide a protocol  to share inputs without
+giving to much informations to the other parties. It is
+still necessary to provide a protocol that will
+compute the function for the secure computation, and share
+the results among parties. With this objective, we will
+focus on a well known problem in secure computation, that
+is Yao's millionaires problem.
+
+\paragraph{}
+
+The millionaires problem introduced by Yao in
 \cite{yao_protocols_1982}, is the problem that for two millionaires
 they both want to know which one of them is the richer, but they
 don't want to know the difference. In this problem, the computation
@@ -150,42 +178,49 @@ the individuals. In \cite{hutchison_efficient_2005},
 proposed an efficient solution to Yao's problem, using 1-out-of-2
 Oblivious Transfer.
 
-Yao's millionaires problem can be resolved with a Garbled circuit
-protocol. It is known in the litterature as Yao's circuit protocol
-even if it is not the name given within the original
-paper \cite{yao_protocols_1982}.
 
-The protocol uses the Oblivious Transfer protocol, which
-itself uses an assymetric key protocol, as shown in the previous
-section with the usage of a RSA public key.
-Garbled circuit's protocol is defined as follow:
-\begin{enumerate}
-    \item Bob
-\end{enumerate}
+\subsection{Ioannidis and Ananth solution}
 
+Ioannidis and Ananth protocol to
+resolve
+the millionaires problem \cite{ioannidis_efficient_2003}
+is divided in five major steps, and make
+used of the 1-out-of-2 oblivious transfer protocol.
 
-Explain other from Iaonnidis
-\subsection{Description of the protocol}
+\paragraph{}
 
+Alice and Bob wants to know which one is richer that the other.
+Let $a$ be the number of millions she posses and $b$ the amount
+of Bob. Before the computation, they first both agree
+that $a, b < d$, for $d \in \mathbb{N}$.
 
+\paragraph{}
 
-
-\todo{explain rsa key pair (add a reminder section)}
-\todo{OT12 vs OT equivalence (check article that OT12 -> OT but not OT OT12)}
-\todo{why second step of Bob we have $k^e$ ?}
+The goal of this protocol is for Alice to first create
+a matrix where all elements are values of $k$ bits, where
+$k$ is the size of the RSA key of Alice, used in the Oblivous Transfer.
+The first step for alice is to set the matrix to specific values
+depending on the key size $k$, and bits of her value $a$.
+The second major steps is to generate $d - 1$ $k$ bits random
+numbers $S_i$. The create another value $S_d$ so that all the
+bits are random except for the the last, that is $k-1$ and $k-2$.
+Those two last bits are set using the bitwise XOR operation,
+based on the $S_i$ random values and the generated matrix.
+Then a rotation of the elements in the two first column
+is made, by rotating the the cell with the second random
+value generated by Alice at the beginning. The resulting
+matrix is send to Bob, which will resend using
+the oblivious transfer protocol for each line $i$, the value
+at the column $b_i + 1$, where $b_i$ is the $i^{th}$ bit of $b$.
+At reception, Alice will rotate the $S_i$ values using
+her generated random numbers, and send back the result to Bob.
+This will allow Bob to scan the value from the matrix at indices $b_i + 1$
+(as explained above) and the $S_i$ rotated values received from Alice.
+The scan should reveal a large sequence of zero bits. If
+the bit to the right of the sequence is equals to $1$ then
+$a \ge b$, otherwise $a < b$.
 
 \todo{Proof of OT12 et OT equivalement Crepeau page 351 et Event page 640}
-
-\section{Secure computation with $OT^1_2$}
-
-
-\section{Draft}
-
-Parler OT12
-
-Dire que tout secure compute peut etre fait en OT12
-
-Donner example de Secure COmput fait avec OT12
 
 
 \bibliographystyle{alpha}
