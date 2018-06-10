@@ -34,7 +34,7 @@ We will also gives known example in the litterature
 that are defined following the logical of secure computation.
 We will then recall
 state of the art techniques and protocols that allow
-to resolve secure computations.
+to resolve secure computations, specifically Oblivious Transfer.
 
 \section{Secure computation}
 
@@ -47,26 +47,30 @@ where the input $x_i$ can only be accessed by the party $i$.
 The final results is accessible to everyone.
 \todo{cite f(.)}
 
-\section{Problems}
+Secure computation was first introduced by Yao's
 
-\paragraph{}
+Two party protocol
 
+\cite{killian} prooved that all secure computation
+can be reduced to OT12.
 
-There exists multiple problems that used the secure computation definition.
-For example the millionaires problem
-\cite{yao_protocols_1982}, is the problem that for two millionaires
-they both want to know which one of them is the richer, but they
-don't want to know the difference. In this problem, the computation
-function is the usual comparison $<$, and the inputs are the incomes of
-the individuals.
+OT12 is equivalement to OT ?
 
+\section{Oblivious Transfer}
 
-\paragraph{Oblivious Transfer}
+\subsection{Definition and variants}
 
-Another problem is the Oblivious Transfer introduced by Rabin during
+The Oblivious Transfer introduced by Rabin during
 in 1982 \cite{rabin_how_nodate}. The Oblivious Transfer has many application
 and has been first introduced has a protocol to resolve the Exchange Of
-Secret problem. In the context of secure computation,
+Secret problem.
+The oblivious transfer protocol is defined as follow:
+a sender want to send a message to a receiver, but it
+must not be able to tell if the receiver got the message, that
+is there is a probability of $\frac{1}{2}$, that the message
+has been sent to the receiver.
+
+In the context of secure computation,
 The 1-out-of-2 Oblivious Transfer ($OT^1_2$),
 an another approach to the original Oblivious Transfer, is the problem
 that for a sender and a receiver, one of two message must be sent
@@ -80,12 +84,8 @@ where the sender has $n$ messages to send and the receiver must choose
 one of theme. Those two protocols are theorically equivalent
 has proven in \cite{goos_equivalence_1988, goos_foundations_1998}.
 
-\section{Original Oblivious Transfer protocol}
 
-The Oblivious Protocol is defined as follow: Alice has
-a message to send to Bob.
-
-\section{1-out-of-2 Oblivious Transfer protocol}
+\subsection{1-out-of-2 Oblivious Transfer protocol}
 
 On possible protocol for the $OT^1_2$ problem is by using a pair of
 key using the RSA protocol, first proposed in \cite{even_randomized_1985}.
@@ -136,6 +136,22 @@ able to decrypt the other message.
 \todo{Give propoer def of RSA public key}
 
 
+\section{An application: Yao's millionaires problem}
+
+\paragraph{}
+
+There exists multiple problems that used the secure computation definition.
+One example is the millionaires problem introduced by Yao in
+\cite{yao_protocols_1982}, is the problem that for two millionaires
+they both want to know which one of them is the richer, but they
+don't want to know the difference. In this problem, the computation
+function is the usual comparison $<$, and the inputs are the incomes of
+the individuals. In \cite{hutchison_efficient_2005},
+proposed an efficient solution to Yao's problem, using 1-out-of-2
+Oblivious Transfer.
+
+\subsection{Description of the protocol}
+
 
 
 
@@ -147,6 +163,14 @@ able to decrypt the other message.
 
 \section{Secure computation with $OT^1_2$}
 
+
+\section{Draft}
+
+Parler OT12
+
+Dire que tout secure compute peut etre fait en OT12
+
+Donner example de Secure COmput fait avec OT12
 
 
 \bibliographystyle{alpha}
