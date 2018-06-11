@@ -1,0 +1,433 @@
+\documentclass[11pt,a4paper]{article}
+% \usepackage{natbib}
+
+\usepackage[utf8]{inputenc}
+\usepackage{mathpazo}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{todonotes}
+
+\usepackage[margin=3cm]{geometry}
+
+
+
+\title{INFO-F-514 - Final Report}
+\author{Université Libre de Bruxelles \\
+\\ Hakim Boulahya}
+
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\newpage
+
+% \begin{abstract}
+% \end{abstract}
+
+\section{Secure computation}
+
+\subsection{Introduction}
+
+In this paper we will propose formal definitions of secure
+computation, also refered as secure multiparty computation.
+We will also gives known example in the litterature
+that are defined following the logical of secure computation.
+We will then recall
+state of the art techniques and protocols that allow
+to resolve secure computations.
+
+\subsection{Secure computation}
+
+\paragraph{}
+
+A secure multi-party computation problem, is a problem where a computation,
+or a result, must be computed but the input that each party must used
+is confidential and not share between all parties. Such problem
+can be defined as a function $f(\cdot)$, that takes $n$ parameters.
+The idea is to be able to compute the function $f(x_0, .., x_n)$
+where the input $x_i$ can only be accessed by the party $i$.
+The final results is accessible to everyone.
+
+\paragraph{}
+
+The first secure computation problem was first introduced by
+Yao in 1985 \cite{yao_protocols_1982}, with the millionnaires problem.
+This problem is a secure two-party computation, a subproblem
+of multi-party computation problem. Unlike other cryptographic
+protocols, the malicious behaviour come from the
+participant in the exchange. Indeed in secure computation
+we can define two party behaviour. A \textit{semi-honest adversary}
+is a party in the protocol that will always follow the steps
+that must be performed as stated in the protocol. That is, a semi-honest
+adversary will always send well-formed messages. It is not
+fully honest because such adversaries will try to learn other
+participants secrets by analyzing their protocol messages.
+A \textit{malicious adversary} can behave in the worst way possible.
+That is it can deviate from the protocol, send mal-formed message,
+and can use any other possible way to find the other parties secrets.
+
+
+\subsection{Oblivious Transfer}
+
+\subsubsection{Definition and variants}
+
+\paragraph{}
+
+
+The Oblivious Transfer introduced by Rabin during
+in 1982 \cite{rabin_how_nodate}. The Oblivious Transfer has many application
+and has been first introduced has a protocol to resolve the Exchange Of
+Secret problem.
+The oblivious transfer protocol is defined as follow:
+a sender want to send a message to a receiver, but it
+must not be able to tell if the receiver got the message, that
+is there is a probability of $\frac{1}{2}$, that the message
+has been sent to the receiver.
+
+\paragraph{}
+
+
+In the context of secure computation,
+The 1-out-of-2 Oblivious Transfer ($OT^1_2$),
+an another approach to the original Oblivious Transfer, is used.
+It is the problem
+that for a sender and a receiver, one of two message must be sent
+from the receiver to the sender. The message receive can be chosen
+by the receiver. Two constraints are that the sender must never know
+which message has been chosen, and the receiver must not know
+the content of the other message.
+
+\paragraph{}
+
+
+There exists also
+1-out-of-n Oblivious Transfer ($OT^1_n$) is an extension of $OT^1_2$,
+where the sender has $n$ messages to send and the receiver must choose
+one of them. Those two protocols are theorically equivalent
+has proven in \cite{goos_equivalence_1988, goos_foundations_1998}.
+
+
+\subsubsection{1-out-of-2 Oblivious Transfer protocol}
+
+\label{sec:ot}
+
+On possible protocol for the $OT^1_2$ problem is by using a pair of
+key using the RSA protocol, first proposed in \cite{even_randomized_1985}.
+Let Alice be the sender and Bob the receiver.
+Alice has two messages $m_0,m_1$, and in addition to that
+a public RSA key $(e, d, n)$. The protocol is a multi-step
+communication between the two parties using the RSA public key
+of Alice.
+
+\paragraph{}
+
+The first step is for Alice
+to send the public key and two random values, that is
+the public key $(e, n)$ and two random values $x_0, x_1$
+contains in the domain $[1, n-1]$. Now that Bob has those inputs,
+he will generates on his side two other random values.
+The first one is the bit $b$ which value is either $0$ or $1$,
+and is used to choose which random inputs received from Alice,
+that is $x_b$ would be either $x_0$ or $x_1$. The second
+generated random value of Bob is a value $k$ in the domain
+$[1, n-1]$.
+
+\paragraph{}
+
+
+The second step is for Bob to return his response. Since
+we don't want Alice to know which value has been chosen, Bob
+will encrypt the value $x_b$ by blinding it using the random value $k$
+that he generated. That is Bob will send to Alice
+the value $v = (x_b + k^e) \mod n$.
+Upon receival of $v$, Alice will decrypt $v$ two times, by removing
+the random values. That is, Alice will have two values $k_0, k_1$
+where $k_i = (v - x_i)^d \mod n$.
+
+\paragraph{}
+
+Finally, the last step if for Alice to send back the real message.
+Since $v$ was blinded by Bob
+with the value $k$, Alice doesn't know which random $x_i$ has been chosen.
+By computing the two $k_i$ based on both values, one of them
+will be identical to the $k$ value of Bob. The last inputs that
+Alice will send to Bob are the two messages $m'_0, m'_1$ where
+$m'_i = m_i + k_i$. Upon receival, Bob will have to decrypt
+the message with $k$, that is $m_b = m'_b - k$. Since Bob
+only has the $k_i$ value associate to his message, he will not be
+able to decrypt the other message.
+
+\subsection{An application: Yao's millionaires problem}
+
+\paragraph{}
+
+Oblivious Transfer provide a protocol  to share inputs without
+giving to much informations to the other parties. It is
+still necessary to provide a protocol that will
+compute the function for the secure computation, and share
+the results among parties. With this objective, we will
+focus on a well known problem in secure computation, that
+is Yao's millionaires problem.
+
+\paragraph{}
+
+The millionaires problem introduced by Yao in
+\cite{yao_protocols_1982}, is the problem that for two millionaires
+they both want to know which one of them is the richer, but they
+don't want to know the difference. In this problem, the computation
+function is the usual comparison $<$, and the inputs are the incomes of
+the individuals. In \cite{hutchison_efficient_2005},
+proposed an efficient solution to Yao's problem, using 1-out-of-2
+Oblivious Transfer.
+
+
+\subsubsection{Ioannidis and Ananth solution}
+
+Ioannidis and Ananth protocol to
+resolve
+the millionaires problem \cite{ioannidis_efficient_2003}
+is divided in five major steps, and make
+used of the 1-out-of-2 oblivious transfer protocol.
+
+\paragraph{}
+
+Alice and Bob wants to know which one is richer that the other.
+Let $a$ be the number of millions she posses and $b$ the amount
+of Bob. Before the computation, they first both agree
+that $a, b < d$, for $d \in \mathbb{N}$.
+
+\paragraph{}
+
+The goal of this protocol is for Alice to first create
+a matrix where all elements are values of $k$ bits, where
+$k$ is the size of the RSA key of Alice, used in the Oblivous Transfer.
+The first step for alice is to set the matrix to specific values
+depending on the key size $k$, and bits of her value $a$.
+The second major steps is to generate $d - 1$ $k$ bits random
+numbers $S_i$. The create another value $S_d$ so that all the
+bits are random except for the the last, that is $k-1$ and $k-2$.
+Those two last bits are set using the bitwise XOR operation,
+based on the $S_i$ random values and the generated matrix.
+Then a rotation of the elements in the two first column
+is made, by rotating the the cell with the second random
+value generated by Alice at the beginning. The resulting
+matrix is send to Bob, which will resend using
+the oblivious transfer protocol for each line $i$, the value
+at the column $b_i + 1$, where $b_i$ is the $i^{th}$ bit of $b$.
+At reception, Alice will rotate the $S_i$ values using
+her generated random numbers, and send back the result to Bob.
+This will allow Bob to scan the value from the matrix at indices $b_i + 1$
+(as explained above) and the $S_i$ rotated values received from Alice.
+The scan should reveal a large sequence of zero bits. If
+the bit to the right of the sequence is equals to $1$ then
+$a \ge b$, otherwise $a < b$.
+
+\newpage
+
+\section{Conference \#1: FAB Framework}
+
+\subsection{Blockchain and the scalability problem}
+
+
+\paragraph{}
+
+
+Blockchain is a technology that allow to decentralize a
+system to avoid using a thrusted third-party, such as a bank.
+The blockchain technology was first introduced by
+Satoshi Nakamoto \cite{bitcoin} within the framework
+of the Bitcoin blockchain, a decentralized network
+that allow to exchange coins in form of transactions.
+
+\paragraph{}
+
+The different techniques first presented in \cite{bitcoin}, are
+a combination of different cryptographic functions that allow
+this massive scale decentralization. The goal is to make
+sure that a transaction that is acknowledge by the network,
+can be thrusted where no users can be thrusted.
+The different cryptographic protocols used allow to insure
+the will of a user to send his coins, avoid double-spending and
+insure that nobody in the network can change any past transactions.
+
+
+\paragraph{}
+
+Let's summarize the Bitcoin protocol. A coin is represented by
+a sequence of transactions. When Alice wants to send Bob a coin,
+she musts signed a SHA-256 hash, using the ECSDA digital signature
+algorithm, composed of the last transaction of the coin
+and the one that she wants to create. This new transaction
+will be send to the decentralized network,
+usually a peer-to-peer network. Miners in the network
+will provide a computational work called proof-of-work.
+The goal of the proof-of-work is to mint a block, a
+file containing multiple transactions, using a cost-function
+of the hashcash \cite{hashcash} (the proof-of-work) algorithm.
+A cost-function should be easy to verify but hard to compute.
+This mechanism allow to create a Blockchain, that can be seen
+as a linked list of blocks, where the proof-of-work make it
+hard to edit the blockchain because each added block
+is linked to the previous on in the blockchain.
+
+\paragraph{}
+One problem that arise using this protocol is the scalability problem.
+Because the number of transactions per block is fixed
+(the block creation frequency is also fixed)
+and the
+proof-of-work takes time, the amount of transactions
+that the bitcoin decentralized network can process is limited.
+
+\paragraph{}
+
+The debit of transaction is a major concern of large scale
+entreprise. In order to be able to use blockchain technology
+for different applications, such as banking, real estate, energy
+and others industry, it is important to be able
+to process multiple transactions concurrently.
+What has been proposed during the conference is the Fast Access Blockchain.
+A \textit{public blockchain which overcomes the scalability challenge}.
+The challenge is stated as following: keeping the characteristics
+of a blockchain that is, permissionless, decentralized and open,
+and allowing multiple transactions to be acknowledge at the same time.
+
+\subsection{FAB Overview}
+
+The solution process by Fast Access blockchain presented during
+the conference and by the developers
+\cite{fabmedium} is to divide the network with 3 main components:
+a foundation chain, additional chains, called annex chains and an
+open storage architecture.
+
+\paragraph{Foundation}
+
+The foundation chain, is the core of the system and the functionnality
+is to contain a root ledger, process the transactions and take
+the final decision. It is the core of the decentralized architecture.
+A technical implementation provided by FAB within the foundation blockchain
+is a tool called KanBan. The main goal of KanBan is to avoid the foundation
+blockchain to be overloaded, and to add scalability to the
+processing, that is redirecting some transactions to the
+annex chains.
+
+\paragraph{Annex chains}
+
+The annex chains are multiple blockchains that process the majority
+of the transactions, through the KanBan. It allows for
+business to join the public blockchain, therefore it means that
+an annex chain is used for one specific business applications.
+It is used with the SCAR (Smart Contract Address Router) tool, that is
+used to execute the transactions between the annex itself
+and the externals, that is the KanBan component.
+
+\paragraph{OSA}
+
+The last component, the Open Storage, is used to, as the name states, to
+store all the public data of the blockchains, and allows fast access
+to it. The data stored are the one stored in the public blockchain
+and are already very thrustworthy, as it depends on the KanBan tool.
+
+\paragraph{}
+
+The presentation highlights the problem of the blockchain technology,
+and propose already implemented solution FAB that has for objective
+to overcome the scalability problem present in already existing blockchains
+such as Bitcoin.
+
+\newpage
+
+\section{Conference \#2: Empowering the cashless society}
+
+\subsection{Introduction}
+
+During the conference of 28 March, Cedric Meuter
+talk about his activity in Atos Worldline company.
+The subject of the conference was the use of
+cryptographic technology within cashless banking payment.
+In this paper, we will propose a summary of the content of the
+conference. We will first describe fundamentals of security.
+Then we will propose a description of the important
+cryptographic protocol uses in the domain. Then an important
+part of the job in banking is to handle the keys used
+during the communication of the devices during a payment,
+we will then describe the key management as presented
+by Atom Worldline company.
+Finally we will propose some interesting details about
+engineering in security.
+
+
+\subsection{Fundamentals of security}
+
+It is important for a company to analyse the risk
+of the infrastrucutre deployed. Two important questions must
+be asked for (1) How likely an attacker will try to compromise
+you and acquire your data (2) What's the impact of the compromisation
+of your data. A good example of of an attack that highlights
+the importance of such risk analysis is the Sony Playstation Network
+Attack \cite{raiu_cyber-threat_2012}. Sony acknowledge that
+personal informations were stolen, including credit cards number.
+There are three important fundamentals of security:
+(1) Confidentiality (2) Integrity (3) Authenticity.
+With this informations, the goal of the protocols presented
+in the next section is to respect those fundamentals.
+
+\subsection{Cryptographic protocols and key management}
+
+The Payment Card Industry (PCI) must rely on standard to make
+sure that the transactions follow the fundamentals of security.
+Those standards used by the PCI are defined by different institution, such
+as NIST, FIPS or ANSI. An important protocol used in terminal payment
+is the DUKPT protocol defined in
+the ANSI X9.24 standard \cite{ansi_x924}.
+
+\subsubsection{DUKPT}
+
+DUKPT or Derived Unique Key Per Transaction, is at it's named
+says to generate a unique key per transaction.
+The goal of such a protocol, if a single transaction is compromised,
+it will not compromised the all infrastructure.
+To do so, it is necessary to have a centralized server, usually
+a Hardware Security Module, a centralized server that stores
+the keys and provides cryptographic functions.
+The algorithms need a secret key,
+called a Base Derivation Key or BDK, to be able to generate
+a key for each terminal. Storing the BDK is very costly because
+if they are compromised, they can compromised a lot of devices.
+Therefore store new keys, developer must request to add a new
+key, and this will be done during a Key Ceremony, that will
+add the key to the HSM.
+
+\paragraph{}
+
+Each terminal as a secret key, based on the serial number,
+generate at factory by the HSM. To encrypt a transaction and process
+secret information, such as a PIN code, the terminal generate a number
+of key, and each key will only be used for only one transactions.
+Then the terminal send the encrypted data and it's serial number to the HSM.
+The HSM will be able to retrieve the key from the terminal, and
+regenerate the key used for the transaction, since it provides
+the cryptographic functions, and the
+key of the terminal was generated by the HSM.
+
+
+\subsubsection{Hardware Security Modules}
+
+
+\label{sec:hsm}
+
+The HSM is the devices (server), that allows to generate
+key for the terminals, and provides crypto-functions to handle
+the payements. The HSM stores multiple Base Deriviation Key, and
+with those will be able to generate per terminal keys,
+called Initial Key (IK). Those keys are loaded in factory
+in each terminal and will allow the terminals to generated
+the Trasanctions Keys.
+
+
+
+\bibliographystyle{alpha}
+\bibliography{REPORT}
+
+\end{document}
