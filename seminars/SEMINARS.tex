@@ -10,7 +10,7 @@
 \usepackage[margin=3cm]{geometry}
 
 
-\newcommand{\todoin}[2][]{\todo[inline, color=blue!40, #1]{#2}}
+\newcommand{\todoin}[2][]{\todo[inline, color=orange!100, #1]{#2}}
 \newcommand{\fixme}[2][]{\todo[color=yellow!40, #1]{#2}}
 \newcommand{\fixmein}[2][]{\todo[inline, color=yellow!40, #1]{#2}}
 
@@ -31,12 +31,14 @@ Département d'informatique \\
 \begin{abstract}
 \end{abstract}
 
+\todoin{Split into 3 different documents}
+
 \section{Real-Time Data Mining}
 \paragraph{Seminar details}
 
 \begin{itemize}
   \item \textbf{Title:} Real-Time Data Mining
-  \item \textbf{Date & Location:} 29/03/2019, Brussels
+  \item \textbf{Date \& Location:} 29/03/2019, Brussels
   \item \textbf{Presenter:} João Gama (INESC TEC, University of Porto)
 \end{itemize}
 
@@ -67,13 +69,35 @@ Finally, the presenter conclude the talk by discussing the available tool for da
   \item Real-world problems and application solutions
 \end{itemize}
 
-\subsubsection{Discipline}
+\subsubsection{Releveant field}
 
 \todoin{To be completed}
 
 This talk is obviously mainly relevant to Artificial Intelligence field, specifically Machine Learning algorithms. (Big) data analysis is the main subject of the talk, with an emphasize on real-time data streams.
 
 \section{Air-Traffic Flow}
+
+\subsection{Outline}
+
+The talk discuss the Airflow Traffic Flow Management problem: multiple flights have to be travel from various origin to different destination. The objective is to optimize different criteria of the air traffic flow such as the user preferences, the repartition of the capacity, avoid conflict of trajectories with minimal impact of the preferred one, and other criteria based on the context of the fleet.
+
+\fixme{This is wrong, airspace capacity is not an example, but rather the problem itself}A presented example of air traffic flow management is the airspace capacity. Each sector are either assigned a fixed capacity or dynamic: it can be closed or for example have more flights during peek hours. Such conditions depends heavily on external variables such as number of flights requesting to cross the sector, the number of controller assignet to a sector, restrictions of airfcract speed controls and other variables. The goal of is to resolve the flights trajectories to avoid congestion by respecting the airspace capcity restrictions. To reach this goal there exists different strategies: delaying plane departures or arrivals, deviate flights trajectories or controlling the speed of the planes. The solution is what are the feasible and optimized strategies to avoid congestion.
+
+The presentation is divide in two major parts. The first part discuss the classical approach to handle such problem. It describes on classic approach studied in the litterature using Integer Programming models. In this part the presenter introduced the different variables to take into consideration, the conditions to respect, costs of changes and the objective function that is minimize delay. The second part discuss the data-driven approach. The goal of this approch is to learn the plane trajectories from the existing one. That is, the learning algorithms starts from a set of trajectories and if and new trajectory is required, the learning algorithms will build the new trajectories based on the existing trajectories and available data available in various repositories. The talk concludes with some perspectives and the future objectives such as studying the performance of the data-driven approach and comparing it with the classical approaches.
+
+\subsection{Major points}
+
+\begin{itemize}
+  \item
+\end{itemize}
+
+\subsection{Relevant field}
+
+\subsection{Similar works}
+
+\subsection{Relevant questions}
+
+\subsection{Critics}
 
 \section{BiDS Conference}
 
