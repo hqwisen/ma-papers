@@ -1,0 +1,84 @@
+\documentclass[11pt,a4paper]{article}
+% \usepackage{natbib}
+
+\usepackage[utf8]{inputenc}
+\usepackage{mathpazo}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{todonotes}
+
+\usepackage[margin=3cm]{geometry}
+
+
+\newcommand{\todoin}[2][]{\todo[inline, color=blue!40, #1]{#2}}
+\newcommand{\fixme}[2][]{\todo[color=yellow!40, #1]{#2}}
+\newcommand{\fixmein}[2][]{\todo[inline, color=yellow!40, #1]{#2}}
+
+
+\title{INFO-F-530 - Computer Science Seminar}
+\author{Université Libre de Bruxelles \\
+Département d'informatique \\
+\\ Hakim Boulahya}
+
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\newpage
+
+\begin{abstract}
+\end{abstract}
+
+\section{Real-Time Data Mining}
+\paragraph{Seminar details}
+
+\begin{itemize}
+  \item \textbf{Title:} Real-Time Data Mining
+  \item \textbf{Date & Location:} 29/03/2019, Brussels
+  \item \textbf{Presenter:} João Gama (INESC TEC, University of Porto)
+\end{itemize}
+
+\subsection{Outline}
+
+\paragraph{}
+
+The talk discuss one of the major problem of our century: the exponential growth of data with a focus of real-time consumption of those. This problem is often known as Big Data and the objective of the talk was the discuss a subproblem \todo{sure about saying subproblem} of Big Data: building decision models based on real-time data analysis.
+
+Such a problem a usually approach in a static manneer, that is generating a model based on an existing finite data set. One of the emphasize of the talk is that this learning methodology is not adapted to the world problems: static solution can hardly be used overtime for dynamic models.
+
+To discuss the problem of real time decision model implementation, the presenter introduced a use case: a network of sensors to monitor electrical power supply. The methodology proposed to build the model is by using the Only Divisive-Agglomerative Clustering (ODAC) \todo{add ref.}, to maintain a continuous cluster structure from real-time data. This structure is build dynamically by using different operations: split and merge. Those operations enables the cluster to be expanded in two ways when changes are required, respectively: more details in the cluster by splitting nodes or merging substructures. Splist or merges of the clusterapplied in a probabilistic maneer using Hoeffding bounds \todo{add ref}, mathematical bounds based on confidence level and observed data streams.
+
+Finally, the presenter conclude the talk by discussing the available tool for data streams analysis and a overview of a generic model for online adaptive learning algorithms.
+\fixmein{Careful with hardcore paraphrasing !!}
+
+\subsection{Major points}
+
+
+\todoin{To be completed}
+
+\begin{itemize}
+  \item Importance of dynamic models and learning from real-time data streams
+  \item Approaches to online learning: static and dynamic
+  \item Data streams
+  \item Clustering time series
+  \item Hoeffding bound
+  \item Real-world problems and application solutions
+\end{itemize}
+
+\subsubsection{Discipline}
+
+\todoin{To be completed}
+
+This talk is obviously mainly relevant to Artificial Intelligence field, specifically Machine Learning algorithms. (Big) data analysis is the main subject of the talk, with an emphasize on real-time data streams.
+
+\section{Air-Traffic Flow}
+
+\section{BiDS Conference}
+
+
+\bibliographystyle{alpha}
+\bibliography{SEMINARS}
+
+\end{document}
