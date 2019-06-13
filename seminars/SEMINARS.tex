@@ -24,9 +24,8 @@ Département d'informatique \\
 \begin{document}
 
 \maketitle
-\tableofcontents
-
-\newpage
+% \tableofcontents
+% \newpage
 
 \begin{abstract}
 \end{abstract}
@@ -65,42 +64,122 @@ Finally, the presenter conclude the talk by discussing the available tool for da
   \item Approaches to online learning: static and dynamic
   \item Data streams
   \item Clustering time series
-  \item Hoeffding bound
+  \item Hoeffding bound and the parameter configurations
   \item Real-world problems and application solutions
+  \item Algorithms presented take into consideration the resource limitation (Memory, time, etc.)
 \end{itemize}
 
-\subsubsection{Releveant field}
+\subsection{Releveant field}
 
 \todoin{To be completed}
 
-This talk is obviously mainly relevant to Artificial Intelligence field, specifically Machine Learning algorithms. (Big) data analysis is the main subject of the talk, with an emphasize on real-time data streams.
+This talk is mainly relevant to Artificial Intelligence field, specifically Machine Learning algorithms. (Big) data analysis is the main subject of the talk, with an emphasize on real-time data streams.
+
+\subsection{Similar work}
+
+
+The work \cite{pires_data_2009} discuss the classification of automatic classification of faults in transmission lines using data mining, a practical problem of the use case presented by Dr. Gama. In \cite{silva_data_2013} a thorough survey on clustering algorithms, the method presented during the seminar regarding the unsupervided learning to build the model based on the data stream, is highliy relevant to the walk and provide an in-depth classification of the state-of-the-art algorithms available in the litterature.
+
+\subsection{Relevant questions}
+
+\fixmein{Select only  2 questions}
+
+\begin{itemize}
+  \item Has the clustering time series data stream method to build the dynamic model has been implemented in real-world applications ? How does it compare with the existing solutions (that is statically generated models) in term of efficiency and effectiveness ?
+  \item Does other mathematical structures, such as Neural Networks, have been used to resolve the same problem ? If yes, does it compete well with clustering structures ? What are the benefits of clustering structures ?
+  \item \todoin{How are the Hoeffding bound parameters defined}
+\end{itemize}
+
+\subsection{Appreciation and critics}
+
+Big Data is a really interesting subject. The seminar discuss a highly complex problem, that is real-time data analysis. It really helped having a first grasp of the problem that can be resolved using those methodology and provided a good overview of the problem. I would be very interested into understanding in more details how to solve those problems, and also having real-world example and datasets.
+
 
 \section{Air-Traffic Flow}
 
 \subsection{Outline}
 
-The talk discuss the Airflow Traffic Flow Management problem: multiple flights have to be travel from various origin to different destination. The objective is to optimize different criteria of the air traffic flow such as the user preferences, the repartition of the capacity, avoid conflict of trajectories with minimal impact of the preferred one, and other criteria based on the context of the fleet.
+The seminar present and discuss the Airflow Traffic Flow Management problem: multiple flights have to be travel from various origin to different destination. The objective is to optimize different criteria of the air traffic flow such as the user preferences, the repartition of the capacity, avoid conflict of trajectories with minimal impact of the preferred one, and other criteria based on the context of the fleet.
 
 \fixme{This is wrong, airspace capacity is not an example, but rather the problem itself}A presented example of air traffic flow management is the airspace capacity. Each sector are either assigned a fixed capacity or dynamic: it can be closed or for example have more flights during peek hours. Such conditions depends heavily on external variables such as number of flights requesting to cross the sector, the number of controller assignet to a sector, restrictions of airfcract speed controls and other variables. The goal of is to resolve the flights trajectories to avoid congestion by respecting the airspace capcity restrictions. To reach this goal there exists different strategies: delaying plane departures or arrivals, deviate flights trajectories or controlling the speed of the planes. The solution is what are the feasible and optimized strategies to avoid congestion.
 
-The presentation is divide in two major parts. The first part discuss the classical approach to handle such problem. It describes on classic approach studied in the litterature using Integer Programming models. In this part the presenter introduced the different variables to take into consideration, the conditions to respect, costs of changes and the objective function that is minimize delay. The second part discuss the data-driven approach. The goal of this approch is to learn the plane trajectories from the existing one. That is, the learning algorithms starts from a set of trajectories and if and new trajectory is required, the learning algorithms will build the new trajectories based on the existing trajectories and available data available in various repositories. The talk concludes with some perspectives and the future objectives such as studying the performance of the data-driven approach and comparing it with the classical approaches.
+The presentation is divide in two major parts. The first part discuss the classical approach to handle such problem. It describes on classic approach studied in the litterature using Integer Programming models. In this part the presenter introduced the different variables to take into consideration, the conditions to respect, costs of changes and the objective function that is minimize delay. The second part discuss the data-driven approach. The goal of this approach is to learn from an IP model based on trajectory selection. That is, the learning algorithms starts from a set of trajectories and if and new trajectory is required, the learning algorithms will build the new trajectories based on the existing ones available in various data repositories. The talk concludes with some perspectives and the future objectives such as studying the performance of the data-driven approach and comparing it with the classical approaches.
 
 \subsection{Major points}
 
 \begin{itemize}
-  \item
+  \item There exists different approach to the problem
+  \item Multiple constraints, variables and rules have to be take into consideration
+  \item Using classical approaches is often not realistically applicable to the real world due to the user requests that makes the IP model structure very complex. The model that uses data repositories to select trajectories is more accurate into taking account of user preferences.
 \end{itemize}
 
 \subsection{Relevant field}
 
+The topic of ATFM using trajectory selection based on data repositories is relevant to Mathematical Optimization and Machine Learning. The presented approaches make uses of Integer Programming to resolve the problem, which makes it relevant to mathematical optimization. It is also relevant to Machine Learning because the data-driven approach make uses of clustering algorithms, a supervised learning approach to data analysis.
+
 \subsection{Similar works}
+
+In 2008 Bertsimas et al. provided an integer optimization approach for the Air Traffic Flow Management problem \cite{lodi_air_2008}, the same method presented during the seminar. In \cite{agogino_multiagent_2012}, a multiagent approach using reinforcement learning, a machine learning technique to solve the problem of congestion, is presented to solve the same problem presented during the talk with the same objective: reducing congestion by taking into consideration various constraints such as climate conditions, resource allocation and other various constraints. Another interesting paper is \cite{mukherjee_dynamic_2009}, that presents a stochastic integer programming approach to the problem.
 
 \subsection{Relevant questions}
 
-\subsection{Critics}
+\begin{itemize}
+  \item Integer Programming model was presented during the talk with the objective to minimize the congestion. Is focusing on this minimization objective sufficient to resolve the ATFM problem at scale ?
+  \item The data-driven approach is highly dependent of the data repositories used for trajectories selection. How are the data repository validated ? What is the impact of wrong datasets on the efficiency ?
+\end{itemize}
 
-\section{BiDS Conference}
+\subsection{Appreciation and critics}
 
+Solving optimization algorithms using data analytics is a subject that interests me a lot. Having an Integer Programming approach to a minimization objective problem provided me a new approach on how to use data to solve optimization problems. The description of the mathematical problem was well introduced and explain by the speaker as well as the results.
+
+\section{Artificial Intelligence and Data Science in Earth Observation - BiDS 2019}
+
+\todoin{Add note and details about the agreement with Markowitch and the content of the conference}
+
+\todoin{Add references: https://www.bigdatafromspace2019.org/QuickEventWebsitePortal/2019-conference-on-big-data-from-space-bids19/bids-2019/ExtraContent/ContentPage?page=10}
+
+\subsection{Outline}
+
+The talk discuss and describe different Artificial Intelligence methods that make use of Earth Observation data. The talk is divided in two main subjects: deep learning in remote sensing and geoscientific applications.
+
+In deep learning in remote sensing the speaker emphasize on the fact that data classificaltion is only a small part of remote sensing. One major discussion made is the importance of data fusion, due to the disparity of earth observation data generated by different sattelites in different format.
+
+The main content of the keynote is the presentation and comparison for different algorithms for image analysis, such as object location detection using Sentinel \todo{add footnote about what is sentinel} sattelites imagery. Convolutional neural networks for time series data analysis to detect changes in image and remote sensing imagery analysis are also compared and discussed by first introducing problems such as imagery segmentation and global urbanization dectection and discussing results using deep learning techniques.
+
+\fixmein{I repeat myself here in those two paragraphs}
+The last part of the talk is presenting different examples of geosicentific applications such as: zone nuage coverage, car instance segmententation, global classification (building heigths, settlement types, etc.) and better undestanding global change process of urbanization.
+
+Finally, the talk conclude by explaining the methodology to build the dataset, mainly the importance of labelling sattelite imagery and how the importance of semantic and metadata plain an important role in implementing deep learning algorithms for geoscientific applications.
+
+\subsection{Major points}
+
+\begin{itemize}
+  \item Importance of labelling of sattelite imagery: petabytes of data, but lack of (significant) metadata => lack of sufficient training data
+  \item Proliferation of EO data encourage the implementation of various deep learning algorithms
+  \item AI in EO comprise various method such as data mining, data fusion and deep learning
+  \item Data fusion between EO and non-EO data provide results that enables a better understanding of current problems and open the door to new researches
+\end{itemize}
+
+
+
+\subsection{Relevant field}
+
+The talk is obviously linked to Artificial Intelligence field where the major points discuss the use of Big Data specifically in Earth Observation domain, providing different Machine Learning techniques making use of neural networks to demonstrate results using satellite data imagery.
+
+\subsection{Similar work}
+
+Various interesting papers in the same topic of the keynote such as deep learning from Sentinel-1 SAR imagery for classification or benchmark of a Convolutional Neural Network for Sentinel-2 images can be found in the proceedings of the conference \cite{union_proceedings_2019}. One interesting paper that join the main subject of the talk is the road passability estimation using Deep Neural Networks \cite{moumtzidou_road_2019}. Finally, one might be interested in the fusion of remote sensing data, in which Zhang provides a thorough \cite{zhang_multi-source_2010} survey about this field.
+
+\subsection{Relevant questions}
+
+\begin{itemize}
+  \item During the keynote, the issue of unlabelled data was raised. What were the methodology used to label those datasets ? What are the main differences between implementing unsupervised and supervised learning algorithms ?
+  \item How optimal were the results provided by the CNN algorithms for the various geoscientific applications presented ? Is the success rate of the various detection sufficient enough ? How those results compare when data fusion with non-Earth Observation data, such as social media data, is taken into consideration ?
+\end{itemize}
+
+\subsection{Appreciation and critics}
+
+Machine Learning algorithms is a trending field and one that I am involved professionnally. It provided me a good overview of various geoscientific applications that make uses of Deep Learning algorithms that makes uses of satellites imagery analysis. Nonetheless, the presentation did presents the subject correctly but lacked a bit of a more thorough inspection of remote-sensing techniques and mainly focused on presenting the results for various applications.
 
 \bibliographystyle{alpha}
 \bibliography{SEMINARS}
