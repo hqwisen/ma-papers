@@ -158,8 +158,8 @@
         \item Exploit. best schedule: $\mathrm{argmax}_{unscheduled}(\tau_{ij})^\alpha (\eta_{ij})^\beta$
         \item Biased exploration: $p_{ij} = \frac{(\tau_{ij})^\alpha (\eta_{ij})^\beta}{\sum_{unscheduled}{(\tau_{ij})^\alpha (\eta_{ij})^\beta}}$
       \end{itemize}
-      \item Earliest Due Dates (EDD) heursitic for initialization: Sort due dates and $\eta_{ij} = 1 / d_i$
-      \item Global pheromone update applied only by best-iteration ant (using $\rho$)
+      \item Earliest Due Dates (EDD) heursitic for initialization: Sort by due dates and $\eta_{ij} = 1 / d_i$
+      \item Global pheromone update applied only by best-iteration ant (using $\rho$ for evaporation)
     \end{itemize}
     \begin{columns}[T]
      \begin{column}{.5\textwidth}
@@ -201,7 +201,7 @@ Two mechanisms implemented:
 
 \begin{itemize}
   \item \textit{best-ant}: Only best-iteration ant can perform local search: $O(n^2)$ per iteration
-  \item \textit{all-ant}: All ant can perform local search = $O(mn^2)$ per iteration
+  \item \textit{all-ant}: All ant can perform local search: $O(mn^2)$ per iteration
 \end{itemize}
 
 \end{frame}
@@ -304,7 +304,7 @@ Observations:
 \begin{frame}{Results}{Best total weighted tardiness}
 
 \begin{itemize}
-  \item Best results provided by the algorithms for all 20 instances
+  \item Best results repartition for all 20 instances
   \begin{itemize}
     \item ACS: 0\%
     \item MMAS: 0\%
