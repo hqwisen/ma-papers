@@ -1,0 +1,302 @@
+// Antichains algorithms (automata)
+
+@incollection{antichain-ltl-realizability,
+	address = {Berlin, Heidelberg},
+	title = {An {Antichain} {Algorithm} for {LTL} {Realizability}},
+	volume = {5643},
+	isbn = {978-3-642-02657-7 978-3-642-02658-4},
+	url = {http://link.springer.com/10.1007/978-3-642-02658-4_22},
+	urldate = {2018-05-26},
+	booktitle = {Computer {Aided} {Verification}},
+	publisher = {Springer Berlin Heidelberg},
+	author = {Filiot, Emmanuel and Jin, Naiyong and Raskin, Jean-François},
+	year = {2009},
+	doi = {10.1007/978-3-642-02658-4_22},
+	pages = {263--277}
+}
+
+@incollection{antichain-model-checking,
+    address = {Berlin, Heidelberg},
+    title = {Improved {Algorithms} for the {Automata}-{Based} {Approach} to {Model}-{Checking}},
+    volume = {4424},
+    isbn = {978-3-540-71208-4 978-3-540-71209-1},
+    url = {http://link.springer.com/10.1007/978-3-540-71209-1_34},
+    language = {en},
+    urldate = {2018-05-28},
+    booktitle = {Tools and {Algorithms} for the {Construction} and {Analysis} of {Systems}},
+    publisher = {Springer Berlin Heidelberg},
+    author = {Doyen, Laurent and Raskin, Jean-François},
+    editor = {Grumberg, Orna and Huth, Michael},
+    year = {2007},
+    doi = {10.1007/978-3-540-71209-1_34},
+    pages = {451--465}
+}
+
+@incollection{antichain-universality,
+	address = {Berlin, Heidelberg},
+	title = {Antichains: {A} {New} {Algorithm} for {Checking} {Universality} of {Finite} {Automata}},
+	volume = {4144},
+	isbn = {978-3-540-37406-0 978-3-540-37411-4},
+	shorttitle = {Antichains},
+	url = {http://link.springer.com/10.1007/11817963_5},
+	urldate = {2018-05-26},
+	booktitle = {Computer {Aided} {Verification}},
+	publisher = {Springer Berlin Heidelberg},
+	author = {De Wulf, M. and Doyen, L. and Henzinger, T. A. and Raskin, J. -F.},
+	year = {2006},
+	doi = {10.1007/11817963_5},
+	pages = {17--30}
+}
+
+@inproceedings{antichain-visibly-pushdown,
+	series = {Lecture {Notes} in {Computer} {Science}},
+	title = {Visibly {Pushdown} {Automata}: {Universality} and {Inclusion} via {Antichains}},
+	isbn = {978-3-642-37064-9},
+	shorttitle = {Visibly {Pushdown} {Automata}},
+	abstract = {Visibly pushdown automata (VPAs), introduced by Alur and Madhusudan in 2004, are a useful formalism in various contexts, such as expressing and checking properties on control flows of programs, or on XML documents. In this context, we propose efficient antichain-based algorithms to check universality and inclusion of VPAs. Whereas the computation complexity is known to be ExpTime-complete for both problems, we show how antichains can avoid explicit determinization and save computations. The approach is extended to hedge automata. We implement the proposed algorithms in a prototype tool and conduct experiments on randomly generated VPAs. We show that, on numerous instances, our algorithms outperform other VPA tools.},
+	language = {en},
+	booktitle = {Language and {Automata} {Theory} and {Applications}},
+	publisher = {Springer Berlin Heidelberg},
+	author = {Bruyère, Véronique and Ducobu, Marc and Gauwin, Olivier},
+	editor = {Dediu, Adrian-Horia and Martín-Vide, Carlos and Truthe, Bianca},
+	year = {2013},
+	pages = {190--201}
+}
+
+@phdthesis{bohy-phd,
+  author       = {Aaron Bohy},
+  title        = {Antichain based algorithms for the synthesis of
+                  reactive systems},
+  school       = {Université de Mons},
+  year         = {2014}
+}
+
+@phdthesis{maquet-phd,
+  author       = {Nicolas Maquet},
+  title        = {New Algorithms and Data Structures for the Emptiness
+                  Problem of Alternating Automata},
+  school       = {Université Libre de Bruxelles},
+  year         = {2011}
+}
+
+
+// FIXME complete this reference
+@article{pushdown-inclusion-problems,
+  title = {Pushdown Automata and Inclusion Problems},
+  author = {Nguyen Van Tang}
+}
+
+// FIXME complete this reference
+@article{complexity-universality,
+  title = {Complexity of universality and related problems for partially ordered NFAs},
+  author = {Markus Krcötzsch, Tomáš Masopust, Michaël Thomazo}
+}
+
+// FIXME Complete this reference
+@article{nfa-antichain-algos,
+  title = {Antichain Algorithms for Finite Automata},
+	author = {Doyen and Raskin}
+}
+
+// Antichains algorithms (non-automata)
+
+@article{antichain-in-finite-universe,
+	title = {On the number of antichains of sets in a finite universe},
+	url = {http://arxiv.org/abs/1407.4288},
+	abstract = {Properties of intervals in the lattice of antichains of subsets of a universe of finite size are investigated. New objects and quantities in this lattice are defined. Expressions and numerical values are deduced for the number of connected antichains and the number of fully distinguishing antichains. The latter establish a connection with Stirling numbers of the second kind. Decomposition properties of intervals in the lattice of antichains are proven. A new operator allowing partitioning the full lattice in intervals derived from lower dimensional sub-lattices is introduced. Special posets underlying an interval of antichains are defined. The poset allows the derivation of a powerful formula for the size of an interval. This formula allows computing intervals in the six dimensional space. Combinatorial coefficients allowing another decomposition of the full lattice are defined. In some specific cases, related to connected components in graphs, these coefficients can be efficiently computed. This formula allows computing the size of the lattice of order 8 efficiently. This size is the number of Dedekind of order 8, the largest one known so far.},
+	urldate = {2018-05-26},
+	journal = {arXiv:1407.4288 [math]},
+	author = {De Causmaecker, Patrick and De Wannemacker, Stefan},
+	month = jul,
+	year = {2014},
+	note = {arXiv: 1407.4288},
+	keywords = {Mathematics - Combinatorics},
+	annote = {Comment: Minor changes, typo's and better abstract, line numbers removed},
+}
+
+@article{ninth-dedekind-java,
+    author = {Hoedt, Pieter-Jan},
+    title = {Parallelizing with MPI in Java to find the ninth Dedekind Number},
+    year = {2015}
+}
+
+// Other algorithms
+
+// FIXME fillin this reference
+@article{ramsey-universality-testing,
+  author = {},
+  title = {Simulation Subsumption in Ramsey-based Büchi Automata Universality and Inclusion Testing}
+}
+
+// Antichains tools
+
+@misc{aapal,
+    author = {Bohy, Aaron},
+    title = {AaPAL website},
+		howpublished = {\url{http://lit2.ulb.ac.be/aapal}},
+    year = {2014}
+}
+
+@misc{acacia,
+    author = {Bohy, Aaron and  Bruyère, Véronique and
+    Filiot, Emmanuel and Raskin, Jean-François},
+    title = {Acacia+ website},
+		howpublished = {\url{http://lit2.ulb.ac.be/acaciaplus}},
+    year = {}
+}
+
+@misc{ninth-dedekind-java-src,
+    author = {Hoedt, Pieter-Jan},
+    title = {Hoedt's GitHub repository},
+		howpublished = {\url{https://github.com/mrTsjolder/WV-Dedekind}},
+    year = {Last updated in 2015}
+}
+
+// Automata tools
+
+@misc{java-nfa,
+    author = {Maarten Trompper},
+    url = {https://github.com/digitalheir/java-nfa},
+		howpublished = {\url{https://github.com/digitalheir/java-nfa}},
+    title = {Nondeterministic Finite State Automata for Java},
+    year = {2017}
+}
+
+@inproceedings{owl,
+  author    = {Jan Kret{\'{\i}}nsk{\'{y}} and
+               Tobias Meggendorfer and
+               Salomon Sickert},
+  title     = {Owl: {A} Library for {\textbackslash}omega -Words, Automata, and {LTL}},
+  booktitle = {Automated Technology for Verification and Analysis - 16th International
+               Symposium, {ATVA} 2018, Los Angeles, CA, USA, October 7-10, 2018,
+               Proceedings},
+  pages     = {543--550},
+  year      = {2018},
+  crossref  = {DBLP:conf/atva/2018},
+  url       = {https://doi.org/10.1007/978-3-030-01090-4\_34},
+  doi       = {10.1007/978-3-030-01090-4\_34},
+  timestamp = {Tue, 14 May 2019 10:00:49 +0200},
+  biburl    = {https://dblp.org/rec/bib/conf/atva/KretinskyMS18},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{vcsn,
+  author	= {Akim Demaille and Alexandre Duret-Lutz and Sylvain
+		  Lombardy and Jacques Sakarovitch},
+  title		= {Implementation Concepts in {V}aucanson 2},
+  booktitle	= {Proceedings of Implementation and Application of Automata,
+		  18th International Conference (CIAA'13)},
+  pages		= {122--133},
+  year		= 2013,
+  editor	= {Stavros Konstantinidis},
+  publisher	= {Springer},
+  isbn		= {978-3-642-39274-0},
+  volume	= 7982,
+  series	= {Lecture Notes in Computer Science},
+  address	= {Halifax, NS, Canada},
+  month		= jul,
+  abstract	= {Vaucanson is an open source C++ platform dedicated to the
+		  computation with finite weighted automata. It is generic:
+		  it allows to write algorithms that apply on a wide set of
+		  mathematical objects. Initiated ten years ago, several
+		  shortcomings were discovered along the years, especially
+		  problems related to code complexity and obfuscation as well
+		  as performance issues. This paper presents the concepts
+		  underlying Vaucanson 2, a complete rewrite of the platform
+		  that addresses these issues.},
+  doi		= {10.1007/978-3-642-39274-0_12}
+}
+
+@InProceedings{nusmv,
+  author =       {A. Cimatti and E. Clarke and E. Giunchiglia and F. Giunchiglia and M. Pistore and M. Roveri and R. Sebastiani and A. Tacchella},
+  title =        {{NuSMV Version 2: An OpenSource Tool for Symbolic Model Checking}},
+  booktitle =    {Proc. International Conference on Computer-Aided Verification (CAV 2002)},
+  month = {July},
+  year =         {2002},
+  address =      {Copenhagen, Denmark},
+  volume =       {2404},
+  series =       {LNCS},
+  publisher = {Springer}
+}
+
+@misc{jhoafparser,
+	title = {Java parser for the HOA format},
+	url = {https://automata.tools/hoa/jhoafparser/},
+	howpublished = {\url{https://automata.tools/hoa/jhoafparser/}},
+	urldate = {2019-08-18},
+}
+
+@misc{owl-src,
+	title = {i7 / owl · {GitLab}},
+	url = {https://gitlab.lrz.de/i7/owl},
+	howpublished = {\url{https://gitlab.lrz.de/i7/owl}},
+	urldate = {2019-08-17},
+}
+
+@misc{poset-src,
+	title = {hqwisen / poset · {GitLab}},
+	author = {Hakim Boulahya},
+	url = {https://gitlab.com/hqwisen/poset},
+	howpublished = {\url{https://gitlab.com/hqwisen/poset}},
+	urldate = {2019-08-18},
+}
+
+
+@misc{jshell,
+	title = {Java Shell - jshell},
+	url = {https://docs.oracle.com/javase/9/jshell/},
+	howpublished = {\url{https://docs.oracle.com/javase/9/jshell/}},
+	urldate = {2019-08-18},
+}
+
+
+@inproceedings{hoa,
+	series = {Lecture {Notes} in {Computer} {Science}},
+	title = {The {Hanoi} {Omega}-{Automata} {Format}},
+	isbn = {978-3-319-21690-4},
+	abstract = {We propose a flexible exchange format for 𝜔ω{\textbackslash}omega -automata, as typically used in formal verification, and implement support for it in a range of established tools. Our aim is to simplify the interaction of tools, helping the research community to build upon other people’s work. A key feature of the format is the use of very generic acceptance conditions, specified by Boolean combinations of acceptance primitives, rather than being limited to common cases such as Büchi, Streett, or Rabin. Such flexibility in the choice of acceptance conditions can be exploited in applications, for example in probabilistic model checking, and furthermore encourages the development of acceptance-agnostic tools for automata manipulations. The format allows acceptance conditions that are either state-based or transition-based, and also supports alternating automata. Open image in new window},
+	language = {en},
+	booktitle = {Computer {Aided} {Verification}},
+	publisher = {Springer International Publishing},
+	author = {Babiak, Tomáš and Blahoudek, František and Duret-Lutz, Alexandre and Klein, Joachim and Křetínský, Jan and Müller, David and Parker, David and Strejček, Jan},
+	editor = {Kroening, Daniel and Păsăreanu, Corina S.},
+	year = {2015},
+	keywords = {Acceptance Condition, Atomic Proposition, Boolean Formula, Formal Verification, Model Check},
+	pages = {479--486},
+}
+
+@misc{hoa-website,
+	title = {The {Hanoi} {Omega}-{Automata} {Format}},
+	howpublished = {\url{https://adl.github.io/hoaf/}},
+	url = {https://adl.github.io/hoaf/},
+	urldate = {2019-08-17},
+}
+
+// Miscellaneous
+
+@book{principles-model-checking,
+    address = {Cambridge, Mass},
+    title = {Principles of model checking},
+    isbn = {978-0-262-02649-9},
+    publisher = {The MIT Press},
+    author = {Baier, Christel and Katoen, Joost-Pieter},
+    year = {2008},
+    note = {OCLC: ocn171152628},
+    keywords = {Computer software, Computer systems, Verification}
+}
+
+
+@inproceedings{tv05,
+	series = {Lecture {Notes} in {Computer} {Science}},
+	title = {Experimental {Evaluation} of {Classical} {Automata} {Constructions}},
+	isbn = {978-3-540-31650-3},
+	abstract = {There are several algorithms for producing the canonical DFA from a given NFA. While the theoretical complexities of these algorithms are known, there has not been a systematic empirical comparison between them. In this work we propose a probabilistic framework for testing the performance of automata-theoretic algorithms. We conduct a direct experimental comparison between Hopcroft’s and Brzozowski’s algorithms. We show that while Hopcroft’s algorithm has better overall performance, Brzozowski’s algorithm performs better for “high-density” NFA. We also consider the universality problem, which is traditionally solved explicitly via the subset construction. We propose an encoding that allows this problem to be solved symbolically via a model-checker. We compare the performance of this approach to that of the standard explicit algorithm, and show that the explicit approach performs significantly better.},
+	language = {en},
+	booktitle = {Logic for {Programming}, {Artificial} {Intelligence}, and {Reasoning}},
+	publisher = {Springer Berlin Heidelberg},
+	author = {Tabakov, Deian and Vardi, Moshe Y.},
+	editor = {Sutcliffe, Geoff and Voronkov, Andrei},
+	year = {2005},
+	keywords = {Explicit Algorithm, Explicit Approach, Sequential Circuit, Symbolic Model Check, Transition Density},
+	pages = {396--411}
+}
