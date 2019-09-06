@@ -185,7 +185,7 @@
     \end{center}
 \end{frame}
 
-\begin{frame}[fragile]{Contributions}
+\begin{frame}[fragile]{My contributions}
   \begin{block}{Objectives}
       \begin{itemize}
           \item The goal of the thesis was to define a use case algorithm using antichains: \\ \textbf{Language universality check $L(A) \stackrel{?}{=} \Sigma^*$ using antichains}
@@ -214,6 +214,12 @@ hoa --- complete --- universality-check --- string
       \textbf{The main goal is to provide a framework \\ to implement antichain algorithms in automata libraries}
     \end{center}
   \end{block}
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+    \frametitle{Main references}
+\bibliographystyle{alpha}
+\bibliography{thesis}
 \end{frame}
 
 \begin{frame}[fragile]{\texttt{poset} library}
@@ -446,11 +452,11 @@ a.determinize().complete().complement().is_useless()
 \end{frame}
 
 \begin{frame}{Experimental evaluation}{Methodology}
-  \begin{block}{Random automata generation as made in the original paper}
+  \begin{block}{Random automata generation}
   \begin{itemize}
     \item $\Sigma = \{0, 1\}$
-    \item $r$, the transition density
-    \item $f = \frac{m}{|Q|}$, the density of accepting states
+    \item $r = \frac{k_\sigma}{|Q|}$, the transition density where $k_\sigma$ is a number of state pairs, chosen uniformly at random
+    \item $f = \frac{m}{|Q|}$, the density of accepting states where $m$ is the number of accepting states
   \end{itemize}
 \end{block}
 \end{frame}
@@ -562,12 +568,12 @@ synthesis of reactive systems} \cite{bohy-phd}
 
 %%%%%%%%%%%%%%%%
 
-{\aauwavesbg
-\begin{frame}[allowframebreaks]
-    \frametitle{References}
-\bibliographystyle{alpha}
-\bibliography{thesis}
-\end{frame}}
+% {\aauwavesbg
+% \begin{frame}[allowframebreaks]
+%     \frametitle{References}
+% \bibliographystyle{alpha}
+% \bibliography{thesis}
+% \end{frame}}
 
 {\aauwavesbg
 \begin{frame}[plain,noframenumbering]
